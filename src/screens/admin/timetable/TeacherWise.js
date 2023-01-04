@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
@@ -140,7 +140,7 @@ const TeacherWise = ({navigation}) => {
         <Loader />
       ) : (
         <>
-          {/* <Dropdown
+          <Dropdown
             icon="chevron-down"
             baseColor="transparent"
             underlineColor="transparent"
@@ -151,7 +151,7 @@ const TeacherWise = ({navigation}) => {
               setdropdownValue(value);
               TimeTableData(value);
             }}
-          /> */}
+          />
           <View style={styles.containerTableTop}>
             <View style={styles.textWhiteBox}>
               <Text style={styles.textwhite}>Days</Text>

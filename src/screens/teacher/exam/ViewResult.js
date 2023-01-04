@@ -12,7 +12,7 @@ import {
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
 import DeviceInfo from 'react-native-device-info';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
@@ -321,26 +321,25 @@ const ViewResult = () => {
         <View style={{flex: 1}}>
           <Text style={{}}>Select Class :</Text>
           {isVisiblefst === true ? (
-            <View />
+            <Dropdown
+              inputContainerStyle={styles.dropdownInput}
+              baseColor="transparent"
+              data={dropdownSource}
+              style={[
+                styles.pickerStyle,
+                {
+                  marginRight: 5,
+                },
+              ]}
+              textColor="#121214"
+              selectedItemColor="#7A7A7A"
+              value={dropdownValue}
+              onChangeText={value => {
+                setdropdownValue(value);
+                onValueResultExam(value);
+              }}
+            />
           ) : (
-            // <Dropdown
-            //   inputContainerStyle={styles.dropdownInput}
-            //   baseColor="transparent"
-            //   data={dropdownSource}
-            //   style={[
-            //     styles.pickerStyle,
-            //     {
-            //       marginRight: 5,
-            //     },
-            //   ]}
-            //   textColor="#121214"
-            //   selectedItemColor="#7A7A7A"
-            //   value={dropdownValue}
-            //   onChangeText={value => {
-            //     setdropdownValue(value);
-            //     onValueResultExam(value);
-            //   }}
-            // />
             <View style={styles.pickerviewstwos}>
               <Picker />
             </View>
@@ -348,7 +347,7 @@ const ViewResult = () => {
         </View>
         <View style={{flex: 1}}>
           <Text style={{}}>Select exam type :</Text>
-          {/* <Dropdown
+          <Dropdown
             inputContainerStyle={styles.dropdownInput}
             baseColor="transparent"
             data={dropdownSource1}
@@ -360,14 +359,14 @@ const ViewResult = () => {
               setdropdownValue1(value);
               onValueexamtype(value);
             }}
-          /> */}
+          />
         </View>
       </View>
       {dropdownValue1 === 'CommonExam' &&
       domain === 'avk.schoolplusapp.com' ? null : (
         <View style={{flex: 1, margin: 5}}>
           <Text style={{}}>Select Exam :</Text>
-          {/* <Dropdown
+          <Dropdown
             inputContainerStyle={styles.dropdownInput}
             baseColor="transparent"
             data={dropdownSource2}
@@ -379,7 +378,7 @@ const ViewResult = () => {
               setdropdownValue2(value);
               onValuegetexmaname(value);
             }}
-          /> */}
+          />
         </View>
       )}
       <View style={styles.mainContainerTop}>

@@ -134,7 +134,7 @@ const TeacherHome = () => {
   return (
     <Drawer.Navigator
       gestureEnabled
-      headerShown
+      screenOptions={{headerShown: false}}
       drawerContent={props => <TeacherDrawer {...props} />}>
       <Drawer.Screen name="TeacherStack" component={TeacherStack} />
     </Drawer.Navigator>
@@ -145,7 +145,7 @@ const ParentHome = () => {
   return (
     <Drawer.Navigator
       gestureEnabled
-      headerShown
+      screenOptions={{headerShown: false}}
       drawerContent={props => <ParentDrawer {...props} />}>
       <Drawer.Screen name="ParentStack" component={ParentStack} />
     </Drawer.Navigator>
@@ -156,7 +156,7 @@ const AdminHome = () => {
   return (
     <Drawer.Navigator
       gestureEnabled
-      headerShown
+      screenOptions={{headerShown: false}}
       drawerContent={props => <AdminDrawer {...props} />}>
       <Drawer.Screen name="AdminStack" component={AdminStack} />
     </Drawer.Navigator>

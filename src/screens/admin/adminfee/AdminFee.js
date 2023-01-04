@@ -16,7 +16,7 @@ import MultiSelect from 'react-native-multiple-select';
 import {DOMParser} from 'xmldom';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -473,7 +473,7 @@ const AdminFeeFirstScreen = ({navigation}) => {
           <View style={styles.horizontalView}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose Type:</Text>
-              {/* <Dropdown
+              <Dropdown
                 icon="chevron-down"
                 baseColor="transparent"
                 underlineColor="transparent"
@@ -483,7 +483,7 @@ const AdminFeeFirstScreen = ({navigation}) => {
                 onChangeText={value => {
                   setPaidCheckDropDownValue(value);
                 }}
-              /> */}
+              />
             </View>
 
             <View style={styles.button}>

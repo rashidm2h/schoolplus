@@ -15,7 +15,7 @@ import {
 import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import {CheckBox} from 'react-native-elements';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GLOBALS from '../../../config/Globals';
@@ -303,7 +303,7 @@ const Edit = () => {
           <View style={styles.horizontalView}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose class:</Text>
-              {/* <Dropdown
+              <Dropdown
                 inputContainerStyle={styles.inputContainer}
                 containerStyle={styles.pickerStyle}
                 data={dropdownSource}
@@ -315,7 +315,7 @@ const Edit = () => {
                   setdropdownValue(value);
                   onValueattClass(value);
                 }}
-              /> */}
+              />
             </View>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose date:</Text>
@@ -340,7 +340,7 @@ const Edit = () => {
           <View style={[styles.horizontalView, {}]}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose type:</Text>
-              {/* <Dropdown
+              <Dropdown
                 inputContainerStyle={styles.inputContainer}
                 containerStyle={styles.pickerStyle}
                 data={dropdownSource1}
@@ -352,7 +352,7 @@ const Edit = () => {
                   setdropdownValue1(value);
                   onValuepickertime(value);
                 }}
-              /> */}
+              />
             </View>
             <View style={styles.verticalView}>
               <Text style={styles.hideText}>Submit</Text>

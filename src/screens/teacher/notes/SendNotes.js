@@ -18,7 +18,7 @@ import {CheckBox} from 'react-native-elements';
 import {useIsFocused} from '@react-navigation/core';
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -392,7 +392,7 @@ const SendNotes = () => {
         <Text style={styles.text}>Choose Class: </Text>
         <View style={styles.containerTopPIckerButton}>
           <View style={{flex: 2}}>
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -406,7 +406,7 @@ const SendNotes = () => {
                 ClassStudentsAccess(value);
                 setdropdownValue(value);
               }}
-            /> */}
+            />
           </View>
           <Pressable
             onPress={() => {

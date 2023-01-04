@@ -12,7 +12,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -501,7 +501,7 @@ const PublishResult = props => {
               {isVisibleclass && (
                 <View style={{flex: 1}}>
                   <Text>Select Class :</Text>
-                  {/* <Dropdown
+                  <Dropdown
                     data={dropdownSource}
                     baseColor="transparent"
                     style={[styles.pickerStyle, {marginRight: 5}]}
@@ -512,13 +512,13 @@ const PublishResult = props => {
                       setdropdownValue(value);
                       onValuePublishExamClass(value);
                     }}
-                  /> */}
+                  />
                 </View>
               )}
               {isVisibleSubject && (
                 <View style={{flex: 1}}>
                   <Text>Select Subject :</Text>
-                  {/* <Dropdown
+                  <Dropdown
                     data={dropdownSource1}
                     baseColor="transparent"
                     style={styles.pickerStyle}
@@ -529,14 +529,14 @@ const PublishResult = props => {
                       setdropdownValue1(value);
                       onValuePublishExamsubject(value);
                     }}
-                  /> */}
+                  />
                 </View>
               )}
             </View>
             <View style={{flexDirection: 'row', margin: 5}}>
               <View style={{flex: 1}}>
                 <Text>Select exam type :</Text>
-                {/* <Dropdown
+                <Dropdown
                   data={dropdownSource2}
                   baseColor="transparent"
                   style={[styles.pickerStyle, {marginRight: 5}]}
@@ -547,7 +547,7 @@ const PublishResult = props => {
                     setdropdownValue2(value);
                     onValuepublishresultexamtype(value);
                   }}
-                /> */}
+                />
               </View>
               {isVisble && (
                 <View style={{flex: 1}}>
@@ -633,7 +633,7 @@ const PublishResult = props => {
               {isVisibleclass && (
                 <View style={{flex: 1}}>
                   <Text>Select Class :</Text>
-                  {/* <Dropdown
+                  <Dropdown
                     data={dropdownSource}
                     baseColor="transparent"
                     style={[styles.pickerStyle, {marginRight: 5}]}
@@ -644,13 +644,13 @@ const PublishResult = props => {
                       setdropdownValue(value);
                       onValuePublishExamClass(value);
                     }}
-                  /> */}
+                  />
                 </View>
               )}
               {isVisibleSubject && (
                 <View style={{flex: 1}}>
                   <Text>Select Subject :</Text>
-                  {/* <Dropdown
+                  <Dropdown
                     data={dropdownSource1}
                     baseColor="transparent"
                     style={styles.pickerStyle}
@@ -661,14 +661,14 @@ const PublishResult = props => {
                       setdropdownValue1(value);
                       onValuePublishExamsubject(value);
                     }}
-                  /> */}
+                  />
                 </View>
               )}
             </View>
             <View style={{flexDirection: 'row', margin: 5}}>
               <View style={{flex: 1}}>
                 <Text>Select exam type :</Text>
-                {/* <Dropdown
+                <Dropdown
                   data={dropdownSource2}
                   baseColor="transparent"
                   style={[styles.pickerStyle, {marginRight: 5}]}
@@ -679,12 +679,12 @@ const PublishResult = props => {
                     setdropdownValue2(value);
                     onValuepublishresultexamtype(value);
                   }}
-                /> */}
+                />
               </View>
               {isVisble && (
                 <View style={{flex: 1}}>
                   <Text>Select Exam :</Text>
-                  {/* <Dropdown
+                  <Dropdown
                     data={dropdownSource3}
                     baseColor="transparent"
                     style={styles.pickerStyle}
@@ -695,7 +695,7 @@ const PublishResult = props => {
                       setdropdownValue3(value);
                       onV(value);
                     }}
-                  /> */}
+                  />
                 </View>
               )}
             </View>

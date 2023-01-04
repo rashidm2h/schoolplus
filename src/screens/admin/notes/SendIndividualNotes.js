@@ -19,7 +19,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {CheckBox} from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -592,7 +592,7 @@ const SendIndividualNotes = ({navigation}) => {
         bellPress={() => navigation.navigate('Notifications')}
       />
       <View style={styles.classSelection}>
-        {/* <Dropdown
+        <Dropdown
           icon="chevron-down"
           baseColor="transparent"
           underlineColor="transparent"
@@ -614,7 +614,7 @@ const SendIndividualNotes = ({navigation}) => {
           onChangeText={value => {
             setdropdownValue1(value);
           }}
-        /> */}
+        />
         <Pressable
           style={styles.sendButton}
           onPress={() => {
@@ -697,7 +697,7 @@ const SendIndividualNotes = ({navigation}) => {
                 <View style={styles.containerColoum}>
                   <View>
                     <Text style={styles.Modaltext}>Template</Text>
-                    {/* <Dropdown
+                    <Dropdown
                       icon="chevron-down"
                       baseColor="transparent"
                       underlineColor="transparent"
@@ -714,7 +714,7 @@ const SendIndividualNotes = ({navigation}) => {
                         settemplateId(value);
                         setsendNoteTitle('');
                       }}
-                    /> */}
+                    />
                   </View>
                   <View style={{flexDirection: 'row', flex: 1}}>
                     <Text

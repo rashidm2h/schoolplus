@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Pressable, FlatList, Text, View} from 'react-native';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
@@ -199,7 +199,7 @@ const Studentdetails = ({navigation}) => {
         }}
       />
       <View style={styles.classSelection}>
-        {/* <Dropdown
+        <Dropdown
           icon="chevron-down"
           baseColor="transparent"
           underlineColor="transparent"
@@ -223,7 +223,7 @@ const Studentdetails = ({navigation}) => {
             setdropdownValue1(value);
             getList(value);
           }}
-        /> */}
+        />
       </View>
       <View style={{flex: 1}}>
         {dataerror ? (

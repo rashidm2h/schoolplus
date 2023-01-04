@@ -10,7 +10,7 @@ import {
 import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import Hyperlink from 'react-native-hyperlink';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
@@ -111,7 +111,7 @@ const SmsReports = () => {
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Type:</Text>
 
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -121,11 +121,11 @@ const SmsReports = () => {
               onChangeText={value => {
                 setdropdownValue(value);
               }}
-            /> */}
+            />
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Receiver:</Text>
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -135,7 +135,7 @@ const SmsReports = () => {
               onChangeText={value => {
                 setdropdownValue1(value);
               }}
-            /> */}
+            />
           </View>
         </View>
         <View style={styles.horizontalView}>

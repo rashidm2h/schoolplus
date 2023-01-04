@@ -15,7 +15,7 @@ import {
 import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -396,7 +396,7 @@ const ViewExam = () => {
     <View style={styles.mainContainer}>
       <View style={styles.pickerButtonView}>
         <View style={styles.pickerView}>
-          {/* <Dropdown
+          <Dropdown
             inputContainerStyle={{borderBottomColor: 'transparent'}}
             data={dropdownSource}
             style={styles.dropdownStyle}
@@ -406,7 +406,7 @@ const ViewExam = () => {
             onChangeText={value => {
               setdropdownValue(value);
             }}
-          /> */}
+          />
         </View>
         <View style={styles.button}>
           <TouchableOpacity onPress={() => examviewlist()}>
@@ -580,7 +580,7 @@ const ViewExam = () => {
                     <View style={[styles.ViewCol1in3creat, {paddingRight: 5}]}>
                       <Text style={styles.textcreat}>Class</Text>
                       <View style={styles.textInput1in3creatv}>
-                        {/* <Dropdown
+                        <Dropdown
                           fontSize={14}
                           dropdownOffset={{top: 15}}
                           inputContainerStyle={{
@@ -596,13 +596,13 @@ const ViewExam = () => {
                             setdropdownValue1(value);
                             onValueChangeclass(value);
                           }}
-                        /> */}
+                        />
                       </View>
                     </View>
                     <View style={[styles.ViewCol1in3creat, {paddingRight: 5}]}>
                       <Text style={styles.textcreat}>Grade Type</Text>
                       <View style={styles.textInput1in3creatv}>
-                        {/* <Dropdown
+                        <Dropdown
                           fontSize={14}
                           dropdownOffset={{top: 15}}
                           baseColor="transparent"
@@ -617,13 +617,13 @@ const ViewExam = () => {
                           onChangeText={value => {
                             setdropdownValue2(value);
                           }}
-                        /> */}
+                        />
                       </View>
                     </View>
                     <View style={styles.ViewCol1in3creat}>
                       <Text style={styles.textcreat}>Subject</Text>
                       <View style={styles.textInput1in3creatv}>
-                        {/* <Dropdown
+                        <Dropdown
                           fontSize={14}
                           dropdownOffset={{top: 15}}
                           baseColor="transparent"
@@ -638,7 +638,7 @@ const ViewExam = () => {
                           onChangeText={value => {
                             setdropdownValue3(value);
                           }}
-                        /> */}
+                        />
                       </View>
                     </View>
                   </View>

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/Header';
@@ -362,7 +362,7 @@ const Exam = ({navigation}) => {
           <Text style={styles.textstyle}>Select Division:</Text>
         </View>
         <View style={styles.classSelection}>
-          {/* <Dropdown
+          <Dropdown
             icon="chevron-down"
             baseColor="transparent"
             underlineColor="transparent"
@@ -383,7 +383,7 @@ const Exam = ({navigation}) => {
             onChangeText={value => {
               setdropdownValue1(value);
             }}
-          /> */}
+          />
         </View>
 
         <View style={styles.containerTable}>

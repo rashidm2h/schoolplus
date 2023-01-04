@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
@@ -194,7 +194,7 @@ const ClassWise = () => {
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Class:</Text>
 
-          {/* <Dropdown
+          <Dropdown
             icon="chevron-down"
             baseColor="transparent"
             underlineColor="transparent"
@@ -205,11 +205,11 @@ const ClassWise = () => {
               setdropdownValue(value);
               getDivisions();
             }}
-          /> */}
+          />
         </View>
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Division:</Text>
-          {/* <Dropdown
+          <Dropdown
             icon="chevron-down"
             baseColor="transparent"
             underlineColor="transparent"
@@ -220,7 +220,7 @@ const ClassWise = () => {
               setdropdownValue1(value);
               TimeTableData(value);
             }}
-          /> */}
+          />
         </View>
       </View>
       {/* </View> */}

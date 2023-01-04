@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import NetInfo from '@react-native-community/netinfo';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
@@ -159,7 +159,7 @@ const TeacherFee = ({route, navigation}) => {
       <View style={styles.containerData}>
         <View style={styles.picker_Buttonview}>
           <View style={styles.pickerviews}>
-            {/* <Dropdown
+            <Dropdown
               inputContainerStyle={{borderBottomColor: 'transparent'}}
               data={dropdownSource}
               baseColor="transparent"
@@ -170,7 +170,7 @@ const TeacherFee = ({route, navigation}) => {
               onChangeText={value => {
                 setdropdownValue(value);
               }}
-            /> */}
+            />
           </View>
           <TouchableOpacity
             style={styles.buttonView}

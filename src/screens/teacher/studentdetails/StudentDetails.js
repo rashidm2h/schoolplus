@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
@@ -129,7 +129,7 @@ const StudentDetails = ({navigation}) => {
       />
       <View style={styles.pickerview}>
         <View style={styles.container}>
-          {/* <Dropdown
+          <Dropdown
             data={dropdowndata}
             textColor="#121214"
             icon="chevron-down"
@@ -140,7 +140,7 @@ const StudentDetails = ({navigation}) => {
             onChangeText={setdropdownValue}
             containerStyle={styles.pickerStyle}
             inputContainerStyle={styles.inputContainer}
-          /> */}
+          />
         </View>
         <View style={styles.buttonView}>
           <Pressable onPress={() => getStudentList(dropdownValue)}>

@@ -9,7 +9,7 @@ import {
   Pressable,
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Hyperlink from 'react-native-hyperlink';
 import {DOMParser} from 'xmldom';
@@ -227,7 +227,7 @@ const Attendance = ({navigation}) => {
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Choose class:</Text>
 
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -238,13 +238,13 @@ const Attendance = ({navigation}) => {
                 setdropdownValue(value);
                 getDivisions(value);
               }}
-            /> */}
+            />
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Choose Division:</Text>
 
             {/* <View style={styles.pickerView}> */}
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -254,7 +254,7 @@ const Attendance = ({navigation}) => {
               onChangeText={value => {
                 setdropdownValue2(value);
               }}
-            /> */}
+            />
           </View>
         </View>
         <View style={styles.horizontalView}>
@@ -279,7 +279,7 @@ const Attendance = ({navigation}) => {
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Choose type:</Text>
 
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -290,7 +290,7 @@ const Attendance = ({navigation}) => {
               onChangeText={value => {
                 setdropdownValue1(value);
               }}
-            /> */}
+            />
           </View>
         </View>
         <View style={styles.horizontalView}>

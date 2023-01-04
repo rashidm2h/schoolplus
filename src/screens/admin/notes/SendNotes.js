@@ -30,7 +30,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Spinner from '../../../components/Spinner';
 import Loader from '../../../components/ProgressIndicator';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 
 const allwise = <Icon name="send" size={25} color="white" />;
 
@@ -919,7 +919,7 @@ const WebNotes = ({navigation}) => {
                       </View>
                       <View>
                         <Text style={styles.Modaltext}>Template</Text>
-                        {/* <Dropdown
+                        <Dropdown
                           icon="chevron-down"
                           baseColor="transparent"
                           underlineColor="transparent"
@@ -935,7 +935,7 @@ const WebNotes = ({navigation}) => {
                             settemplateId(value);
                             setsendNoteTitle('');
                           }}
-                        /> */}
+                        />
                       </View>
                       <View style={{flexDirection: 'row', flex: 1}}>
                         <Text
@@ -1102,7 +1102,7 @@ const WebNotes = ({navigation}) => {
                       </View>
                       <View>
                         <Text style={styles.Modaltext}>Template</Text>
-                        {/* <Dropdown
+                        <Dropdown
                           icon="chevron-down"
                           baseColor="transparent"
                           underlineColor="transparent"
@@ -1117,7 +1117,7 @@ const WebNotes = ({navigation}) => {
                             settemplateId(value);
                             setsendNoteTitle('');
                           }}
-                        /> */}
+                        />
                       </View>
                       <View style={{flexDirection: 'row', flex: 1}}>
                         <Text

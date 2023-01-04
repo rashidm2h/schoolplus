@@ -12,7 +12,7 @@ import {DOMParser} from 'xmldom';
 import RNFetchBlob from 'rn-fetch-blob';
 import Hyperlink from 'react-native-hyperlink';
 import FileViewer from 'react-native-file-viewer';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -338,7 +338,7 @@ const TeacherNotes = () => {
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Class:</Text>
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -349,11 +349,11 @@ const TeacherNotes = () => {
                 setdropdownValue(value);
                 getDivisions(value);
               }}
-            /> */}
+            />
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Division:</Text>
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -363,13 +363,13 @@ const TeacherNotes = () => {
               onChangeText={value => {
                 setdropdownValue1(value);
               }}
-            /> */}
+            />
           </View>
         </View>
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Month:</Text>
-            {/* <Dropdown
+            <Dropdown
               icon="chevron-down"
               baseColor="transparent"
               underlineColor="transparent"
@@ -379,7 +379,7 @@ const TeacherNotes = () => {
               onChangeText={value => {
                 setdropdownValue2(value);
               }}
-            /> */}
+            />
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1} />
