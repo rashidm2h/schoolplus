@@ -10,6 +10,9 @@ import Header from '../../../components/Header';
 const Tab = createMaterialTopTabNavigator();
 
 export default function App({navigation}) {
+  React.useEffect(() => {
+    console.log('uuu');
+  }, []);
   return (
     <>
       <Header
