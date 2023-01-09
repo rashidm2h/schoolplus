@@ -279,7 +279,6 @@ const Login = ({navigation}) => {
   };
 
   const appversionCheck = () => {
-    console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     fetch(`${GLOBALS.PARENT_URL}GetMobileVersion`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -359,6 +358,7 @@ const Login = ({navigation}) => {
 
   const compareVersion = updatedVersion => {
     const currentVersion = DeviceInfo.getVersion();
+    console.log(currentVersion, 'current', updatedVersion);
     const splitCurrent = currentVersion.toString().split('.');
     const splitUpdated = updatedVersion.toString().split('.');
 

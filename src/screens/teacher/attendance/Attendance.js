@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {DOMParser} from 'xmldom';
-// import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Alert, Platform, Pressable, Text, View} from 'react-native';
 import GLOBALS from '../../../config/Globals';
@@ -75,7 +75,7 @@ const Attendance = ({navigation}) => {
       />
       <View style={styles.pickerview}>
         <View style={styles.container}>
-          {/* <Dropdown
+          <Dropdown
             inputContainerStyle={{borderBottomColor: 'transparent'}}
             data={data}
             icon="chevron-down"
@@ -88,7 +88,7 @@ const Attendance = ({navigation}) => {
             onChangeText={value => {
               setdropdownValue(value);
             }}
-          /> */}
+          />
         </View>
         <View style={styles.buttonView}>
           <Pressable onPress={() => onPressClass()}>
