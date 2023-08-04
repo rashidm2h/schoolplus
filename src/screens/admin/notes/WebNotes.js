@@ -128,7 +128,6 @@ const WebNotes = () => {
     })
       .fetch('GET', `${imagePreUrl}${paths}`, {})
       .then(res => {
-        console.log(res, 'res');
         if (Platform.OS === 'android') {
           FileViewer.open(res.path(), {
             showOpenWithDialog: true,
@@ -138,7 +137,8 @@ const WebNotes = () => {
             showOpenWithDialog: true,
           });
         }
-      });
+      })
+      .catch(e => console.log(e, 'error'));
   };
 
   return (

@@ -465,7 +465,7 @@ const ViewExam = () => {
           )}
         </View>
 
-        <Pressable style={styles.buttonstyle} onPressIn={_showModal}>
+        <Pressable style={styles.buttonstyle}>
           <Icon
             name="plus"
             size={28}
@@ -474,6 +474,7 @@ const ViewExam = () => {
               console.log('ooo');
               setchosenEndTime('0.00');
               setchosenStartTime('');
+              _showModal();
             }}
             style={styles.topcontentimagelogo}
             color="#FFF"

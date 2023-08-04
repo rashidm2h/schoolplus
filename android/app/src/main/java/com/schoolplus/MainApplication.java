@@ -1,4 +1,4 @@
-package com.schoolplus;
+package com.m2hinfotech.eschool;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import com.schoolplus.newarchitecture.MainApplicationReactNativeHost;
+import com.m2hinfotech.eschool.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.reactnativecommunity.viewpager.RNCViewPagerPackage;

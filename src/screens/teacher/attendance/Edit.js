@@ -343,7 +343,7 @@ const Edit = () => {
               <Dropdown
                 inputContainerStyle={styles.inputContainer}
                 containerStyle={styles.pickerStyle}
-                data={dropdownSource1}
+                data={dropdownSource1[0]}
                 value={dropdownValue1}
                 baseColor="transparent"
                 underlineColor="transparent"

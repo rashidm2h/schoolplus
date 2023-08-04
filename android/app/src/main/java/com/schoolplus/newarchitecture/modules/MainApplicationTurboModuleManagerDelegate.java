@@ -1,4 +1,4 @@
-package com.schoolplus.newarchitecture.modules;
+package com.m2hinfotech.eschool.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

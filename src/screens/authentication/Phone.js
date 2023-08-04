@@ -41,7 +41,7 @@ const Phone = ({navigation}) => {
     // Request to send OTP
     if (
       phoneNumber === '+91987654321' ||
-      phoneNumber === '+918848012237' ||
+      phoneNumber === '+918089629420' ||
       phoneNumber === '+919567229939' ||
       phoneNumber === '+919999900000'
     ) {

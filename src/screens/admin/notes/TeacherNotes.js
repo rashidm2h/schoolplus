@@ -20,6 +20,7 @@ import GLOBALS from '../../../config/Globals';
 
 const TeacherNotes = () => {
   const [data, setdata] = useState('');
+  const [dataerror, setDataerror] = useState(false);
   const [imagePreUrl, setimagePreUrl] = useState('');
   const [dropdownValue, setdropdownValue] = useState('');
   const [dropdownValue1, setdropdownValue1] = useState('');
@@ -143,22 +144,31 @@ const TeacherNotes = () => {
         })
           .then(response => response.text())
           .then(response => {
+            console.log(response, 'yfd');
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(response);
             const v = xmlDoc.getElementsByTagName(
               'TeachersSentNotesForAdminDashBoardResult',
             )[0].childNodes[0].nodeValue;
+            console.log(v, 'vvv');
             if (v === 'failure') {
               setdata('');
             } else {
               const rslt = JSON.parse(v);
               const arraySet = [...rslt.Table];
               arraySet.map(i => (i.attachments = []));
+              console.log(
+                arraySet,
+                'array',
+                arraySet !== [],
+                arraySet.length !== 0,
+              );
               if (
                 arraySet !== undefined &&
                 arraySet !== null &&
                 arraySet !== [] &&
-                arraySet !== ''
+                arraySet !== '' &&
+                arraySet.length !== 0
               ) {
                 arraySet.map((item, index) => {
                   if (
@@ -174,12 +184,16 @@ const TeacherNotes = () => {
                     });
                   }
                 });
+                setdata(arraySet);
+                console.log('tdy');
+              } else {
+                console.log('t', dataerror);
+                setDataerror(true);
               }
-              setdata(arraySet);
             }
           })
           .catch(error => {
-            console.log(error);
+            console.log(error, 'errer');
           });
       },
       error => {
@@ -384,47 +398,55 @@ const TeacherNotes = () => {
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1} />
             <View style={styles.button}>
-              <Pressable onPress={() => getNotes()}>
+              <Pressable
+                onPress={() => {
+                  getNotes();
+                  console.log('test');
+                }}>
                 <Text style={styles.buttonText}>SUBMIT</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </View>
-      <FlatList
-        data={data}
-        style={{flex: 10}}
-        renderItem={({item}) => (
-          <View style={styles.card}>
-            <View style={styles.cardin}>
-              <View style={styles.cardtitleView}>
-                <Hyperlink linkDefault linkStyle={{color: '#2980b9'}}>
-                  <Text style={styles.cardtitle}>{item.Title} </Text>
-                </Hyperlink>
+      {dataerror === true ? (
+        <Text style={styles.noReports}>No reports found!</Text>
+      ) : (
+        <FlatList
+          data={data}
+          style={{flex: 10}}
+          renderItem={({item}) => (
+            <View style={styles.card}>
+              <View style={styles.cardin}>
+                <View style={styles.cardtitleView}>
+                  <Hyperlink linkDefault linkStyle={{color: '#2980b9'}}>
+                    <Text style={styles.cardtitle}>{item.Title} </Text>
+                  </Hyperlink>
+                </View>
+                <View style={styles.cardDateView}>
+                  <Text style={styles.carddate}> {item.Date} </Text>
+                </View>
               </View>
-              <View style={styles.cardDateView}>
-                <Text style={styles.carddate}> {item.Date} </Text>
+              <Hyperlink linkDefault linkStyle={{color: '#2980b9'}}>
+                <Text style={styles.carddesc}>{item.Description}</Text>
+              </Hyperlink>
+              <FlatList
+                data={item.attachments}
+                style={{paddingBottom: wp('2%')}}
+                renderItem={renderItems}
+              />
+              <View style={styles.cardinrow}>
+                <Text style={styles.cardintext}>Sent to: </Text>
+                <Text style={styles.cardintext}>{item.PhoneNo}</Text>
+              </View>
+              <View style={styles.cardinrow}>
+                <Text style={styles.cardintext}>Sent by: </Text>
+                <Text style={styles.cardintext}>{item.TeacherName}</Text>
               </View>
             </View>
-            <Hyperlink linkDefault linkStyle={{color: '#2980b9'}}>
-              <Text style={styles.carddesc}>{item.Description}</Text>
-            </Hyperlink>
-            <FlatList
-              data={item.attachments}
-              style={{paddingBottom: wp('2%')}}
-              renderItem={renderItems}
-            />
-            <View style={styles.cardinrow}>
-              <Text style={styles.cardintext}>Sent to: </Text>
-              <Text style={styles.cardintext}>{item.PhoneNo}</Text>
-            </View>
-            <View style={styles.cardinrow}>
-              <Text style={styles.cardintext}>Sent by: </Text>
-              <Text style={styles.cardintext}>{item.TeacherName}</Text>
-            </View>
-          </View>
-        )}
-      />
+          )}
+        />
+      )}
     </View>
   );
 };
@@ -537,6 +559,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 5,
     flexWrap: 'wrap',
+  },
+  noReports: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   pickerview: {
     ...Platform.select({

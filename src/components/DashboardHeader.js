@@ -284,7 +284,7 @@ const Header = props => {
           role === 'APP') &&
           activeDashboard === 'PH' && (
             <Pressable onPressIn={props.studSwitch} style={styles.bell}>
-              <Icon name="face" size={30} color="white" />
+              <Icon name="face-man" size={30} color="white" />
             </Pressable>
           )}
         {(role === 'AA' || role === 'AA,P') && activeDashboard === 'AH' && (

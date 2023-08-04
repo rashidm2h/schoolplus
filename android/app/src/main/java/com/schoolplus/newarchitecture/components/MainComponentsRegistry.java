@@ -1,4 +1,4 @@
-package com.schoolplus.newarchitecture.components;
+package com.m2hinfotech.eschool.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

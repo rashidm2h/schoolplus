@@ -12,6 +12,7 @@ import {
   ScrollView,
   SafeAreaView,
   KeyboardAvoidingView,
+  PermissionsAndroid,
 } from 'react-native';
 import moment from 'moment';
 import {DOMParser} from 'xmldom';
@@ -107,14 +108,14 @@ const WebNotes = ({navigation}) => {
         fetch(`${GLOBALS.PARENT_URL}FillTemplates`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
-          <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            <soap12:Body>
-              <FillTemplates xmlns="http://www.m2hinfotech.com//">
-                <MobileNo>${keyValue}</MobileNo>
-                <BranchId>${branchId}</BranchId>
-              </FillTemplates>
-            </soap12:Body>
-          </soap12:Envelope>`,
+ <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+ <soap12:Body>
+ <FillTemplates xmlns="http://www.m2hinfotech.com//">
+ <MobileNo>${keyValue}</MobileNo>
+ <BranchId>${branchId}</BranchId>
+ </FillTemplates>
+ </soap12:Body>
+ </soap12:Envelope>`,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'text/xml; charset=utf-8',
@@ -140,10 +141,10 @@ const WebNotes = ({navigation}) => {
                 });
               });
               // const dropData = output.map((element) => ({
-              //   value: element.Id,
-              //   label: element.TemplateName,
-              //   Template: element.Template,
-              //   templateId: element.TemplateId,
+              // value: element.Id,
+              // label: element.TemplateName,
+              // Template: element.Template,
+              // templateId: element.TemplateId,
               // }));
               // settemplateData(dropData);
               // setdropdownValue(dropdownData[0].class_Id);
@@ -169,14 +170,14 @@ const WebNotes = ({navigation}) => {
         fetch(`${GLOBALS.PARENT_URL}RetrieveAdminSentNoteResult`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
-          <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            <soap12:Body>
-              <RetrieveAdminSentNote xmlns="http://www.m2hinfotech.com//">
-                <MobileNo>${keyValue}</MobileNo>
-                <BranchId>${branchId}</BranchId>
-              </RetrieveAdminSentNote>
-            </soap12:Body>
-          </soap12:Envelope>`,
+ <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+ <soap12:Body>
+ <RetrieveAdminSentNote xmlns="http://www.m2hinfotech.com//">
+ <MobileNo>${keyValue}</MobileNo>
+ <BranchId>${branchId}</BranchId>
+ </RetrieveAdminSentNote>
+ </soap12:Body>
+ </soap12:Envelope>`,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'text/xml; charset=utf-8',
@@ -328,14 +329,14 @@ const WebNotes = ({navigation}) => {
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <InsertAdminNotes xmlns="http://www.m2hinfotech.com//">
-  <senderNo>${username}</senderNo>
-  <roleId>${to}</roleId>
-  <title>${NoteTitle}</title>
-  <description>${NoteDescription}</description>
-  <branchId>${branchId}</branchId>
-  <sendSms>${sendSms}</sendSms>
-  <attachs>${attachArray}</attachs>
-  <templateId>${templateId}</templateId>
+ <senderNo>${username}</senderNo>
+ <roleId>${to}</roleId>
+ <title>${NoteTitle}</title>
+ <description>${NoteDescription}</description>
+ <branchId>${branchId}</branchId>
+ <sendSms>${sendSms}</sendSms>
+ <attachs>${attachArray}</attachs>
+ <templateId>${templateId}</templateId>
 </InsertAdminNotes>
 </soap12:Body>
 </soap12:Envelope>
@@ -400,14 +401,14 @@ const WebNotes = ({navigation}) => {
         fetch(`${GLOBALS.PARENT_URL}MultiSelectDivisions`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
-        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-          <soap12:Body>
-            <MultiSelectDivisions xmlns="http://www.m2hinfotech.com//">
-              <branchId>${branchId}</branchId>
-              <classId>${arrayJoined}</classId>
-            </MultiSelectDivisions>
-          </soap12:Body>
-        </soap12:Envelope>`,
+ <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+ <soap12:Body>
+ <MultiSelectDivisions xmlns="http://www.m2hinfotech.com//">
+ <branchId>${branchId}</branchId>
+ <classId>${arrayJoined}</classId>
+ </MultiSelectDivisions>
+ </soap12:Body>
+ </soap12:Envelope>`,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/soap+xml; charset=utf-8',
@@ -479,13 +480,13 @@ const WebNotes = ({navigation}) => {
         fetch(`${GLOBALS.PARENT_URL}SMSBalance`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
-          <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            <soap12:Body>
-              <SMSBalance xmlns="http://www.m2hinfotech.com//">
-                <branchID>${branchId}</branchID>
-              </SMSBalance>
-            </soap12:Body>
-          </soap12:Envelope>`,
+ <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+ <soap12:Body>
+ <SMSBalance xmlns="http://www.m2hinfotech.com//">
+ <branchID>${branchId}</branchID>
+ </SMSBalance>
+ </soap12:Body>
+ </soap12:Envelope>`,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'text/xml; charset=utf-8',
@@ -546,39 +547,39 @@ const WebNotes = ({navigation}) => {
     }
   };
   // const sendBranchwise = () => {
-  //   if (sendSms === true) {
-  //     if (templateId === 0) {
-  //       Alert.alert('Warning!', 'Please Select Template!');
-  //     } else {
-  //       if (templateId === 0) {
-  //         if (
-  //           sendNoteTitle.length === 0 ||
-  //           sendNoteDescription.length === 0 ||
-  //           sendNoteTitle === '' ||
-  //           sendNoteDescription === ''
-  //         ) {
-  //           Alert.alert('Empty Note!', 'Please fill all details!');
-  //         } else {
-  //           sendNoteBranchervice();
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     if (templateId === 0) {
-  //       if (
-  //         sendNoteTitle.length === 0 ||
-  //         sendNoteDescription.length === 0 ||
-  //         sendNoteTitle === '' ||
-  //         sendNoteDescription === ''
-  //       ) {
-  //         Alert.alert('Empty Note!', 'Please fill all details!');
-  //       } else {
-  //         sendNoteBranchervice();
-  //       }
-  //     } else {
-  //       sendNoteBranchervice();
-  //     }
-  //   }
+  // if (sendSms === true) {
+  // if (templateId === 0) {
+  // Alert.alert('Warning!', 'Please Select Template!');
+  // } else {
+  // if (templateId === 0) {
+  // if (
+  // sendNoteTitle.length === 0 ||
+  // sendNoteDescription.length === 0 ||
+  // sendNoteTitle === '' ||
+  // sendNoteDescription === ''
+  // ) {
+  // Alert.alert('Empty Note!', 'Please fill all details!');
+  // } else {
+  // sendNoteBranchervice();
+  // }
+  // }
+  // }
+  // } else {
+  // if (templateId === 0) {
+  // if (
+  // sendNoteTitle.length === 0 ||
+  // sendNoteDescription.length === 0 ||
+  // sendNoteTitle === '' ||
+  // sendNoteDescription === ''
+  // ) {
+  // Alert.alert('Empty Note!', 'Please fill all details!');
+  // } else {
+  // sendNoteBranchervice();
+  // }
+  // } else {
+  // sendNoteBranchervice();
+  // }
+  // }
   // };
   const sendNoteBranchervice = () => {
     if (teacherChecked === true && parentChecked !== true) {
@@ -613,18 +614,18 @@ const WebNotes = ({navigation}) => {
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <InsertAdminNotesBranchWise xmlns="http://www.m2hinfotech.com//">
-  <senderNo>${username}</senderNo>
-  <branchId>${branchId}</branchId>
-  <branchClassId>${arrayJoined}</branchClassId>
-  <title>${sendNoteTitle}</title>
-  <description>${sendNoteDescription}</description>
-  <sendSms>${sendSms}</sendSms>
-  <attachs>${attachArray}</attachs>
-  <templateId>${templateId}</templateId>
+ <senderNo>${username}</senderNo>
+ <branchId>${branchId}</branchId>
+ <branchClassId>${arrayJoined}</branchClassId>
+ <title>${sendNoteTitle}</title>
+ <description>${sendNoteDescription}</description>
+ <sendSms>${sendSms}</sendSms>
+ <attachs>${attachArray}</attachs>
+ <templateId>${templateId}</templateId>
 </InsertAdminNotesBranchWise>
 </soap12:Body>
 </soap12:Envelope>
-  `,
+ `,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'text/xml; charset=utf-8',
@@ -680,14 +681,14 @@ const WebNotes = ({navigation}) => {
         fetch(`${GLOBALS.PARENT_URL}GetAllClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
-        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-          <soap12:Body>
-            <GetAllClasses xmlns="http://www.m2hinfotech.com//">
-              <mobileNo>${username}</mobileNo>
-              <Branch>${branchId}</Branch>
-            </GetAllClasses>
-          </soap12:Body>
-        </soap12:Envelope>`,
+ <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+ <soap12:Body>
+ <GetAllClasses xmlns="http://www.m2hinfotech.com//">
+ <mobileNo>${username}</mobileNo>
+ <Branch>${branchId}</Branch>
+ </GetAllClasses>
+ </soap12:Body>
+ </soap12:Envelope>`,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/soap+xml; charset=utf-8',
@@ -755,7 +756,32 @@ const WebNotes = ({navigation}) => {
       setattachSet(dataArray);
     });
   };
-
+  const uploadFile = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message: 'App needs access to memory to upload the file',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        uploadDocument();
+      } else {
+        Alert.alert('Permission Denaied ', 'Give permission', [
+          {
+            text: 'Ok',
+            onPress: () => {},
+          },
+        ]);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   const uploadDocument = () => {
     Alert.alert(' ', 'Please select file type', [
       {
@@ -822,13 +848,13 @@ const WebNotes = ({navigation}) => {
         type: [DocumentPicker.types.allFiles],
       });
       let path =
-        Platform.OS === 'ios' ? res.uri.replace('file://', '') : res.uri;
+        Platform.OS === 'ios' ? res.uri.replace('file://', '') : res[0].uri;
       RNFetchBlob.fs.readFile(path, 'base64').then(encoded => {
         const dataArray = [...attachSet];
         dataArray.push({
-          filename: res.name,
+          filename: res[0].name,
           filedata: encoded,
-          filetype: res.type,
+          filetype: res[0].type,
         });
         setattachSet(dataArray);
       });
@@ -974,7 +1000,7 @@ const WebNotes = ({navigation}) => {
                         <Text style={styles.Modaltext}>Attachments</Text>
                         <Pressable
                           onPress={() => {
-                            uploadDocument();
+                            uploadFile();
                           }}
                           style={styles.browseButton}>
                           <Text style={styles.MOdalButtontext}>Browse</Text>
@@ -1156,7 +1182,7 @@ const WebNotes = ({navigation}) => {
                         <Text style={styles.Modaltext}>Attachments</Text>
                         <Pressable
                           onPress={() => {
-                            uploadDocument();
+                            uploadFile();
                           }}
                           style={styles.browseButton}>
                           <Text style={styles.MOdalButtontext}>Browse</Text>

@@ -496,7 +496,8 @@ const PublishResult = props => {
           <KeyboardAwareScrollView
             keyboardDismissMode="interactive"
             contentContainerStyle={styles.container}
-            extraScrollHeight={extraScrollHeight}>
+            extraScrollHeight={extraScrollHeight}
+            useNativeDriver={false}>
             <View style={{flexDirection: 'row', margin: 5}}>
               {isVisibleclass && (
                 <View style={{flex: 1}}>
@@ -628,7 +629,7 @@ const PublishResult = props => {
             </View>
           </KeyboardAwareScrollView>
         ) : (
-          <ScrollView>
+          <ScrollView useNativeDriver={false}>
             <View style={{flexDirection: 'row', margin: 5}}>
               {isVisibleclass && (
                 <View style={{flex: 1}}>

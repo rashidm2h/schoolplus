@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   StyleSheet,
+  PermissionsAndroid,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -31,7 +32,32 @@ const SendNotes = () => {
   AsyncStorage.getItem('schoolBranchName').then(value => {
     setbranchName(value);
   });
-
+  const uploadFile = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message: 'App needs access to memory to upload the file',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        uploadDocument();
+      } else {
+        Alert.alert('Permission Denaied ', 'Give permission', [
+          {
+            text: 'Ok',
+            onPress: () => {},
+          },
+        ]);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   const fromCamera = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -77,13 +103,13 @@ const SendNotes = () => {
         type: [DocumentPicker.types.allFiles],
       });
       let path =
-        Platform.OS === 'ios' ? res.uri.replace('file://', '') : res.uri;
+        Platform.OS === 'ios' ? res.uri.replace('file://', '') : res[0].uri;
       RNFetchBlob.fs.readFile(path, 'base64').then(encoded => {
         const dataArray = [...attachSet];
         dataArray.push({
-          filename: res.name,
+          filename: res[0].name,
           filedata: encoded,
-          filetype: res.type,
+          filetype: res[0].type,
         });
         setattachSet(dataArray);
       });
@@ -148,7 +174,7 @@ const SendNotes = () => {
                 <Text style={styles.Modaltext}>Attachments</Text>
                 <Pressable
                   onPress={() => {
-                    uploadDocument();
+                    uploadFile();
                   }}
                   style={styles.browseButton}>
                   <Text style={styles.MOdalButtontext}>Browse</Text>

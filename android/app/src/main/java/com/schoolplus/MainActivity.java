@@ -1,4 +1,4 @@
-package com.schoolplus;
+package com.m2hinfotech.eschool;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   KeyboardAvoidingView,
+  PermissionsAndroid,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
@@ -159,7 +160,32 @@ const SendNotes = () => {
         });
     }
   };
-
+  const uploadFile = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message: 'App needs access to memory to upload the file',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        uploadDocument();
+      } else {
+        Alert.alert('Permission Denaied ', 'Give permission', [
+          {
+            text: 'Ok',
+            onPress: () => {},
+          },
+        ]);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   const fromCamera = () => {
     ImagePicker.openCamera({
       width: 300,
@@ -302,14 +328,15 @@ const SendNotes = () => {
         type: [DocumentPicker.types.allFiles],
       });
       let path =
-        Platform.OS === 'ios' ? res.uri.replace('file://', '') : res.uri;
+        Platform.OS === 'ios' ? res[0].uri.replace('file://', '') : res[0].uri;
       RNFetchBlob.fs.readFile(path, 'base64').then(encoded => {
         const dataArray = [...attachSet];
         dataArray.push({
-          filename: res.name,
+          filename: res[0].name,
           filedata: encoded,
-          filetype: res.type,
+          filetype: res[0].type,
         });
+
         setattachSet(dataArray);
       });
     } catch (err) {
@@ -321,19 +348,21 @@ const SendNotes = () => {
       }
     }
   };
-  const renderItems = ({item, index}) => (
-    <View style={styles.renderView}>
-      <Text style={styles.renderText}>{item.filename}</Text>
-      <Pressable
-        onPress={() => {
-          const check = [...attachSet];
-          check.splice(index, 1);
-          setattachSet(check);
-        }}>
-        <Icon name="close" size={wp('6%')} color="red" />
-      </Pressable>
-    </View>
-  );
+  const renderItems = ({item, index}) => {
+    return (
+      <View style={styles.renderView}>
+        <Text style={styles.renderText}>{item.filename}</Text>
+        <Pressable
+          onPress={() => {
+            const check = [...attachSet];
+            check.splice(index, 1);
+            setattachSet(check);
+          }}>
+          <Icon name="close" size={wp('6%')} color="red" />
+        </Pressable>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -363,7 +392,7 @@ const SendNotes = () => {
                   <Text style={styles.Modaltext}>Attachments</Text>
                   <Pressable
                     onPress={() => {
-                      uploadDocument();
+                      uploadFile();
                     }}
                     style={styles.browseButton}>
                     <Text style={styles.MOdalButtontext}>Browse</Text>
@@ -491,7 +520,7 @@ const styles = StyleSheet.create({
   renderText: {
     fontSize: wp('3%'),
     fontWeight: '500',
-    color: '#607D8B',
+    color: 'red',
     paddingTop: wp('2%'),
     width: '90%',
     textAlign: 'left',
@@ -647,7 +676,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: '#13C0CE',
     // flex: 1,
-    padding: 10,
+    padding: 9,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#13C0CE',
@@ -688,7 +717,7 @@ const styles = StyleSheet.create({
   P_SD_Bottom_AttendenceboxLeft: {
     elevation: 3,
     flex: 0.2,
-    height: 40,
+    height: wp('13'),
     backgroundColor: '#AF67BD',
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -698,7 +727,7 @@ const styles = StyleSheet.create({
   P_SD_Bottom_AttendenceboxRight: {
     elevation: 3,
     flex: 0.8,
-    height: 40,
+    height: wp('13'),
     flexDirection: 'column',
     backgroundColor: '#AF67BD',
     alignItems: 'flex-start',
@@ -713,7 +742,7 @@ const styles = StyleSheet.create({
   },
   P_SD_Bottom_FlatlistRowLeft: {
     flex: 0.2,
-    height: 40,
+    height: wp('13'),
     alignItems: 'flex-start',
     justifyContent: 'center',
     borderRightWidth: 0.5,
@@ -722,7 +751,7 @@ const styles = StyleSheet.create({
   },
   P_SD_Bottom_FlatlistRowRight: {
     flex: 0.8,
-    height: 40,
+    height: wp('13'),
     alignItems: 'flex-start',
     justifyContent: 'center',
     borderBottomWidth: 1,
