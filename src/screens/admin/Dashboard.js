@@ -29,6 +29,7 @@ const AdminDashboard = ({navigation}) => {
         homePress={() => navigation.navigate('AdminDashboard')}
         bellPress={() => {
           navigation.navigate('Notifications');
+          console.log('kk');
         }}
         branchSwitch={() => navigation.navigate('AdminSwitchBranch')}
       />
