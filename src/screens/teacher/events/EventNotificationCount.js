@@ -5,6 +5,10 @@ import {View, Text, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../config/Globals';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const EventNotificationCount = () => {
   const [countevent, setcountevent] = useState('');
   const parser = new DOMParser();
@@ -86,14 +90,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconbadgetext: {
-    fontSize: 10,
+    fontSize: wp('3.5%'),
     color: '#FFFFFF',
   },
   iconBadge: {
     elevation: 2,
-    width: 16,
-    height: 16,
-    marginTop: -40,
+    width: wp('5.4%'),
+    height: wp('5.4%'),
+    marginTop: wp('-12%'),
     backgroundColor: '#EA1E63',
   },
 });

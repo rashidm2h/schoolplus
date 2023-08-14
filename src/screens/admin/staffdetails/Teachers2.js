@@ -13,6 +13,10 @@ import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 import Header from '../../../components/Header';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const Teachers2 = ({route, navigation}) => {
   const [loading, setloading] = useState(true);
   const [dataerror, setdataerror] = useState(false);
@@ -159,16 +163,16 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('4.5%'),
   },
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('22%'),
+    width: wp('22%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -177,8 +181,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   flatlistStyle: {
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: wp('5%'),
+    marginRight: wp('5%'),
   },
   loading: {
     flex: 1,
@@ -198,20 +202,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
   },
   P_SD_top_Row: {
-    margin: 5,
-    marginLeft: 15,
+    margin: wp('1.5%'),
+    marginLeft: wp('5%'),
     flexDirection: 'row',
     flexGrow: 1,
     alignItems: 'center',
   },
   P_SD_Top_image: {
-    height: 80,
-    width: 80,
+    height: wp('22%'),
+    width: wp('22%'),
     borderRadius: 80 / 2,
   },
   P_SD_Top_TextColumn: {
     justifyContent: 'flex-end',
-    marginLeft: 5,
+    marginLeft: wp('0.0%'),
     flexDirection: 'column',
   },
   P_SD_PD_container: {
@@ -219,37 +223,37 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   P_SD_Bottom: {
-    marginLeft: 10,
+    marginLeft: 0,
     flexGrow: 0.95,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#ffff',
   },
   P_SD_BottomScroll: {
     flexGrow: 0.95,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#ffff',
   },
   P_SD_BottomRow: {
-    padding: 5,
-    margin: 5,
+    padding: wp('1.5%'),
+    margin: wp('1.5%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
   P_SD_Bottom0: {
     flexDirection: 'column',
-    margin: 10,
+    margin: wp('3.5%'),
     flex: 0.5,
   },
   P_SD_Bottom1: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    margin: 10,
+    margin: wp('3.5%'),
     flexGrow: 0.5,
     backgroundColor: '#FFFFFF',
     borderBottomColor: '#23B6CA',
-    borderBottomWidth: 3,
+    borderBottomWidth: wp('1%'),
   },
   P_SD_Bottom2: {
     flexDirection: 'column',
@@ -276,7 +280,7 @@ const styles = StyleSheet.create({
     flexGrow: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
-    //  backgroundColor: '#fbc531'
+    // backgroundColor: '#fbc531',
   },
   pickerArea: {
     flexDirection: 'row',
@@ -396,11 +400,11 @@ const styles = StyleSheet.create({
     color: '#000000',
     flex: 0.45,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: wp('4.5%'),
   },
   textLight: {
     flex: 0.55,
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     fontWeight: '100',
   },
 });

@@ -5,6 +5,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const PastEvents = () => {
   const [loading, setloading] = useState(true);
   const [data, setdata] = useState('');
@@ -139,16 +143,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
     textAlign: 'center',
   },
   teachercontainermiddel: {
     flex: 1,
-    height: 50,
+    height: wp('5%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
     borderBottomWidth: 2,
@@ -177,6 +181,7 @@ const styles = StyleSheet.create({
   texthead: {
     fontSize: 14,
     color: '#BA69C8',
+    backgroundColor: 'red',
     marginLeft: 10,
   },
   textc: {
@@ -187,7 +192,7 @@ const styles = StyleSheet.create({
   esscontainerbottom: {
     flex: 7,
     flexDirection: 'column',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'red',
   },
   flatlistStyle: {
     flex: 1,

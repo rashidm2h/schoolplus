@@ -20,7 +20,10 @@ import Header from '../../../components/Header';
 // import NotificationCount from './NotificationCount';
 // import ParentToolbarSwitchStd from './ParentToolbarSwitchStd';
 // import ParentToolbarSwitchPT from './ParentToolbarSwitchPT';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const FeeDetails = ({route, navigation}) => {
   const [isLoadingfeedetail, setisLoadingfeedetail] = useState(true);
   const [dataSource, setdataSource] = useState('');
@@ -360,8 +363,8 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('23%'),
+    width: wp('23%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -370,15 +373,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('23%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   navHeaderLeft: {
     flexDirection: 'row',
-    marginLeft: 15,
+    marginLeft: wp('5%'),
   },
   navHeaderRight: {
     flexDirection: 'row',
@@ -452,14 +455,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#B866C6',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.5%'),
   },
   itemStyle: {
     flexDirection: 'column',
   },
   headbox: {
     flex: 1,
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#FFFFFF',
@@ -477,21 +480,21 @@ const styles = StyleSheet.create({
   },
   textalert: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: wp('4%'),
     flexWrap: 'wrap',
     color: '#FFFFFF',
   },
   itemStylealert: {
     flex: 1,
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.5%'),
     borderBottomColor: '#D3D3D3',
   },
   itemBOx: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderColor: '#D3D3D3',
   },
   CheckBox: {
@@ -502,7 +505,7 @@ const styles = StyleSheet.create({
   checkBoxView: {
     flex: 1,
     alignItems: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderColor: '#D3D3D3',
     justifyContent: 'center',
   },
@@ -510,10 +513,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 5,
+    padding: wp('1.5%'),
     borderRadius: 5,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: wp('3.5%'),
+    marginBottom: wp('3.5%'),
   },
 });
 export default FeeDetails;

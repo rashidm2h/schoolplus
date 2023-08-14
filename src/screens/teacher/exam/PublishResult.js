@@ -18,7 +18,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import GLOBALS from '../../../config/Globals';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const PublishResult = props => {
   const [
     publishresultclassnamedatasource,
@@ -782,8 +785,8 @@ const PublishResult = props => {
 const styles = StyleSheet.create({
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('22%'),
+    width: wp('22%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -792,11 +795,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   mainContainer: {
     backgroundColor: '#FFFFFF',
@@ -811,11 +814,11 @@ const styles = StyleSheet.create({
     borderColor: '#CFCFCF',
     backgroundColor: '#fff',
     borderRadius: 1,
-    borderWidth: 1,
-    height: 42,
+    borderWidth: wp('0.3%'),
+    height: wp('11.3%'),
   },
   containerTable: {
-    marginTop: 5,
+    marginTop: wp('1.3%'),
     elevation: 0.5,
     flex: 7,
     backgroundColor: '#FFFFFF',
@@ -829,7 +832,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
   },
   headingTableView: {
-    height: 40,
+    height: wp('11%'),
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
   },
@@ -840,7 +843,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#FFFFFF',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.6%'),
   },
   textheadboxSname: {
     elevation: 5,
@@ -849,7 +852,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#B866C6',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
   },
   textheadboxMark: {
     elevation: 5,
@@ -865,9 +868,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   itemone: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.5%'),
     borderBottomColor: '#E0E0E0',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderRightColor: '#E0E0E0',
     flex: 0.8,
     alignItems: 'center',
@@ -879,30 +882,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: '#E0E0E0',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderRightColor: '#E0E0E0',
   },
   itemthree: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#E0E0E0',
     flex: 1.2,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 5,
-    paddingTop: 5,
+    paddingBottom: wp('1.3%'),
+    paddingTop: wp('1.3%'),
   },
   flatListiteminput: {
-    height: 33,
-    width: 70,
-    fontSize: 12,
+    height: wp('10.3%'),
+    width: wp('22.3%'),
+    fontSize: wp('5.3%'),
     textAlign: 'center',
-    borderWidth: 0.5,
+    borderWidth: wp('0.3%'),
     borderRadius: 5,
   },
   buttonstyle: {
     position: 'absolute',
-    height: 50,
-    width: 50,
+    height: wp('15.3%'),
+    width: wp('15.3%'),
     borderRadius: 50,
     shadowColor: '#000000',
     shadowOffset: {width: 0, height: 2},
@@ -912,34 +915,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
-    left: 30,
-    bottom: 20,
+    left: wp('9.3%'),
+    bottom: wp('7%'),
   },
   itemStyle: {
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#000000',
   },
   item: {
-    height: 20,
+    height: wp('7.3%'),
     flex: 1,
     textAlign: 'center',
   },
   texthead: {
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     color: '#FFFFFF',
-    marginLeft: 10,
+    marginLeft: wp('3.3%'),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     color: '#FFFFFF',
   },
   flatitem: {
-    fontSize: 13,
+    fontSize: wp('4.5%'),
   },
   flatitemName: {
-    fontSize: 13,
-    marginLeft: 10,
+    fontSize: wp('4.5%'),
+    marginLeft: wp('3.3%'),
   },
   view: {
     flex: 1,

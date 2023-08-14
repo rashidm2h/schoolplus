@@ -16,6 +16,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const TeacherFee = ({route, navigation}) => {
   const [nodata, setnodata] = useState(true);
   const [visible, setvisible] = useState(false);
@@ -243,16 +247,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noData: {
-    marginTop: 80,
+    marginTop: wp('23%'),
     alignItems: 'center',
   },
   noDataView: {
     flex: 1,
-    marginTop: 80,
+    marginTop: wp('23%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   containerData: {
     flex: 8,
@@ -266,7 +270,7 @@ const styles = StyleSheet.create({
   picker_Buttonview: {
     flex: 0.5,
     flexDirection: 'row',
-    margin: 10,
+    margin: wp('3.5%'),
     alignItems: 'center',
     justifyContent: 'space-between',
     ...Platform.select({
@@ -282,7 +286,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 0.9,
+      height: wp('0.3%'),
     },
     shadowRadius: 2,
     shadowOpacity: 0.5,
@@ -294,20 +298,20 @@ const styles = StyleSheet.create({
   },
   pickerviews: {
     flex: 1,
-    marginRight: 2.5,
+    marginRight: wp('0.9%'),
   },
   pickerStyle: {
     justifyContent: 'center',
     borderColor: '#CFCFCF',
     backgroundColor: '#FFF',
-    borderWidth: 1,
-    height: 37,
+    borderWidth: wp('0.3%'),
+    height: wp('10%'),
   },
   buttonView: {
-    marginLeft: 2.5,
-    height: 36,
+    marginLeft: wp('1.3%'),
+    height: wp('10%'),
     flex: 1,
-    borderRadius: 2,
+    borderRadius: wp('0.6%'),
     elevation: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -315,29 +319,29 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     fontWeight: 'bold',
   },
   textBoxRollNo: {
-    height: 40,
+    height: wp('12.5%'),
     flex: 1,
     elevation: 2,
     backgroundColor: '#B866C6',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderColor: '#FFFFFF',
   },
   textBoxSname: {
-    height: 40,
+    height: wp('12.5%'),
     flex: 7,
     elevation: 2,
     backgroundColor: '#B866C6',
-    paddingLeft: 10,
+    paddingLeft: wp('3.2%'),
     justifyContent: 'center',
   },
   containerTableHeadingView: {
-    height: 40,
+    height: wp('12%'),
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
   },
@@ -346,37 +350,37 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   textcs: {
-    fontSize: 14,
+    fontSize: wp('4.6%'),
     color: '#FFFFFF',
   },
   flatitemStyles: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.4%'),
     borderBottomColor: '#C7C7C7',
   },
   itemones: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderColor: '#C7C7C7',
   },
   itemtwos: {
     flex: 5,
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
     justifyContent: 'center',
   },
   itemthrees: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 5,
-    marginTop: 5,
+    marginBottom: wp('1.5%'),
+    marginTop: wp('1.5%'),
   },
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('24%'),
+    width: wp('24%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

@@ -6,6 +6,10 @@ import {StyleSheet, Alert, Platform, Pressable, Text, View} from 'react-native';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const Attendance = ({navigation}) => {
   const [data, setdata] = useState([]);
   const [dropdownValue, setdropdownValue] = useState('');
@@ -117,44 +121,46 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: {
         flexDirection: 'row',
-        marginTop: 20,
+        marginTop: wp('9%'),
+        height: wp('10.5%'),
       },
       ios: {
         flexDirection: 'row',
-        margin: 5,
-        marginTop: 20,
+        margin: wp('2%'),
+        marginTop: wp('9%'),
         justifyContent: 'space-between',
       },
     }),
   },
   pickerStyle: {
-    paddingTop: 10,
-    marginLeft: 10,
-    paddingLeft: 2,
-    borderWidth: 0.5,
+    paddingTop: wp('3%'),
+    marginLeft: wp('2.5%'),
+    paddingLeft: wp('0.5%'),
+    borderWidth: wp('0.7%'),
     alignItems: 'stretch',
     borderColor: '#C7C7C7',
     justifyContent: 'center',
     ...Platform.select({
       ios: {
-        height: 30,
+        height: wp('7.5%'),
         flex: 1,
         borderRadius: 3,
-        paddingBottom: 15,
+        paddingBottom: wp('3.5%'),
       },
       android: {
-        height: 35,
+        height: wp('8.75%'),
         flex: 1,
       },
     }),
   },
   buttonView: {
-    height: 30,
+    height: wp('10.5%'),
+    width: wp('40%'),
     flex: 1,
     borderRadius: 2,
     elevation: 1,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: wp('2.5%'),
+    marginRight: wp('2.5%'),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#17BED0',

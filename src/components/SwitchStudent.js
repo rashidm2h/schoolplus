@@ -116,6 +116,7 @@ const SwitchstudentPage = ({route, navigation}) => {
       AsyncStorage.setItem('StdLastname', lastname);
       AsyncStorage.setItem('StdClassNO', classno);
       AsyncStorage.setItem('StdClassdiv', classdiv);
+      AsyncStorage.setItem('Dashboard', 'PH');
     } catch (error) {
       console.log('somthing went');
     }
@@ -127,9 +128,9 @@ const SwitchstudentPage = ({route, navigation}) => {
     <View style={styles.container}>
       <View style={styles.esscontainermiddle}>
         {/* <Image
-          style={styles.containertopcontentimage}
-          source={require('../images/face.png')}
-        /> */}
+         style={styles.containertopcontentimage}
+         source={require('../images/face.png')}
+       /> */}
         <Icon
           name="face"
           size={34}

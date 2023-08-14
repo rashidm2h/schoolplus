@@ -14,9 +14,12 @@ import Hyperlink from 'react-native-hyperlink';
 import FileViewer from 'react-native-file-viewer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const IndividualNotes = () => {
   const [data, setdata] = useState('');
@@ -210,8 +213,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   card: {
-    padding: 3,
-    margin: 10,
+    padding: wp('1%'),
+    margin: wp('3%'),
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -236,13 +239,13 @@ const styles = StyleSheet.create({
   },
   cardin: {
     flexDirection: 'row',
-    padding: 5,
+    padding: wp('1.5%'),
     flex: 1,
   },
   cardinrow: {
     flexDirection: 'row',
     flex: 1,
-    padding: 5,
+    padding: wp('1.5%'),
   },
   cardtitleView: {
     flexGrow: 0.85,
@@ -256,21 +259,21 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   cardtitle: {
-    fontSize: 16,
+    fontSize: wp('4.5%'),
     fontWeight: 'bold',
     color: '#8A8A8A',
   },
   carddate: {
-    fontSize: 16,
+    fontSize: wp('4.5%'),
   },
   carddesc: {
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     padding: 5,
     flexWrap: 'wrap',
   },
   renderPressable: {
-    paddingHorizontal: 5,
-    paddingBottom: 1,
+    paddingHorizontal: wp('1.5%'),
+    paddingBottom: wp('0.5%'),
     paddingTop: wp('2%'),
     width: wp('90%'),
     flexDirection: 'row',
@@ -284,13 +287,13 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   text: {
-    marginLeft: 10,
-    fontSize: 15,
-    marginTop: 5,
+    marginLeft: wp('3.5%'),
+    fontSize: wp('5%'),
+    marginTop: wp('1.5%'),
   },
   text_white: {
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
     color: '#F5F5F5',
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
 });

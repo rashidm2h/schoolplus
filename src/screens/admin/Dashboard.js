@@ -6,6 +6,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/DashboardHeader';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const AdminDashboard = ({navigation}) => {
   let mobile = '';
   let branch = '';
@@ -121,12 +125,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flex: 1,
-    paddingLeft: 20,
+    paddingLeft: wp('6.4%'),
   },
   title: {
     color: 'white',
-    fontSize: 18,
-    marginLeft: 10,
+    fontSize: wp('5.5%'),
+    marginLeft: wp('3%'),
   },
   lastBox: {
     alignItems: 'center',
@@ -136,8 +140,8 @@ const styles = StyleSheet.create({
   smallBox: {
     flex: 1,
     flexDirection: 'row',
-    height: '100%',
-    paddingLeft: 20,
+    height: hp('16%'),
+    paddingLeft: hp('0.7%'),
     alignItems: 'center',
   },
 });

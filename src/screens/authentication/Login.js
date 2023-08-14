@@ -7,6 +7,7 @@ import OneSignal from 'react-native-onesignal';
 import GLOBALS from '../../config/Globals';
 import Logo from '../../images/logo.png';
 import Progress from '../../components/ProgressIndicator';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 const Login = ({navigation}) => {
   let branch = '';
@@ -400,7 +401,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 120,
-    height: 150,
+    width: widthPercentageToDP('35%'),
+    height: widthPercentageToDP('50%'),
   },
 });

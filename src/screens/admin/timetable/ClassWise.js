@@ -8,6 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
@@ -327,11 +331,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('4.5%'),
   },
   containerTableTop: {
     flex: 1,
@@ -343,7 +347,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderColor: '#FFFFFF',
     flexDirection: 'row',
   },
@@ -358,8 +362,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flex: 1,
     // padding: 10,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
+    borderRightWidth: wp('0.5%'),
+    borderBottomWidth: wp('0.5%'),
     borderColor: '#C7C7C7',
     justifyContent: 'center',
     alignItems: 'center',
@@ -368,7 +372,7 @@ const styles = StyleSheet.create({
   textBoxLast: {
     backgroundColor: '#FFFFFF',
     flex: 1,
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.5%'),
     borderColor: '#C7C7C7',
     justifyContent: 'center',
     alignItems: 'center',
@@ -392,9 +396,9 @@ const styles = StyleSheet.create({
   textRed: {
     color: '#C8717F',
     textAlign: 'center',
-    fontSize: 12,
-    paddingLeft: 2,
-    paddingRight: 1,
+    fontSize: wp('4%'),
+    paddingLeft: wp('0.7%'),
+    paddingRight: wp('0.5%'),
     alignSelf: 'center',
   },
   textBlue: {
@@ -416,28 +420,28 @@ const styles = StyleSheet.create({
   pickerStyle1: {
     ...Platform.select({
       android: {
-        borderWidth: 0.5,
+        borderWidth: wp('0.3%'),
         borderColor: 'grey',
-        height: 35,
+        height: wp('10%'),
         justifyContent: 'center',
         borderRadius: 3,
-        paddingLeft: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        paddingTop: 10,
-        marginBottom: 5,
+        paddingLeft: wp('0.5%'),
+        marginLeft: wp('0.5%'),
+        marginRight: wp('0.5%'),
+        paddingTop: wp('3.5%'),
+        marginBottom: wp('1.5%'),
       },
       ios: {
         borderWidth: 0.5,
         borderColor: 'grey',
-        height: 30,
-        paddingTop: 10,
+        height: wp('30%'),
+        paddingTop: wp('3.5%'),
         justifyContent: 'center',
         borderRadius: 3,
-        paddingLeft: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
+        paddingLeft: wp('0.5%'),
+        marginLeft: wp('0.5%'),
+        marginRight: wp('0.5%'),
+        marginBottom: wp('3.5%'),
       },
     }),
   },
@@ -449,7 +453,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textStyle1: {
-    marginLeft: 5,
-    marginBottom: 5,
+    marginLeft: wp('1.5%'),
+    marginBottom: wp('1.5%'),
   },
 });

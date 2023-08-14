@@ -14,7 +14,10 @@ import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const SmsReports = () => {
   const [data, setdata] = useState('');
   const [dataerror, setdataerror] = useState(false);
@@ -174,7 +177,7 @@ const SmsReports = () => {
         </View>
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
-            <Text style={styles.hideText}>Submit</Text>
+            <Text style={styles.hideText}>{''}</Text>
             <View style={styles.button}>
               <Pressable onPress={() => NoteAccess()}>
                 <Text style={styles.buttonText}>SUBMIT</Text>
@@ -321,6 +324,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 15,
     marginTop: 5,
+    color: 'red',
   },
   horizontalView: {
     flexDirection: 'row',
@@ -350,16 +354,16 @@ const styles = StyleSheet.create({
   pickerStyle: {
     ...Platform.select({
       android: {
-        paddingTop: 10,
-        borderWidth: 0.5,
+        paddingTop: wp('4%'),
+        borderWidth: wp('0.3%'),
         borderColor: 'grey',
-        height: 35,
+        height: wp('10.3%'),
         justifyContent: 'center',
-        borderRadius: 3,
-        marginLeft: 5,
-        marginRight: 5,
-        paddingLeft: 5,
-        marginBottom: 5,
+        borderRadius: wp('0.3%'),
+        marginLeft: wp('1.5%'),
+        marginRight: wp('1.5%'),
+        paddingLeft: wp('0.3%'),
+        marginBottom: wp('1.5%'),
       },
       ios: {
         borderWidth: 0.5,
@@ -376,8 +380,8 @@ const styles = StyleSheet.create({
     }),
   },
   textStyle1: {
-    marginLeft: 5,
-    marginBottom: 5,
+    marginLeft: wp('2%'),
+    marginBottom: wp('2%'),
   },
   button: {
     height: 35,
@@ -399,13 +403,13 @@ const styles = StyleSheet.create({
   hideText: {
     marginLeft: 5,
     marginBottom: 5,
-    color: 'white',
+    color: 'black',
   },
   datePicker: {
-    height: 35,
+    height: wp('11%'),
     justifyContent: 'center',
-    borderRadius: 3,
-    marginLeft: 5,
-    marginRight: 5,
+    borderRadius: wp('1.3%'),
+    marginLeft: wp('1.3%'),
+    marginRight: wp('1.3%'),
   },
 });

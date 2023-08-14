@@ -11,6 +11,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const TeacherFeeStructure = ({route, navigation}) => {
   const [nodata, setnodata] = useState(true);
   const [isLoading, setisLoading] = useState(true);
@@ -110,11 +114,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('24%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   flatlistView: {
     flex: 8,
@@ -134,17 +138,17 @@ const styles = StyleSheet.create({
   },
   buttonstyle: {
     backgroundColor: '#034951',
-    height: 50,
-    width: 300,
-    marginVertical: 25,
-    marginHorizontal: 25,
+    height: wp('16%'),
+    width: wp('96%'),
+    marginVertical: wp('8%'),
+    marginHorizontal: wp('8%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
   textst: {
     color: '#CAD5D6',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: wp('5%'),
     fontWeight: 'normal',
   },
 });

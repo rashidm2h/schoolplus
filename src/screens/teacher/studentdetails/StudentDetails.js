@@ -14,6 +14,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const StudentDetails = ({navigation}) => {
   const [data, setdata] = useState('');
   const [dropdownValue, setdropdownValue] = useState('');
@@ -195,10 +199,10 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     flex: 1,
-    height: 30,
+    height: wp('10.5%'),
     elevation: 1,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: wp('3%'),
+    marginRight: wp('3%'),
     borderRadius: 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -219,7 +223,7 @@ const styles = StyleSheet.create({
   },
   containerTable: {
     flex: 7,
-    elevation: 0.5,
+    elevation: wp('0.3%'),
     shadowRadius: 4,
     shadowOpacity: 0.5,
     shadowColor: '#000000',
@@ -231,20 +235,20 @@ const styles = StyleSheet.create({
     },
   },
   pickerview: {
-    marginVertical: 15,
+    marginVertical: '4%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   inputContainer: {borderBottomColor: 'transparent'},
   headingTableView: {
     flex: 0.1,
-    elevation: 3,
+    elevation: wp('1%'),
     flexDirection: 'row',
     backgroundColor: '#B866C6',
   },
   textcontaineone: {
     flex: 0.8,
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.2%'),
     alignItems: 'center',
     borderColor: '#FFFFFF',
     justifyContent: 'center',
@@ -253,10 +257,10 @@ const styles = StyleSheet.create({
   textcontaintwo: {
     flex: 2,
     backgroundColor: '#B866C6',
-    paddingLeft: 10,
+    paddingLeft: wp('3%'),
     justifyContent: 'center',
     borderColor: '#FFFFFF',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.2%'),
   },
   textcontainthree: {
     flex: 1.2,
@@ -271,14 +275,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   pickerStyle: {
-    paddingTop: 10,
-    borderWidth: 0.5,
+    paddingTop: wp('3.5%'),
+    borderWidth: wp('0.09%'),
     borderColor: '#C7C7C7',
     justifyContent: 'center',
     alignItems: 'stretch',
     flex: 1,
-    paddingLeft: 2,
-    marginLeft: 10,
+    paddingLeft: wp('1%'),
+    marginLeft: wp('2%'),
+    //responsive
     ...Platform.select({
       ios: {
         height: 30,
@@ -292,13 +297,13 @@ const styles = StyleSheet.create({
     }),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('3.8%'),
     color: '#FFFFFF',
   },
   itemStyle: {
     flexDirection: 'row',
     flex: 1,
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#D3D3D3',
   },
   item: {
@@ -307,24 +312,24 @@ const styles = StyleSheet.create({
   },
   itemone: {
     flex: 0.8,
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: wp('2.5%'),
+    paddingBottom: wp('2.5%'),
     alignItems: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   itemtwo: {
     flex: 2,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginLeft: 10,
-    borderRightWidth: 1,
+    paddingTop: wp('2.5%'),
+    paddingBottom: wp('2.5%'),
+    marginLeft: wp('2.5%'),
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   itemthree: {
     flex: 1.2,
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: wp('2.5%'),
+    paddingBottom: wp('2.5%'),
     alignItems: 'center',
   },
 });

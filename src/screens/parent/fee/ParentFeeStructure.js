@@ -19,7 +19,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import ParentToolbarSwitchPT from './ParentToolbarSwitchPT';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const ParentFeeStructure = ({route, navigation}) => {
   const [dataSource, setdataSource] = useState(' ');
   const [visible, setvisible] = useState(false);
@@ -146,16 +149,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('22%'),
+    width: wp('22%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -199,8 +202,8 @@ const styles = StyleSheet.create({
     width: 30,
   },
   icon: {
-    width: 10,
-    height: 40,
+    width: wp('3.5%'),
+    height: wp('11.5%'),
   },
   HeaderText: {
     marginLeft: 25,
@@ -223,13 +226,13 @@ const styles = StyleSheet.create({
   },
   containerTab: {
     borderTopColor: '#DD2C00',
-    borderTopWidth: 1,
+    borderTopWidth: wp('0.5%'),
     flex: 8,
   },
   topcontentimage: {
     justifyContent: 'center',
-    height: 40,
-    width: 40,
+    height: wp('11.5%'),
+    width: wp('11.5%'),
   },
   itemStyle: {
     alignItems: 'center',
@@ -238,17 +241,17 @@ const styles = StyleSheet.create({
   },
   buttonstyle: {
     backgroundColor: '#034951',
-    height: 50,
-    width: 300,
-    marginVertical: 25,
-    marginHorizontal: 25,
+    height: wp('16.5%'),
+    width: wp('95%'),
+    marginVertical: wp('7%'),
+    marginHorizontal: wp('7%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
   textButton: {
     color: '#FFFFFF',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: wp('5%'),
     fontWeight: 'normal',
   },
 });

@@ -12,6 +12,10 @@ import {
   View,
   Alert,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
@@ -557,19 +561,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
     textAlign: 'center',
   },
   teachercontainermiddel: {
-    width: '100%',
-    height: 50,
+    //check
+    width: wp('100%'),
+    height: wp('15.5%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
-    borderBottomWidth: 2,
+    borderBottomWidth: wp('0.7%'),
     borderBottomColor: '#E0E0E0',
   },
   textcontaineone: {
@@ -577,7 +582,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.3%'),
   },
   textcontaintwo: {
     flex: 2,
@@ -590,15 +595,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.3%'),
   },
   texthead: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
   },
   ///////faltlist styles/////////////
@@ -612,32 +617,32 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#D3D3D3',
   },
   item: {
     flex: 1,
-    fontSize: 12,
+    fontSize: wp('4.2%'),
     textAlign: 'center',
   },
   itemTitle: {
     flex: 1,
-    fontSize: 12,
+    fontSize: wp('4.2%'),
     textAlign: 'center',
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
   },
   itemDesc: {
     flex: 1,
     flexWrap: 'wrap',
-    fontSize: 10,
-    marginLeft: 10,
+    fontSize: wp('3.5%'),
+    marginLeft: wp('3.5%'),
   },
   itemone: {
     flexDirection: 'column',
     flex: 1.1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   itemtwo: {
@@ -645,7 +650,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
 
@@ -654,13 +659,13 @@ const styles = StyleSheet.create({
     flex: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   buttonstyle: {
     position: 'absolute',
-    height: 50,
-    width: 50,
+    height: wp('16%'),
+    width: wp('16%'),
     borderRadius: 50,
     shadowColor: '#000000',
     shadowOffset: {width: 0, height: 2},
@@ -671,8 +676,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
-    right: 30,
-    bottom: 20,
+    right: wp('9%'),
+    bottom: wp('7%'),
   },
   topcontentimagelogo: {
     height: 30,
@@ -681,8 +686,8 @@ const styles = StyleSheet.create({
   ModalContainer: {
     // flexGrow: 0.5,
     // flex: 1,
-    padding: 10,
-    height: 500,
+    padding: wp('3.5%'),
+    height: hp('90%'),
     backgroundColor: '#FFFFFF',
   },
   Modaltext: {
@@ -693,41 +698,41 @@ const styles = StyleSheet.create({
     flex: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 3,
+    marginRight: wp('1.5%'),
   },
   MOdalButtonRight: {
     backgroundColor: '#607D8B',
     flex: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 3,
+    marginLeft: wp('2%'),
   },
   MOdalButtontext: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: wp('5%'),
     fontWeight: '200',
   },
   textFlewWrap: {
     flexWrap: 'wrap',
-    marginLeft: 20,
+    marginLeft: wp('7%'),
   },
 
   textinputtitleView: {
-    height: 40,
+    height: wp('11%'),
     borderWidth: 0.5,
-    borderRadius: 5,
-    marginBottom: 5,
+    borderRadius: wp('1.5%'),
+    marginBottom: wp('1.5%'),
   },
   TextInputContainer: {
-    height: 150,
-    borderWidth: 0.5,
+    height: wp('50%'),
+    borderWidth: wp('0.2%'),
     borderRadius: 5,
   },
   Buttoncontainer: {
-    height: 30,
-    marginTop: 10,
+    height: wp('10%'),
+    marginTop: wp('3.2%'),
     // flex: 1,
-    width: '100%',
+    width: wp('83%'),
     flexDirection: 'row',
   },
   ViewCol1in3creat: {
@@ -736,22 +741,22 @@ const styles = StyleSheet.create({
   },
   ViewInRowcreat: {
     flexDirection: 'row',
-    paddingBottom: 5,
+    paddingBottom: wp('1.5%'),
   },
   textInput1in3creat: {
-    height: 30,
-    paddingLeft: 2,
-    paddingTop: 5,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    marginRight: 5,
+    height: wp('9%'),
+    paddingLeft: wp('0.6%'),
+    paddingTop: wp('1.5%'),
+    borderWidth: wp('0.3%'),
+    borderRadius: wp('1.5%'),
+    marginRight: wp('1.5%'),
   },
   textInput1in3creat2: {
-    height: 30,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    marginLeft: 5,
-    paddingLeft: 2,
-    paddingTop: 5,
+    height: wp('9%'),
+    borderWidth: wp('0.2%'),
+    borderRadius: wp('1.5%'),
+    marginLeft: wp('1.5%'),
+    paddingLeft: wp('0.7%'),
+    paddingTop: wp('9%'),
   },
 });

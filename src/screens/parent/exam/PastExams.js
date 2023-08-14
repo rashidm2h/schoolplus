@@ -4,7 +4,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const PastExams = () => {
   const [loading, setloading] = useState(true);
   const [data, setdata] = useState('');
@@ -121,22 +124,22 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('24%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
     textAlign: 'center',
   },
   containermiddel: {
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
-    borderBottomWidth: 2,
+    borderBottomWidth: wp('0.7%'),
     borderBottomColor: '#E0E0E0',
   },
   textcontaineone: {
     flex: 1.5,
-    height: 40,
+    height: wp('12%'),
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
@@ -146,10 +149,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.4%'),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('4.3%'),
     color: '#BA69C8',
   },
   ///////faltlist styles/////////////
@@ -160,14 +163,14 @@ const styles = StyleSheet.create({
   },
 
   itemStyle: {
-    height: 38,
+    height: wp('11.9%'),
     flexDirection: 'row',
     borderColor: '#D3D3D3',
     borderBottomWidth: 1,
   },
   item: {
     flexWrap: 'wrap',
-    fontSize: 13,
+    fontSize: wp('4.2%'),
     textAlign: 'center',
     color: '#808080',
   },
@@ -175,14 +178,14 @@ const styles = StyleSheet.create({
     flex: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderColor: '#D3D3D3',
   },
   itemthree: {
     flex: 1.3,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderColor: '#D3D3D3',
   },
 });

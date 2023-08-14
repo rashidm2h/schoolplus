@@ -6,6 +6,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Alert, FlatList, Pressable, Text, View} from 'react-native';
 import GLOBALS from '../../../config/Globals';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const FN = () => {
   const [data, setdata] = useState('');
   const [checked, setchecked] = useState([]);
@@ -203,12 +207,12 @@ const styles = StyleSheet.create({
     borderColor: '#FFFFFF',
   },
   line: {
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderRightColor: '#FFFFFF',
   },
   flatlistTitle: {
     flexDirection: 'row',
-    height: 40,
+    height: wp('11%'),
     backgroundColor: '#BA69C8',
     elevation: 3,
   },
@@ -217,11 +221,11 @@ const styles = StyleSheet.create({
   },
   titleText2: {
     color: '#FFFFFF',
-    marginLeft: 10,
+    marginLeft: wp('0.9%'),
   },
   titleText3: {
     color: '#FFFFFF',
-    marginLeft: 10,
+    marginLeft: wp('0.9%'),
   },
   textcontainone: {
     flex: 1,
@@ -241,14 +245,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textcontentone: {
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderRightColor: '#E0E0E0',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   textcontenttwo: {
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderRightColor: '#E0E0E0',
     flex: 1,
     alignItems: 'center',
@@ -261,7 +265,7 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.25%'),
     borderBottomColor: '#E0E0E0',
   },
   flatlistStyle: {
@@ -269,13 +273,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   item2: {
-    marginLeft: 10,
+    marginLeft: wp('3.4%'),
   },
   buttonstyle: {
-    position: 'absolute',
-    height: 50,
-    width: 50,
-    borderRadius: 50,
+    alignSelf: 'flex-end',
+    height: wp('16%'),
+    width: wp('16%'),
+    borderRadius: wp('16%'),
     shadowColor: '#000000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
@@ -283,12 +287,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CB050',
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'flex-end',
-    right: 30,
-    bottom: 20,
+    right: wp('9%'),
+    bottom: wp('7%'),
   },
   topcontentimagelogo: {
-    height: 30,
-    width: 30,
+    height: wp('8%'),
+    width: wp('8%'),
   },
 });
