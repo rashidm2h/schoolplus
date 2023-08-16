@@ -8,6 +8,10 @@ import Header from '../../components/DashboardHeader';
 import IconBadge from 'react-native-icon-badge';
 import ParentNotificationCount from './notification/ParentNotificationCount';
 import {useIsFocused} from '@react-navigation/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const ParentDashboard = ({navigation}) => {
   // let mobile = '';
   let branch = '';
@@ -474,12 +478,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flex: 1,
-    paddingLeft: 20,
+    paddingLeft: hp('3%'),
+    height: hp('15%'),
   },
   title: {
     color: 'white',
-    fontSize: 18,
-    marginLeft: 10,
+    fontSize: wp('5%'),
+    marginLeft: wp('1.3%'),
   },
   lastBox: {
     alignItems: 'center',
@@ -489,25 +494,25 @@ const styles = StyleSheet.create({
   smallBox: {
     flex: 1,
     flexDirection: 'row',
-    height: '100%',
-    paddingLeft: 20,
+    height: hp('16%'),
+    paddingLeft: hp('0.7%'),
     alignItems: 'center',
   },
   imagetextcenter: {
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: wp('5%'),
+    marginBottom: wp('5%'),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: 115,
-    height: 30,
+    width: wp('100%'),
+    height: wp('10%'),
   },
   iconbadgetext: {
-    fontSize: 10,
+    fontSize: wp('3.5%'),
     color: '#FFFFFF',
   },
   IconBadgeStyle: {
-    height: 30,
-    width: 30,
+    height: wp('3.5%'),
+    width: wp('3.5%'),
   },
 });

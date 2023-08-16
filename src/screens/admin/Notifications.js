@@ -7,6 +7,10 @@ import GLOBALS from '../../config/Globals';
 import Loader from '../../components/ProgressIndicator';
 import Header from '../../components/Header';
 import moment from 'moment';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Notifications = ({navigation}) => {
   const [loading, setloading] = useState(true);
@@ -131,19 +135,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   navHeaderLeft: {
     flexDirection: 'row',
-    marginLeft: 15,
+    marginLeft: wp('5%'),
   },
   navHeaderLeftios: {
     flexDirection: 'row',
-    marginLeft: 2,
+    marginLeft: wp('0.7%'),
   },
   navHeaderRight: {
     flexDirection: 'row',
@@ -183,10 +187,10 @@ const styles = StyleSheet.create({
     width: 40,
   },
   card: {
-    borderWidth: 0.5,
+    borderWidth: wp('0.3%'),
     borderRadius: 5,
-    padding: 3,
-    margin: 10,
+    padding: wp('1%'),
+    margin: wp('2%'),
     alignItems: 'flex-start',
   },
 
@@ -194,51 +198,51 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    padding: wp('3.5%'),
     flex: 1,
     borderColor: '#000000',
   },
   cardtitle: {
     flexWrap: 'wrap',
     flex: 0.8,
-    fontSize: 15,
+    fontSize: wp('5%'),
     fontWeight: 'bold',
     color: '#3ECAD8',
   },
   cardDate: {
     flexWrap: 'wrap',
     flex: 0.25,
-    fontSize: 14,
+    fontSize: wp('4%'),
   },
   cardDesc: {
-    fontSize: 14,
-    padding: 10,
+    fontSize: wp('5%'),
+    padding: wp('3.5%'),
     flexWrap: 'wrap',
   },
   cardBottomView: {
     flexDirection: 'row',
     flex: 1,
-    paddingLeft: 10,
-    paddingBottom: 2,
+    paddingLeft: wp('3.5%'),
+    paddingBottom: wp('0.6%'),
   },
   cardtextFrom: {
-    fontSize: 14,
+    fontSize: wp('4.3%'),
     color: 'grey',
   },
   cardtextFrom2: {
-    fontSize: 14,
-    marginRight: 30,
+    fontSize: wp('4.3%'),
+    marginRight: wp('9%'),
     color: 'grey',
   },
 
   Textincontainer: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: wp('7%'),
     fontWeight: '200',
   },
   containerTab: {
     borderTopColor: '#4D6975',
-    borderTopWidth: 1,
+    borderTopWidth: wp('0.5%'),
     flex: 8,
   },
 });

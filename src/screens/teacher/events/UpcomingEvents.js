@@ -5,6 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const UpcomingEvents = () => {
   const [data, setdata] = useState('');
   const [loading, setloading] = useState(true);
@@ -175,15 +179,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
     textAlign: 'center',
   },
   teachercontainermiddel: {
     flex: 1,
-    height: 50,
+    height: wp('16%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
-    borderBottomWidth: 2,
+    borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#E0E0E0',
   },
   textcontaineone: {
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.3%'),
   },
   textcontaintwo: {
     flex: 2,
@@ -204,15 +208,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.3%'),
   },
   texthead: {
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     color: '#BA69C8',
     marginLeft: 10,
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     color: '#BA69C8',
   },
   esscontainerbottom: {
@@ -225,32 +229,32 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#D3D3D3',
   },
   item: {
     flex: 1,
-    fontSize: 12,
+    fontSize: wp('4%'),
     textAlign: 'center',
   },
   itemTitle: {
     flex: 1,
-    fontSize: 12,
+    fontSize: wp('4%'),
     textAlign: 'center',
-    marginLeft: 10,
+    marginLeft: wp('3.2%'),
   },
   itemDesc: {
     flex: 1,
     flexWrap: 'wrap',
-    fontSize: 10,
-    marginLeft: 10,
+    fontSize: wp('3.2%'),
+    marginLeft: wp('3.2%'),
   },
   itemone: {
     flexDirection: 'column',
     flex: 1.1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   itemtwo: {
@@ -258,7 +262,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   itemthree: {
@@ -266,7 +270,7 @@ const styles = StyleSheet.create({
     flex: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
 });

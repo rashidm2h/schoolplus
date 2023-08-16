@@ -130,17 +130,17 @@ const styles = StyleSheet.create({
   },
   textView: {
     flexDirection: 'row',
-    marginBottom: 10,
+    // marginBottom: 5,
     marginTop: 10,
   },
   boldText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     marginLeft: 20,
     flex: 1,
   },
   normalText: {
-    fontSize: 16,
+    fontSize: 14,
     flex: 2,
   },
   noData: {

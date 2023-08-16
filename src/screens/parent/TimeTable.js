@@ -5,6 +5,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
 import Loader from '../../components/ProgressIndicator';
 import Header from '../../components/Header';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const TimeTable = ({navigation}) => {
   const [loading, setloading] = useState(true);
@@ -162,16 +166,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('22%'),
+    width: wp('22%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderRightColor: '#FFFFFF',
   },
   textWhiteBoxlast: {
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.5%'),
     borderColor: '#C7C7C7',
     flexDirection: 'column',
   },
@@ -211,8 +215,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    borderBottomWidth: 1,
-    borderRightWidth: 1,
+    borderBottomWidth: wp('0.5%'),
+    borderRightWidth: wp('0.5%'),
     borderColor: '#C7C7C7',
     flexDirection: 'column',
   },
@@ -222,7 +226,7 @@ const styles = StyleSheet.create({
   },
   containerTableBottomRow: {
     flex: 1,
-    height: 60,
+    height: wp('18%'),
     flexDirection: 'row',
   },
   textwhite: {
@@ -246,7 +250,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: 'wrap',
     color: '#77728B',
-    fontSize: 10,
+    fontSize: wp('3.5%'),
     textAlign: 'center',
   },
 });

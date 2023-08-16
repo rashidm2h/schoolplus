@@ -16,7 +16,10 @@ import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const ViewResult = () => {
   const [keys, setkeys] = useState('');
   const [domain, setdomain] = useState('');
@@ -702,31 +705,32 @@ const ViewResult = () => {
 const styles = StyleSheet.create({
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('24%'),
+    width: wp('24%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     zIndex: 1,
     position: 'absolute',
     flexDirection: 'column',
+    backgroundColor: 'white',
   },
   mainContainer: {
     flex: 1,
     flexDirection: 'column',
   },
   examTotalView: {
-    height: 40,
+    height: wp('12%'),
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    width: wp('100%'),
     backgroundColor: 'white',
   },
   avkexamView: {
-    height: 40,
+    height: wp('12%'),
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
+    width: wp('100%'),
     backgroundColor: 'white',
   },
   mainContainerTop: {
@@ -736,10 +740,10 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   modalViewStyle: {
-    marginTop: 30,
+    marginTop: wp('9%'),
   },
   containerTable: {
-    marginTop: 5,
+    marginTop: wp('1.5%'),
     elevation: 0.5,
     flex: 7,
     backgroundColor: '#FFFFFF',
@@ -747,13 +751,13 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 0.9,
+      height: wp('0.3%'),
     },
     shadowRadius: 2,
     shadowOpacity: 0.5,
   },
   headingTableView: {
-    height: 40,
+    height: wp('12%'),
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
   },
@@ -764,7 +768,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     borderColor: '#FFFFFF',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
   },
   textheadboxSname: {
     elevation: 5,
@@ -783,29 +787,29 @@ const styles = StyleSheet.create({
     marginTop: widthPercentageToDP('2%'),
     borderColor: '#CFCFCF',
     backgroundColor: '#fff',
-    borderRadius: 1,
-    borderWidth: 1,
-    height: 42,
+    borderRadius: wp('0.3%'),
+    borderWidth: wp('0.3%'),
+    height: wp('12.6%'),
   },
   item: {
-    height: 20,
+    height: wp('7%'),
     flex: 1,
     textAlign: 'center',
   },
   textc: {
-    marginLeft: 10,
-    fontSize: 14,
+    marginLeft: wp('3.5%'),
+    fontSize: wp('4.2%'),
     color: '#FFFFFF',
   },
   flatitem: {
-    fontSize: 12,
+    fontSize: wp('4%'),
   },
   pickerviewstwos: {
-    height: 30,
-    width: 160,
-    marginLeft: 10,
-    margin: 1,
-    borderWidth: 1,
+    height: wp('9%'),
+    width: wp('40%'),
+    marginLeft: wp('3.5%'),
+    margin: wp('0.3%'),
+    borderWidth: wp('0.3%'),
     borderColor: '#C7C7C7',
     borderRadius: 2,
     elevation: 1,
@@ -813,9 +817,9 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   flatitemStyles: {
-    height: 50,
+    height: wp('15.5%'),
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#E0E0E0',
   },
   itemones: {
@@ -823,13 +827,13 @@ const styles = StyleSheet.create({
     borderRightColor: '#E0E0E0',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
   },
   itemtwos: {
     borderRightColor: '#E0E0E0',
     flex: 1.3,
     alignItems: 'flex-start',
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
     justifyContent: 'center',
   },
   itemthrees: {
@@ -840,23 +844,23 @@ const styles = StyleSheet.create({
   buttonResultView: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 80,
-    height: 30,
+    width: wp('24%'),
+    height: wp('9.7%'),
     backgroundColor: '#4CB050',
     elevation: 5,
   },
   bttxtViewRslt: {
-    fontSize: 12,
+    fontSize: wp('3%'),
     color: '#FFFFFF',
     fontWeight: 'bold',
   },
   flatitems: {
-    fontSize: 13,
+    fontSize: wp('4.5%'),
   },
   container: {
     flexDirection: 'column',
     flex: 1,
-    marginVertical: DeviceInfo.hasNotch() ? 30 : 0,
+    marginVertical: DeviceInfo.hasNotch() ? wp('9%') : 0,
     backgroundColor: '#FFFFFF',
   },
   welcomeAlert: {
@@ -866,16 +870,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   topcontaineralert: {
-    height: 50,
+    height: wp('16%'),
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
   },
   textcontaineonealertoneSubject: {
     flex: 2,
     backgroundColor: '#B866C6',
-    paddingLeft: 5,
+    paddingLeft: wp('2%'),
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderRightColor: '#FFFFFF',
   },
   textcontaineonealertone: {
@@ -883,7 +887,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#B866C6',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderRightColor: '#FFFFFF',
   },
   textcontaineonealertlast: {
@@ -893,7 +897,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textalert: {
-    fontSize: 14,
+    fontSize: wp('4.5%'),
     flexWrap: 'wrap',
     color: '#FFFFFF',
   },
@@ -902,41 +906,41 @@ const styles = StyleSheet.create({
   },
   itemStylealert: {
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#E0E0E0',
   },
   itemsoneAlertSubject: {
     flex: 2,
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 3,
+    paddingTop: wp('1.5%'),
+    paddingBottom: wp('1.5%'),
+    paddingLeft: wp('1%'),
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#E0E0E0',
   },
   itemsoneAlert: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#E0E0E0',
   },
   seconditem: {
-    marginLeft: 10,
-    marginTop: 10,
+    marginLeft: wp('3.5%'),
+    marginTop: wp('3.5%'),
   },
   secondtext: {
-    fontSize: 13,
+    fontSize: wp('4.4%'),
   },
   closebutton: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingVertical: wp('3.5%'),
+    paddingHorizontal: wp('3.5%'),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#12BAD1',
   },
   closbuttonview: {
-    marginBottom: 19,
+    marginBottom: wp('6.9%'),
     justifyContent: 'center',
     alignItems: 'center',
   },

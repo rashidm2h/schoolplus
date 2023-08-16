@@ -186,10 +186,10 @@ const styles = StyleSheet.create({
   name: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: wp('4%'),
   },
   class: {
     color: 'white',
-    fontSize: 16,
+    fontSize: wp('4%'),
   },
 });

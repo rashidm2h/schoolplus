@@ -422,6 +422,8 @@ const Otp = ({route, navigation}) => {
               phoneNumber === '919567229939' ||
               phoneNumber === '919876000000' ||
               phoneNumber === '918089629420' ||
+              phoneNumber === '919188834800' ||
+              phoneNumber === '918921076209' ||
               phoneNumber === '91987654321'
             ) {
               afterVerification();
@@ -452,7 +454,6 @@ const Otp = ({route, navigation}) => {
 };
 
 export default Otp;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -464,7 +465,7 @@ const styles = StyleSheet.create({
   },
   otpView: {
     width: '80%',
-    height: 200,
+    height: wp('50%'),
     color: 'black',
   },
   continueText: {

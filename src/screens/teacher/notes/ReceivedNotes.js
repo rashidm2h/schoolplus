@@ -18,6 +18,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const ReceivedNotes = () => {
   const [loading, setloading] = useState(true);
   const [data, setdata] = useState('');
@@ -205,8 +206,8 @@ export default ReceivedNotes;
 
 const styles = StyleSheet.create({
   renderPressable: {
-    paddingHorizontal: 5,
-    paddingBottom: 1,
+    paddingHorizontal: wp('1.5%'),
+    paddingBottom: wp('0.3%'),
     width: wp('90%'),
     paddingTop: wp('2%'),
     flexDirection: 'row',
@@ -224,9 +225,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   card: {
-    padding: 3,
+    padding: wp('0.9%'),
 
-    margin: 10,
+    margin: wp('3%'),
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -252,13 +253,13 @@ const styles = StyleSheet.create({
   },
   cardin: {
     flexDirection: 'row',
-    padding: 5,
+    padding: wp('1.5%'),
     flex: 1,
   },
   cardinrow: {
     flexDirection: 'row',
     flex: 1,
-    padding: 5,
+    padding: wp('1.5%'),
   },
   cardtitleView: {
     flexGrow: 0.85,
@@ -269,24 +270,24 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   cardintext: {
-    fontSize: 16,
+    fontSize: wp('5%'),
   },
   cardtitle: {
-    fontSize: 16,
+    fontSize: wp('5%'),
     fontWeight: 'bold',
     color: '#8A8A8A',
   },
   carddate: {
-    fontSize: 16,
+    fontSize: wp('5%'),
   },
   carddesc: {
-    fontSize: 14,
-    padding: 5,
+    fontSize: wp('4%'),
+    padding: wp('1.5%'),
     flexWrap: 'wrap',
   },
   text: {
-    marginLeft: 10,
-    fontSize: 15,
-    marginTop: 5,
+    marginLeft: wp('3.5%'),
+    fontSize: wp('5%'),
+    marginTop: wp('1.5%'),
   },
 });

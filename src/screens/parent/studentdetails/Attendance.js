@@ -7,6 +7,10 @@ import GLOBALS from '../../../config/Globals';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const myIcon = <Icon name="download" size={25} color="white" />;
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const Attendance = () => {
   const [selectedMonth, setselectedMonth] = useState(
     (new Date().getMonth() + 1).toString(),
@@ -69,7 +73,6 @@ const Attendance = () => {
       <View style={styles.topView}>
         <View style={styles.pickerView}>
           <Picker
-            style={styles.picker}
             selectedValue={selectedMonth}
             onValueChange={(itemValue, itemIndex) =>
               setselectedMonth(itemValue)

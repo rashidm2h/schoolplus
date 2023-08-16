@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const TeacherNotes = () => {
   const [data, setdata] = useState('');
@@ -528,16 +529,16 @@ const styles = StyleSheet.create({
   pickerStyle: {
     ...Platform.select({
       android: {
-        borderWidth: 0.5,
-        paddingLeft: 5,
-        paddingTop: 10,
+        borderWidth: wp('0.3%'),
+        paddingLeft: wp('0.3%'),
+        paddingTop: wp('4%'),
         borderColor: 'grey',
-        height: 35,
+        height: wp('11%'),
         justifyContent: 'center',
         borderRadius: 3,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
+        marginLeft: wp('01.5%'),
+        marginRight: wp('1.3%'),
+        marginBottom: wp('1.5%'),
       },
       ios: {
         borderWidth: 0.5,
@@ -559,11 +560,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     padding: 5,
     flexWrap: 'wrap',
-  },
-  noReports: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   pickerview: {
     ...Platform.select({
@@ -598,6 +594,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
   },
+
   touchableView: {
     flexDirection: 'row',
   },
@@ -620,24 +617,28 @@ const styles = StyleSheet.create({
     }),
   },
   textStyle1: {
-    marginLeft: 5,
-    marginBottom: 5,
+    marginLeft: wp('1.3%'),
+    marginBottom: wp('1.3%'),
   },
   button: {
-    height: 36,
-    width: '96%',
-    marginRight: 10,
+    height: wp('11%'),
+    width: wp('48%'),
+    marginRight: wp('3.5%'),
     justifyContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
     borderRadius: 3,
-    marginLeft: 5,
+    marginLeft: wp('02.5%'),
     backgroundColor: '#17BED0',
-    marginBottom: 5,
+    marginBottom: wp('3.5%'),
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    backgroundColor: '#17BED0',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    width: wp('48%'),
   },
   containertop: {
     elevation: 3,

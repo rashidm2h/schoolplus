@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     width: wp('90%'),
-    height: wp('18%'),
+    height: wp('20%'),
     color: 'black',
     alignItems: 'center',
     justifyContent: 'center',

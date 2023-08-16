@@ -5,6 +5,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const PastEvents = () => {
   const [loading, setloading] = useState(true);
   const [data, setdata] = useState('');
@@ -123,34 +127,34 @@ const PastEvents = () => {
 };
 
 export default PastEvents;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('4.5%'),
     textAlign: 'center',
   },
   teachercontainermiddel: {
-    width: '100%',
-    height: 50,
+    width: wp('100%'),
+    height: wp('16%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
-    borderBottomWidth: 2,
+    borderBottomWidth: wp('0.7%'),
     borderBottomColor: '#E0E0E0',
   },
   textcontaineone: {
-    flex: 1.1,
+    flex: 1.08,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.6%'),
+    width: 50,
   },
   textcontaintwo: {
     flex: 2,
@@ -163,15 +167,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.5%'),
   },
   texthead: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
-    marginLeft: 10,
+    marginLeft: wp('3%'),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
   },
   ///////faltlist styles/////////////
@@ -185,32 +189,32 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.5%'),
     borderBottomColor: '#D3D3D3',
   },
   item: {
     flex: 1,
-    fontSize: 12,
+    fontSize: wp('3.6%'),
     textAlign: 'center',
   },
   itemTitle: {
     // flex: 1,
-    fontSize: 12,
+    fontSize: wp('3.6%'),
     textAlign: 'center',
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
   },
   itemDesc: {
     // flex: 1,
     flexWrap: 'wrap',
-    fontSize: 10,
-    marginLeft: 10,
+    fontSize: wp('3.5%'),
+    marginLeft: wp('3.5%'),
   },
   itemone: {
     flexDirection: 'column',
-    flex: 1.1,
+    flex: 1.08,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
   itemtwo: {
@@ -218,7 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
 
@@ -227,7 +231,7 @@ const styles = StyleSheet.create({
     flex: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },
 });
