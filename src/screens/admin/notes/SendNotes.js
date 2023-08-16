@@ -1446,17 +1446,17 @@ const styles = StyleSheet.create({
   cardin: {
     flexDirection: 'row',
     padding: wp('1.5%'),
-    // flex: 1,
+    flex: 1,
     // backgroundColor:'red',
   },
   cardinrow: {
-    flexDirection: 'row',
-    flex: 1,
-    padding: wp('1.5%'),
     // flexDirection: 'row',
     // flex: 1,
-    // width: wp('85%'),
     // padding: wp('1.5%'),
+    flexDirection: 'row',
+    flex: 1,
+    width: wp('85%'),
+    padding: wp('1.5%'),
     // backgroundColor:'red',
   },
   cardtitleView: {
