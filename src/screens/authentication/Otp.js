@@ -423,6 +423,7 @@ const Otp = ({route, navigation}) => {
               phoneNumber === '919876000000' ||
               phoneNumber === '918089629420' ||
               phoneNumber === '919188834800' ||
+              phoneNumber === '918921076209' ||
               phoneNumber === '91987654321'
             ) {
               afterVerification();

@@ -1446,7 +1446,7 @@ const styles = StyleSheet.create({
   cardin: {
     flexDirection: 'row',
     padding: wp('1.5%'),
-    flex: 1,
+    // flex: 1,
   },
   cardinrow: {
     flexDirection: 'row',
@@ -1454,12 +1454,16 @@ const styles = StyleSheet.create({
     padding: wp('1.5%'),
   },
   cardtitleView: {
-    flexGrow: 0.85,
+    // flexGrow: 0.8,
+    width:wp('60%'),
     alignItems: 'flex-start',
+    // backgroundColor:'red',
   },
   cardDateView: {
-    flexGrow: 0.25,
+    // flexGrow: 0.25,
+    width:wp('30%'),
     alignItems: 'flex-end',
+    // backgroundColor:'blue',
   },
   cardintext: {
     fontSize: wp('3.5%'),
