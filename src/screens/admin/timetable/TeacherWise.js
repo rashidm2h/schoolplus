@@ -8,6 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
@@ -243,11 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('4.5%'),
   },
   containerTableTop: {
     flex: 1,
@@ -259,7 +263,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderColor: '#FFFFFF',
     flexDirection: 'row',
   },
@@ -274,8 +278,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flex: 1,
     // padding: 10,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
+    borderRightWidth: wp('0.5%'),
+    borderBottomWidth: wp('0.5%'),
     borderColor: '#C7C7C7',
     justifyContent: 'center',
     alignItems: 'center',
@@ -284,7 +288,7 @@ const styles = StyleSheet.create({
   textBoxLast: {
     backgroundColor: '#FFFFFF',
     flex: 1,
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.5%'),
     borderColor: '#C7C7C7',
     justifyContent: 'center',
     alignItems: 'center',
@@ -308,26 +312,26 @@ const styles = StyleSheet.create({
   textRed: {
     color: '#C8717F',
     textAlign: 'center',
-    fontSize: 12,
-    paddingLeft: 2,
-    paddingRight: 1,
+    fontSize: wp('3.6%'),
+    paddingLeft: wp('0.7%'),
+    paddingRight: wp('0.5%'),
     alignSelf: 'center',
   },
   textBlue: {
     color: '#77728B',
   },
   pickerStyle: {
-    height: 40,
-    margin: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    paddingTop: 10,
-    width: '90%',
+    height: wp('12%'),
+    margin: wp('3.5%'),
+    paddingLeft: wp('1.5%'),
+    paddingRight: wp('1.5%'),
+    paddingTop: wp('3.5%'),
+    width: wp('90%'),
     justifyContent: 'center',
     alignSelf: 'center',
     borderWidth: 0.5,
     borderColor: 'black',
-    borderRadius: 3,
+    borderRadius: wp('1.5%'),
   },
   pickerStyle1: {
     ...Platform.select({

@@ -6,6 +6,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const InternalExam = () => {
   const [loading, setloading] = useState(true);
   const [dropdownData, setdropdownData] = useState([]);
@@ -178,16 +182,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('23%'),
     alignItems: 'center',
   },
   notDataText: {
-    fontSize: 15,
+    fontSize: wp('5%'),
   },
   progressBar: {
     flex: 1,
-    height: 80,
-    width: 80,
+    height: wp('23%'),
+    width: wp('23%'),
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -200,8 +204,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textStyle1: {
-    margin: 10,
-    fontSize: 15,
+    margin: wp('3.5%'),
+    fontSize: wp('5%'),
   },
   pickerStyleView: {
     // ...Platform.select({
@@ -217,29 +221,29 @@ const styles = StyleSheet.create({
     // })
   },
   pickerStyle: {
-    borderWidth: 0.5,
+    borderWidth: wp('0.3%'),
     borderColor: 'grey',
     justifyContent: 'center',
     borderRadius: 3,
     // padding: 5,
     // paddingBottom: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    paddingTop: 10,
+    marginLeft: wp('3.5%'),
+    marginRight: wp('3.5%'),
+    paddingTop: wp('3.5%'),
     ...Platform.select({
       ios: {
         height: 40,
       },
       android: {
-        height: 35,
+        height: wp('11%'),
       },
     }),
   },
   pickerStyleout: {
     ...Platform.select({
       android: {
-        height: 35,
-        borderWidth: 1,
+        height: wp('11%'),
+        borderWidth: wp('0.5%'),
         borderColor: '#badc58',
         flex: 0.5,
         borderRadius: 3,
@@ -250,7 +254,7 @@ const styles = StyleSheet.create({
     }),
   },
   table: {
-    marginTop: 5,
+    marginTop: wp('1.5%'),
     flexDirection: 'column',
     flex: 1,
   },
@@ -273,29 +277,29 @@ const styles = StyleSheet.create({
   },
   tableRowItemHead: {
     elevation: 5,
-    height: 40,
+    height: wp('12%'),
     flex: 1,
     backgroundColor: '#B866C6',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderRightColor: '#FFFFFF',
   },
   tableRowItemHeadSubject: {
-    paddingLeft: 10,
+    paddingLeft: wp('3.5%'),
     elevation: 5,
-    height: 40,
+    height: wp('11%'),
     flex: 2,
     backgroundColor: '#B866C6',
     // alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderRightColor: '#FFFFFF',
   },
 
   tableRowItemHeadLast: {
     elevation: 5,
-    height: 40,
+    height: wp('11.5%'),
     flex: 1,
     backgroundColor: '#B866C6',
     alignItems: 'center',
@@ -308,35 +312,35 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0',
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: wp('1.5%'),
+    paddingBottom: wp('1.5%'),
     justifyContent: 'center',
   },
   tableRowItemSubject: {
-    paddingLeft: 10,
+    paddingLeft: wp('3.5%'),
     flex: 2,
     borderRightWidth: Platform.OS === 'ios' ? 0.003 : 1,
     borderColor: '#E0E0E0',
     backgroundColor: '#FFFFFF',
     // alignItems: 'center',
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: wp('1.5%'),
+    paddingBottom: wp('1.5%'),
     justifyContent: 'center',
   },
   tableRowflatlist: {
-    borderBottomWidth: 1,
+    borderBottomWidth: wp('0.5%'),
     borderBottomColor: '#E0E0E0',
     flexDirection: 'row',
     ...Platform.select({
       ios: {
         backgroundColor: '#FFFFFF',
         borderColor: 'gray',
-        borderWidth: 0.6,
+        borderWidth: wp('0.5%'),
       },
     }),
   },
   textWhite: {
-    fontSize: 14,
+    fontSize: wp('4.3%'),
     color: '#FFFFFF',
   },
   textBlack: {
@@ -347,8 +351,8 @@ const styles = StyleSheet.create({
     color: '#FF0000',
   },
   flatlist: {
-    margin: 1,
-    borderWidth: 0.5,
+    margin: wp('0.4%'),
+    borderWidth: wp('0.3%'),
     borderColor: 'gray',
     flex: 1,
     flexDirection: 'column',

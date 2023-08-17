@@ -26,6 +26,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Spinner from '../../../components/Spinner';
 
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const SendNotes = () => {
   const isFocused = useIsFocused();
   const [attachSet, setattachSet] = useState([]);
@@ -460,11 +461,15 @@ const SendNotes = () => {
       </View>
       <View style={styles.P_SD_Bottom_Attendence}>
         <View style={styles.P_SD_Bottom_Row}>
-          <View style={styles.P_SD_Bottom_AttendenceboxLeft}>
+          <View style={styles.P_SD_Bottom_checkbox}>
             <CheckBox
               onPress={() => mainCheckFunction()}
               checkedColor="white"
               uncheckedColor="white"
+              backgroundColor="gray"
+              // // height={20}
+              // flexDirection="coloumn"
+              // justifyContent="center"
               containerStyle={{
                 borderColor: '#FFFFFF',
               }}
@@ -485,9 +490,11 @@ const SendNotes = () => {
           renderItem={({item, index}) => (
             <Pressable style={styles.P_SD_Bottom_Flatlist}>
               <View style={styles.P_SD_Bottom_Flatlist}>
-                <View style={styles.P_SD_Bottom_FlatlistRowLeft}>
+                <View style={styles.P_SD_Bottom_Flatlistcheckbox}>
                   {studentIds.length > 0 ? (
                     <CheckBox
+                      backgroundColor="gray"
+                      size={20}
                       onPress={() => itemCheck(item, index)}
                       checked={studentIds[index].status}
                     />
@@ -513,48 +520,49 @@ export default SendNotes;
 
 const styles = StyleSheet.create({
   containerColoum: {
-    margin: 20,
+    margin: wp('7%'),
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
   renderText: {
     fontSize: wp('3%'),
     fontWeight: '500',
-    color: 'red',
+    color: '#607D8B',
     paddingTop: wp('2%'),
-    width: '90%',
+    width: wp('65%'),
+    //doublecheck
     textAlign: 'left',
   },
   renderView: {
     alignContent: 'space-between',
     width: '100%',
+    // backgroundColor: 'blue',
     flexDirection: 'row',
   },
   Modaltext: {
-    marginBottom: 4,
+    marginBottom: wp('1%'),
   },
   ModalContainer: {
-    padding: 10,
-    height: 500,
+    padding: wp('3%'),
     backgroundColor: '#FFFFFF',
   },
   ModalButtonLeft: {
-    backgroundColor: '#607D8B',
+    backgroundColor: '#60798B',
     flex: 0.5,
-    height: 40,
+    height: wp('12.5%'),
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 3,
-    marginBottom: 10,
+    marginRight: wp('0.7%'),
+    marginBottom: wp('3.5%'),
   },
   MOdalButtonRight: {
     backgroundColor: '#607D8B',
     flex: 0.5,
-    height: 40,
+    height: wp('12.5%'),
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 3,
-    marginBottom: 10,
+    marginLeft: wp('0.7%'),
+    marginBottom: wp('3.5%'),
   },
   browseButton: {
     backgroundColor: '#607D8B',
@@ -569,24 +577,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%',
+    width: wp('72.3%'),
   },
   MOdalButtontext: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: wp('5%'),
     fontWeight: '200',
   },
   textFlewWrap: {
     flexWrap: 'wrap',
-    marginLeft: 20,
+    marginLeft: wp('7%'),
   },
 
   textinputtitleView: {
     alignSelf: 'stretch',
     alignContent: 'stretch',
-    height: 50,
-    marginBottom: 10,
-    borderWidth: 1,
+    height: wp('14%'),
+    marginBottom: wp('3.5%'),
+    borderWidth: wp('0.5%'),
     borderRadius: 3,
     flexDirection: 'row',
     color: 'black',
@@ -595,13 +603,13 @@ const styles = StyleSheet.create({
   TextInputContainer: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    height: 200,
+    height: wp('64%'),
     flexDirection: 'row',
     alignSelf: 'stretch',
     color: 'black',
-    borderWidth: 1,
+    borderWidth: wp('0.5%'),
     borderRadius: 3,
-    marginBottom: 10,
+    marginBottom: wp('3.5%'),
     borderColor: '#607D8B',
   },
   Buttoncontainer: {
@@ -613,7 +621,6 @@ const styles = StyleSheet.create({
   },
   card: {
     padding: 3,
-
     margin: 10,
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -647,42 +654,41 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         justifyContent: 'center',
-        paddingTop: 10,
-        borderWidth: 0.5,
+        paddingTop: wp('3.5%'),
+        borderWidth: wp('0.3%'),
         borderRadius: 3,
-        marginLeft: 10,
-        height: 35,
-        // alignItems: 'stretch',
-        paddingLeft: 2,
+        marginLeft: wp('3.5%'),
+        height: wp('10.5%'),
+        paddingLeft: wp('0.8%'),
       },
       android: {
         justifyContent: 'center',
-        paddingTop: 10,
-        marginLeft: 10,
-        borderWidth: 0.5,
+        paddingTop: wp('3.5%'),
+        marginLeft: wp('3.5%'),
+        borderWidth: wp('0.3%'),
         borderRadius: 3,
-        height: 35,
+        height: wp('10.5%'),
         // alignItems: 'stretch',
-        paddingLeft: 2,
+        paddingLeft: wp('0.3%'),
       },
     }),
   },
   buttonSENTALL: {
     flex: 0.75,
-    height: 35,
-    marginLeft: 10,
-    marginRight: 10,
+    height: wp('11.5%'),
+    marginLeft: wp('3.5%'),
+    marginRight: wp('3.5%'),
     borderWidth: 0.5,
     borderRadius: 4,
     borderColor: '#13C0CE',
     // flex: 1,
-    padding: 9,
+    padding: wp('3%'),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#13C0CE',
     ...Platform.select({
       ios: {
-        height: 35,
+        height: wp('11.5%'),
       },
     }),
   },
@@ -698,41 +704,54 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    marginLeft: 10,
-    fontSize: 15,
-    marginTop: 5,
+    marginLeft: wp('3.5%'),
+    fontSize: wp('5%'),
+    marginTop: wp('1.5%'),
   },
   text_white: {
-    marginLeft: 10,
+    marginLeft: wp('3%'),
     color: '#F5F5F5',
-    fontSize: 15,
+    fontSize: wp('4.7%'),
   },
   P_SD_Bottom_Attendence: {
-    flex: 7,
+    flex: 4,
     flexDirection: 'column',
   },
   P_SD_Bottom_Row: {
     flexDirection: 'row',
+    height: 40,
   },
-  P_SD_Bottom_AttendenceboxLeft: {
+
+  P_SD_Bottom_checkbox: {
     elevation: 3,
     flex: 0.2,
-    height: wp('13'),
+    height: wp('17%'),
     backgroundColor: '#AF67BD',
     alignItems: 'flex-start',
     justifyContent: 'center',
     borderRightWidth: 0.5,
     borderColor: '#EDE7EA',
   },
-  P_SD_Bottom_AttendenceboxRight: {
+  P_SD_Bottom_AttendenceboxLeft: {
     elevation: 3,
-    flex: 0.8,
-    height: wp('13'),
+    flex: 0.2,
+    height: wp('13%'),
     flexDirection: 'column',
     backgroundColor: '#AF67BD',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderLeftWidth: 0.5,
+    borderLeftWidth: wp('0.3%'),
+    borderColor: '#EDE7EA',
+  },
+  P_SD_Bottom_AttendenceboxRight: {
+    elevation: 3,
+    flex: 0.8,
+    height: wp('13%'),
+    flexDirection: 'column',
+    backgroundColor: '#AF67BD',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderLeftWidth: wp('0.3%'),
     borderColor: '#EDE7EA',
   },
   P_SD_Bottom_Flatlist: {
@@ -740,22 +759,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#F5F5F5',
   },
-  P_SD_Bottom_FlatlistRowLeft: {
+  P_SD_Bottom_Flatlistcheckbox: {
     flex: 0.2,
-    height: wp('13'),
+    height: wp('15%'),
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderRightWidth: 0.5,
-    borderBottomWidth: 1,
+    borderRightWidth: wp('0.11%'),
+    borderBottomWidth: wp('0.5%'),
+    borderColor: '#C5C5C5',
+  },
+
+  P_SD_Bottom_FlatlistRowLeft: {
+    flex: 0.2,
+    height: wp('15%'),
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    borderRightWidth: wp('0.11%'),
+    borderBottomWidth: wp('0.5%'),
     borderColor: '#C5C5C5',
   },
   P_SD_Bottom_FlatlistRowRight: {
     flex: 0.8,
-    height: wp('13'),
+    height: wp('15%'),
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderLeftWidth: 0.5,
+    borderBottomWidth: wp('0.5%'),
+    borderLeftWidth: wp('0.1%'),
     borderColor: '#C5C5C5',
   },
 });

@@ -12,6 +12,10 @@ import {
   Platform,
   Pressable,
 } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import MultiSelect from 'react-native-multiple-select';
 import {DOMParser} from 'xmldom';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -509,18 +513,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   noDataView: {
-    marginTop: 80,
+    marginTop: wp('22%'),
     alignItems: 'center',
   },
+  //submit button not working
   cardView: {
-    borderWidth: 1,
+    borderWidth: wp('0.5%'),
     borderColor: '#CCC',
 
     shadowOpacity: Platform.OS === 'ios' ? 0 : 0.3,
 
-    borderRadius: 5,
-    paddingLeft: 6,
-    paddingRight: 6,
+    borderRadius: wp('1.5%'),
+    paddingLeft: wp('2%'),
+    paddingRight: wp('2%'),
     paddingTop: 4,
     paddingBottom: 5,
     marginTop: 20,
@@ -528,19 +533,19 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   notDataText: {
-    fontSize: 15,
-    marginTop: 15,
+    fontSize: wp('5%'),
+    marginTop: wp('5%'),
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },
   line: {
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.5%'),
     borderRightColor: '#FFFFFF',
   },
   flatlistTitle: {
     flexDirection: 'row',
-    height: 40,
+    height: wp('11%'),
     backgroundColor: '#BA69C8',
     elevation: 3,
   },
@@ -549,11 +554,11 @@ const styles = StyleSheet.create({
   },
   titleText2: {
     color: '#FFFFFF',
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
   },
   titleText3: {
     color: '#FFFFFF',
-    marginLeft: 10,
+    marginLeft: wp('3.5%'),
   },
   textcontainone: {
     flex: 1,
@@ -573,14 +578,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textcontentone: {
-    borderRightWidth: 1,
+    borderRightWidth: wp('3.5%'),
     borderRightColor: '#E0E0E0',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   textcontenttwo: {
-    borderRightWidth: 1,
+    borderRightWidth: wp('0.4%'),
     borderRightColor: '#E0E0E0',
     flex: 1,
     alignItems: 'center',
@@ -594,14 +599,14 @@ const styles = StyleSheet.create({
 
   itemStyle: {
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#E0E0E0',
   },
 
   fab: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 60,
+    width: wp('20%'),
     height: 60,
     backgroundColor: '#4CB050',
     borderRadius: 30,
@@ -632,6 +637,7 @@ const styles = StyleSheet.create({
   verticalView: {
     flexDirection: 'column',
     flex: 1,
+    paddingTop: wp('0.7%'),
   },
   touchableView: {
     flexDirection: 'row',
@@ -641,6 +647,7 @@ const styles = StyleSheet.create({
       android: {
         borderWidth: 0.5,
         borderColor: 'grey',
+        // backgroundColor: 'blue',
         height: 35,
         justifyContent: 'center',
         borderRadius: 3,
@@ -657,51 +664,53 @@ const styles = StyleSheet.create({
   pickerStyle: {
     ...Platform.select({
       android: {
-        paddingTop: 10,
-        borderWidth: 0.5,
+        paddingTop: wp('1.5%'),
+        borderWidth: wp('0.3%'),
         borderColor: 'grey',
-        height: 35,
+        // backgroundColor: 'yellow',
+        height: wp('10%'),
         justifyContent: 'center',
         borderRadius: 3,
-        marginLeft: 5,
-        paddingLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
+        marginLeft: wp('1.5%'),
+        paddingLeft: wp('1.5%'),
+        marginRight: wp('1.5%'),
+        marginBottom: wp('1.5%'),
       },
       ios: {
-        paddingTop: 10,
-        borderWidth: 0.5,
+        paddingTop: wp('3.5%'),
+        borderWidth: wp('0.3%'),
         borderColor: 'grey',
-        height: 30,
+        height: wp('9%'),
         justifyContent: 'center',
         borderRadius: 3,
-        marginLeft: 5,
-        paddingLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
+        marginLeft: wp('1.5%'),
+        paddingLeft: wp('1.5%'),
+        marginRight: wp('1.5%'),
+        marginBottom: wp('1.5%'),
       },
     }),
   },
   textStyle1: {
-    marginLeft: 5,
-    marginBottom: 5,
+    marginLeft: wp('1.5%'),
+    marginBottom: wp('1.5%'),
+    // backgroundColor: 'red',
   },
 
   button: {
-    height: 35,
-    width: '45%',
-    marginTop: 24,
+    height: wp('10.5%'),
+    width: wp('37%'),
+    marginTop: wp('8%'),
     justifyContent: 'center',
     // alignSelf: 'center',
     alignItems: 'center',
     borderRadius: 3,
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: wp('1.5%'),
+    marginRight: wp('1.5%'),
     backgroundColor: '#17BED0',
-    marginBottom: 5,
+    marginBottom: wp('1.5%'),
   },
   DetailsViewbutton: {
-    paddingHorizontal: 5,
+    paddingHorizontal: wp('1.5%'),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 6,
@@ -718,11 +727,11 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   datePicker: {
-    height: 35,
+    height: wp('10%'),
     justifyContent: 'center',
     borderRadius: 3,
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: wp('0%'),
+    // marginRight: 5,
   },
   buttonstyle: {
     position: 'absolute',
@@ -766,10 +775,10 @@ const styles = StyleSheet.create({
   },
   fullView: {
     flex: 1,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 12,
-    paddingBottom: 10,
+    paddingLeft: wp('3%'),
+    paddingRight: wp('3%'),
+    paddingTop: wp('3%'),
+    paddingBottom: wp('3.5%'),
   },
 });
 

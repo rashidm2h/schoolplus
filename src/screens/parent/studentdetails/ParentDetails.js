@@ -5,6 +5,10 @@ import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
 
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 const ParentDetails = () => {
   let studentId = '';
   const [fatherName, setfatherName] = useState('');
@@ -137,18 +141,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   textView: {
+    width: '130%',
     flexDirection: 'row',
-    marginBottom: 10,
+    // marginBottom: 10,
     marginTop: 10,
   },
   boldText: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
     marginLeft: 20,
     flex: 1,
   },
   normalText: {
-    fontSize: 16,
+    fontSize: 15,
     flex: 2,
   },
   noData: {
@@ -161,6 +166,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     marginTop: 10,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
 });

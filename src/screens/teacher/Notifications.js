@@ -6,6 +6,10 @@ import {StyleSheet, FlatList, Platform, Text, View} from 'react-native';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/Header';
 import Loader from '../../components/ProgressIndicator';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Notifications = ({navigation}) => {
   const [loading, setloading] = useState(true);
@@ -118,8 +122,8 @@ const styles = StyleSheet.create({
     height: 40,
   },
   card: {
-    padding: 3,
-    margin: 10,
+    padding: hp('1%'),
+    margin: hp('1%'),
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -128,17 +132,17 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 0.9,
+      height: hp('1%'),
     },
     shadowRadius: 2,
     shadowOpacity: 0.5,
     ...Platform.select({
       android: {
-        borderRadius: 4,
+        borderRadius: hp('1%'),
       },
       ios: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 4,
+        borderRadius: hp('1%'),
       },
     }),
   },
@@ -146,39 +150,39 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    padding: hp('1%'),
     flex: 1,
     borderColor: '#000000',
   },
   cardtitle: {
     flexWrap: 'wrap',
     flex: 0.8,
-    fontSize: 15,
+    fontSize: hp('2.7%'),
     fontWeight: 'bold',
     color: '#3ECAD8',
   },
   cardDate: {
     flexWrap: 'wrap',
     flex: 0.25,
-    fontSize: 14,
+    fontSize: hp('2%'),
   },
   cardDesc: {
     fontSize: 14,
-    padding: 10,
+    padding: hp('1%'),
     flexWrap: 'wrap',
   },
   cardBottomView: {
     flexDirection: 'row',
     flex: 1,
-    padding: 10,
+    padding: hp('1%'),
   },
   cardtextFrom: {
-    fontSize: 16,
+    fontSize: hp('2.4%'),
   },
   containerTab: {
     borderTopColor: '#4D6975',
     elevation: 3,
-    borderTopWidth: 1,
+    borderTopWidth: wp('1%'),
     flex: 7,
   },
 });

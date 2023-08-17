@@ -21,6 +21,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Spinner from '../../../components/Spinner';
 
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const SendNotes = () => {
   const [loading, setloading] = useState(false);
   const [attachSet, setattachSet] = useState([]);
@@ -283,7 +284,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    margin: 10,
+    margin: wp('3.5%'),
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -309,13 +310,13 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#607D8B',
     flex: 1,
-    height: 40,
+    height: wp('11.5%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: wp('6%'),
     fontWeight: '200',
   },
   loading: {
@@ -326,7 +327,7 @@ const styles = StyleSheet.create({
   containerColoum: {
     flex: 1,
     width: wp('82%'),
-    margin: 20,
+    margin: wp('5%'),
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
@@ -339,18 +340,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     alignSelf: 'stretch',
-    height: 170,
-    borderWidth: 1,
+    height: hp('30%'),
+    borderWidth: wp('0.5%'),
     borderRadius: 3,
     borderColor: '#607D8B',
-    marginVertical: 10,
+    marginVertical: wp('3.5%'),
   },
   renderText: {
     fontSize: wp('3%'),
     fontWeight: '500',
     color: '#607D8B',
-    paddingTop: wp('2%'),
-    width: '90%',
+    paddingTop: wp('1%'),
+    width: wp('75%'),
     textAlign: 'left',
   },
   renderView: {
@@ -364,31 +365,31 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     justifyContent: 'center',
     paddingHorizontal: wp('3%'),
-    paddingVertical: 3,
+    paddingVertical: wp('2%'),
     margin: wp('2%'),
   },
   directionRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%',
+    width: wp('84%'),
     flex: 1,
   },
   MOdalButtontext: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: wp('5%'),
     fontWeight: '200',
   },
   textinputtitleView: {
     alignSelf: 'stretch',
-    borderWidth: 1,
+    borderWidth: wp('0.5%'),
     borderRadius: 3,
     flexDirection: 'row',
     borderColor: '#607D8B',
-    marginVertical: 10,
+    marginVertical: wp('1%'),
     ...Platform.select({
       ios: {
-        height: 40,
+        height: wp('12%'),
       },
     }),
   },

@@ -7,6 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/DashboardHeader';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const TeacherDashboard = ({navigation}) => {
   const isFocused = useIsFocused();
@@ -242,12 +246,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flex: 1,
-    paddingLeft: 20,
+    paddingLeft: hp('3%'),
   },
   title: {
     color: 'white',
-    fontSize: 18,
-    marginLeft: 10,
+    fontSize: wp('5%'),
+    marginLeft: wp('1.5%'),
   },
   lastBox: {
     alignItems: 'center',
@@ -257,27 +261,27 @@ const styles = StyleSheet.create({
   smallBox: {
     flex: 1,
     flexDirection: 'row',
-    height: '100%',
-    paddingLeft: 20,
+    height: hp('16%'),
+    paddingLeft: hp('0.7%'),
     alignItems: 'center',
   },
   iconbadgetext: {
-    fontSize: 10,
+    fontSize: wp('5%'),
     color: '#FFFFFF',
   },
   iconBadge: {
-    marginLeft: 20,
-    width: 20,
-    height: 20,
+    marginLeft: wp('3%'),
+    width: wp('21.7%'),
+    height: wp('21.7%'),
     backgroundColor: '#EA1E63',
   },
   imagetextcenter: {
-    margin: 15,
+    margin: hp('2.7%'),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: 115,
-    height: 30,
+    width: wp('100%'),
+    height: wp('21.7%'),
   },
 });
 
