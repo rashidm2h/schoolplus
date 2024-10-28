@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/Header';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const Studentdetails = ({navigation}) => {
   const [data, setdata] = useState('');
@@ -44,7 +45,7 @@ const Studentdetails = ({navigation}) => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
           username = keyValue;
-          fetch(`${GLOBALS.PARENT_URL}GetAllClasses`, {
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -99,7 +100,7 @@ const Studentdetails = ({navigation}) => {
     setdata('');
     console.log('here', dropdownValue);
     console.log(branchId);
-    fetch(`${GLOBALS.PARENT_URL}GetDivisions`, {
+    fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetDivisions`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -148,7 +149,7 @@ const Studentdetails = ({navigation}) => {
   const getList = divId => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}StdAttClasswiseList`, {
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -355,7 +356,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     //  height: 75,
     flex: 0.1,
-    width: '100%',
+    width: wp('100%'),
+    paddingHorizontal:wp('1%')
   },
   pickerStyle: {
     height: 35,

@@ -23,7 +23,17 @@ const Notifications = ({navigation}) => {
         const phno = keyValue;
         AsyncStorage.getItem('StdID').then(value => {
           studentID = value;
-          fetch(`${GLOBALS.PARENT_URL}RetrieveAllParentNotifications`, {
+        //   console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`,`
+        // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        // <soap12:Body>
+        // <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
+        // <recieverNo>${phno}</recieverNo>
+        // <studentId>${studentID}</studentId>
+        // </RetrieveAllParentNotifications>
+        // </soap12:Body>
+        // </soap12:Envelope>
+        // `)
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`, {
             method: 'POST',
             body: `
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -52,12 +62,11 @@ const Notifications = ({navigation}) => {
                 setdataerror(true);
               } else {
                 const rslt = JSON.parse(v);
-                console.log('notification', rslt);
+                // console.log('notification', rslt);
                 try {
-                  AsyncStorage.setItem(
-                    'removeNotificationCount',
-                    JSON.stringify(rslt[0].count),
-                  );
+                  const notificationIds = rslt.map(notification => notification.NotificationId);
+                  // console.log("Notification IDs:", notificationIds);
+                  AsyncStorage.setItem('notificationIdsparent1', JSON.stringify(notificationIds))
                 } catch (error) {
                   console.log('somthing went');
                 }

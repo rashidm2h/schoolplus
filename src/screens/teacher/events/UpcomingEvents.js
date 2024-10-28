@@ -24,7 +24,17 @@ const UpcomingEvents = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const string = 'new';
-        fetch(`${GLOBALS.TEACHER_URL}GetEventDetails`, {
+        console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetEventDetails`, `<?xml version="1.0" encoding="utf-8"?>
+          <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+          <soap12:Body>
+            <GetEventDetails xmlns="http://www.m2hinfotech.com//">
+              <phoneNo>${keyValue}</phoneNo>
+              <status>${string}</status>
+            </GetEventDetails>
+          </soap12:Body>
+          </soap12:Envelope>
+          `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetEventDetails`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -69,7 +79,15 @@ const UpcomingEvents = () => {
   const EventTCount = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}Getcount`, {
+        console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=Getcount`,`<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+          <soap12:Body>
+     <Getcount xmlns="http://www.m2hinfotech.com//">
+       <PhoneNo>${keyValue}</PhoneNo>
+     </Getcount>
+   </soap12:Body>
+ </soap12:Envelope>
+     `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=Getcount`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
           <soap12:Body>
@@ -129,14 +147,14 @@ const UpcomingEvents = () => {
                     <Text style={styles.textc}>DATE</Text>
                   </View>
                   <View style={styles.textcontaintwo}>
-                    <Text style={styles.texthead}>EVENT DETAILS</Text>
+                    <Text style={styles.textc}>EVENT DETAILS</Text>
                   </View>
                   <View style={styles.textcontainthree}>
                     <Text style={styles.textc}>TIME</Text>
                   </View>
                 </View>
                 <View style={styles.esscontainerbottom}>
-                  <View style={styles.flatlistStyle}>
+                  {/* <View style={styles.flatlistStyle}> */}
                     <FlatList
                       keyExtractor={(item, index) => index}
                       data={data}
@@ -163,7 +181,7 @@ const UpcomingEvents = () => {
                         </View>
                       )}
                     />
-                  </View>
+                  {/* </View> */}
                 </View>
               </View>
             </>
@@ -183,12 +201,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   teachercontainermiddel: {
-    flex: 1,
-    height: wp('16%'),
+    width: wp('100%'),
+    height: wp('15.5%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
     borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#E0E0E0',
+    paddingLeft: wp('1%')
   },
   textcontaineone: {
     flex: 1.1,
@@ -200,7 +219,7 @@ const styles = StyleSheet.create({
   textcontaintwo: {
     flex: 2,
     backgroundColor: '#FFFFFF',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   textcontainthree: {
@@ -220,17 +239,20 @@ const styles = StyleSheet.create({
     color: '#BA69C8',
   },
   esscontainerbottom: {
-    flex: 7,
+    // flex: 7,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
+  
   },
   flatlistStyle: {
     flex: 1,
+    
   },
   itemStyle: {
     flexDirection: 'row',
     borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#D3D3D3',
+    paddingLeft: wp('1%')
   },
   item: {
     flex: 1,

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Alert, Platform, Image, View, Linking} from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import {StyleSheet, Alert, Platform, Image, View, Linking, BackHandler} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import {DOMParser} from 'xmldom';
@@ -76,11 +76,22 @@ const Login = ({navigation}) => {
       GLOBALS.PARENT_URL = `${GLOBALS.BEFORE}${domain}${GLOBALS.AFT_PARENT}`;
       GLOBALS.TEACHER_URL = `${GLOBALS.BEFORE}${domain}${GLOBALS.AFT_TEACHER}`;
       appversionCheck();
-      AsyncStorage.getItem('schoolBranchName').then(v => {
+      AsyncStorage.getItem('schoolBranchName').then(async v => {
         branch = v;
+        const pin = await AsyncStorage.getItem('pin')
         AsyncStorage.getItem('acess_token').then(value => {
           username = value;
-          console.log(`${GLOBALS.PARENT_URL}Login`);
+//           console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=Login`,`<?xml version="1.0" encoding="utf-8"?>
+// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+//   <soap12:Body>
+//     <Login xmlns="http://www.m2hinfotech.com//">
+//        <mobile>${username}</mobile>
+//                     <sessionId>${Platform.OS}</sessionId>
+//                     <deviceId>${fcmToken}</deviceId>
+//                     <pinNumber>${pin}</pinNumber>
+//     </Login>
+//   </soap12:Body>
+// </soap12:Envelope>`)
 
           if (
             v !== null &&
@@ -90,16 +101,16 @@ const Login = ({navigation}) => {
             value !== null &&
             value !== undefined
           ) {
-            fetch(`${GLOBALS.PARENT_URL}Login`, {
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Login`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Body>
     <Login xmlns="http://www.m2hinfotech.com//">
-      <mobile>${username}</mobile>
-      <sessionId>${Platform.OS}</sessionId>
-      <deviceId>${fcmToken}</deviceId>
-      <Branch>${branch}</Branch>
+       <mobile>${username}</mobile>
+                    <sessionId>${Platform.OS}</sessionId>
+                    <deviceId>${fcmToken}</deviceId>
+                    <pinNumber>${pin}</pinNumber>
     </Login>
   </soap12:Body>
 </soap12:Envelope>`,
@@ -114,9 +125,9 @@ const Login = ({navigation}) => {
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(r);
                 const ccc =
-                  xmlDoc.getElementsByTagName('LoginResult')[0].childNodes[0]
-                    .nodeValue;
-                console.log(ccc);
+                JSON.parse(xmlDoc.getElementsByTagName('LoginResult')[0].childNodes[0]
+                  .nodeValue)[0]?.UserRole;
+                // console.log(ccc);
                 if (ccc === 'failure') {
                   Alert.alert(
                     'Signin Failed!',
@@ -280,7 +291,7 @@ const Login = ({navigation}) => {
   };
 
   const appversionCheck = () => {
-    fetch(`${GLOBALS.PARENT_URL}GetMobileVersion`, {
+    fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetMobileVersion`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -296,7 +307,7 @@ const Login = ({navigation}) => {
     })
       .then(response => response.text())
       .then(response => {
-        console.log(response, 'responseLogin');
+        // console.log(response, 'responseLogin');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response);
         const v = xmlDoc.getElementsByTagName('GetMobileVersionResult')[0]
@@ -359,7 +370,7 @@ const Login = ({navigation}) => {
 
   const compareVersion = updatedVersion => {
     const currentVersion = DeviceInfo.getVersion();
-    console.log(currentVersion, 'current', updatedVersion);
+    // console.log(currentVersion, 'current', updatedVersion);
     const splitCurrent = currentVersion.toString().split('.');
     const splitUpdated = updatedVersion.toString().split('.');
 
@@ -386,7 +397,7 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={Logo} />
-      {loading ? <Progress /> : null}
+      {loading ? <Progress /> :null}
     </View>
   );
 };

@@ -43,7 +43,17 @@ const SentNotes = () => {
         AsyncStorage.getItem('acess_token').then(
           keyValue => {
             const username = keyValue;
-            fetch(`${GLOBALS.TEACHER_URL}RetrieveTeacherSentNotes`, {
+            // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveTeacherSentNotes`,`<?xml version="1.0" encoding="utf-8"?>
+            //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+            //     <soap12:Body>
+            //       <RetrieveTeacherSentNotes xmlns="http://www.m2hinfotech.com//">
+            //         <senderNo>${username}</senderNo>
+            //         <branchId>${branch}</branchId>
+            //       </RetrieveTeacherSentNotes>
+            //     </soap12:Body>
+            //   </soap12:Envelope>
+            // `)
+            fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveTeacherSentNotes`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
               <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -68,12 +78,12 @@ const SentNotes = () => {
                 const v = xmlDoc.getElementsByTagName(
                   'RetrieveTeacherSentNotesResult',
                 )[0].childNodes[0].nodeValue;
-                console.log(v);
+                // console.log(v);
                 if (v === 'failure') {
                   setdataerror(true);
                 } else {
                   const rslt = JSON.parse(v);
-                  console.log(rslt, 'rslt');
+                  // console.log(rslt, 'rslt');
                   const arraySet = [...rslt.Table];
                   arraySet.map(i => (i.attachments = []));
                   if (

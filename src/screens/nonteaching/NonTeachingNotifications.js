@@ -24,7 +24,7 @@ const NonTeachingNotifications = ({navigation}) => {
         const phno = keyValue;
         AsyncStorage.getItem('BranchID').then(keyValue2 => {
           const BranchID = keyValue2;
-          fetch(`${GLOBALS.PARENT_URL}GetNonTStaffsNotes`, {
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
             method: 'POST',
             body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             <soap12:Body>

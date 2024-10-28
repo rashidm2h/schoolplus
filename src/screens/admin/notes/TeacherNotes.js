@@ -47,7 +47,7 @@ const TeacherNotes = () => {
     });
     AsyncStorage.getItem('acess_token').then(
       () => {
-        fetch(`${GLOBALS.PARENT_URL}LatestAcademicYear`, {
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=LatestAcademicYear`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -125,7 +125,7 @@ const TeacherNotes = () => {
         let momentDate = moment(startDate, 'DD-MM-YYYY');
         let start = moment(momentDate).startOf('month').format('MM-DD-YYYY');
         let end = moment(momentDate).endOf('month').format('MM-DD-YYYY');
-        fetch(`${GLOBALS.TEACHER_URL}TeachersSentNotesForAdminDashBoard`, {
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeachersSentNotesForAdminDashBoard`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -186,6 +186,7 @@ const TeacherNotes = () => {
                   }
                 });
                 setdata(arraySet);
+                setDataerror(false);
                 console.log('tdy');
               } else {
                 console.log('t', dataerror);
@@ -212,7 +213,7 @@ const TeacherNotes = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         let mobile = keyValue; //Display key value
-        fetch(`${GLOBALS.PARENT_URL}GetAllClasses`, {
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
               <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -264,7 +265,7 @@ const TeacherNotes = () => {
 
     AsyncStorage.getItem('acess_token').then(
       () => {
-        fetch(`${GLOBALS.PARENT_URL}GetDivisions`, {
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetDivisions`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

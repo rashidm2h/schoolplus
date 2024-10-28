@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, Pressable, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, Pressable, View } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {DOMParser} from 'xmldom';
+import { DOMParser } from 'xmldom';
 import IconBadge from 'react-native-icon-badge';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import GLOBALS from '../config/Globals';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 const Header = props => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [count, setcount] = useState('');
   useEffect(() => {
-    console.log('kkkkkkk');
+    // console.log('kkkkkkk');
     AsyncStorage.getItem('Dashboard').then(active => {
       let noticount;
       let rslt;
@@ -25,8 +25,17 @@ const Header = props => {
           if (active === 'AH') {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
+            //     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`, `<?xml version="1.0" encoding="utf-8"?>
+            // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+            //   <soap12:Body>
+            //   <RetrieveAdminSentNoteAsNotification xmlns="http://www.m2hinfotech.com//">
+            //     <MobileNo>${keyValue}</MobileNo>
+            //     <BranchId>${keyValue2}</BranchId>
+            //   </RetrieveAdminSentNoteAsNotification>
+            //   </soap12:Body>
+            // </soap12:Envelope>`)
                 fetch(
-                  `${GLOBALS.PARENT_URL}RetrieveAdminSentNoteAsNotification`,
+                  `http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`,
                   {
                     method: 'POST',
                     body: `<?xml version="1.0" encoding="utf-8"?>
@@ -74,7 +83,7 @@ const Header = props => {
           } else if (active === 'NTS') {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
-                fetch(`${GLOBALS.PARENT_URL}GetNonTStaffsNotes`, {
+                fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
                   method: 'POST',
                   body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -103,7 +112,7 @@ const Header = props => {
                       rslt = JSON.parse(v);
                       noticount = rslt.length;
                       rslt = JSON.parse(v);
-                      Count(rslt.length, active);
+                      setcount(rslt.length);
                     }
                   });
               },
@@ -114,12 +123,11 @@ const Header = props => {
           } else {
             AsyncStorage.getItem('StdID').then(keyValue2 => {
               fetch(
-                `${
-                  active === 'PH'
-                    ? GLOBALS.PARENT_URL
-                    : active === 'TH'
-                    ? GLOBALS.TEACHER_URL
-                    : GLOBALS.PARENT_URL
+                `${active === 'PH'
+                  ? 'http://10.25.25.124:85/EschoolWebService.asmx?op='
+                  : active === 'TH'
+                    ? 'http://10.25.25.124:85//EschoolTeacherWebService.asmx?op='
+                    : 'http://10.25.25.124:85/EschoolWebService.asmx?op='
                 }Getcount`,
                 {
                   method: 'POST',
@@ -151,7 +159,7 @@ const Header = props => {
                   } else {
                     rslt = JSON.parse(v);
                     noticount = rslt[2].count;
-                    Count(rslt[2].count, active);
+                    setcount(rslt[2].count, active);
                   }
                 })
                 .catch(error => {
@@ -168,45 +176,111 @@ const Header = props => {
     // NTS SSP TH PH AS ASH AH EH
   }, [props.homePress, isFocused]);
 
-  const Count = (c, active) => {
-    let notifcountViewed = 0;
-    const asyncNotificationName =
-      active === 'AH'
-        ? 'AdminNotificationCount'
-        : active === 'PH'
-        ? 'notifCount'
-        : active === 'TH'
-        ? 'TeachernotifCount'
-        : '';
-    const ayncReadNotificationCountName =
-      active === 'AH'
-        ? 'AdminNotificationReadCount'
-        : active === 'PH'
-        ? 'removeNotificationCount'
-        : active === 'TH'
-        ? 'removeteacherNotifCount'
-        : active === 'NNH'
-        ? 'NonTeacherNotifRead'
-        : '';
-    AsyncStorage.getItem(asyncNotificationName).then(
+  const bellPress = () => {
+    AsyncStorage.getItem('Dashboard').then(active => {
+      removeNotification()
+      if (active === 'TH'){
+      navigation.navigate('TeacherNotifications')
+      }
+      else if (active === 'PH'){
+        navigation.navigate('ParentNotifications')
+      }
+      else if (active === 'AH'){
+        navigation.navigate('Notifications')
+      }
+    })
+  }
+
+  const removeNotification = () => {
+    AsyncStorage.getItem('Dashboard').then(active => {
+    AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        const countNotViewed = keyValue;
-        AsyncStorage.getItem(ayncReadNotificationCountName).then(
+        let notificationid;
+        if (active === 'TH') {
+          notificationid = AsyncStorage.getItem('notificationIds')
+        }
+        else if (active === 'PH') {
+          notificationid = AsyncStorage.getItem('notificationIdsparent')
+        }
+        else {
+          notificationid = AsyncStorage.getItem('notificationIdsadmin');
+        }
+        notificationid.then(
           keyValue2 => {
-            notifcountViewed = keyValue2 === null ? 0 : keyValue2;
-            const TotalCount = c - notifcountViewed;
-            setcount(TotalCount);
-          },
-          error => {
-            console.log(error);
-          },
-        );
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  };
+            // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`, `<?xml version="1.0" encoding="utf-8"?>
+            // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+            //     <soap12:Body>
+            //       <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
+            //     <PhoneNo>${keyValue}</PhoneNo>
+            //     <Status>${1}</Status>
+            //     <NotificationId>${keyValue2}</NotificationId>
+            //     </UpdateNoticount>
+            //     </soap12:Body>
+            //     </soap12:Envelope>`)
+            fetch(
+              `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,
+              {
+                method: 'POST',
+                body: `<?xml version="1.0" encoding="utf-8"?>
+        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                <soap12:Body>
+                <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
+                <PhoneNo>${keyValue}</PhoneNo>
+                <Status>#${1}</Status>
+                <NotificationId>${keyValue2}</NotificationId>
+                </UpdateNoticount>
+                </soap12:Body>
+                </soap12:Envelope>`,
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'text/xml; charset=utf-8',
+                }
+              }
+            )
+          })
+      })
+    })
+  }
+
+  // const Count = (c, active) => {
+  //   let notifcountViewed = 0;
+  //   const asyncNotificationName =
+  //     active === 'AH'
+  //       ? 'AdminNotificationCount'
+  //       : active === 'PH'
+  //       ? 'notifCount'
+  //       : active === 'TH'
+  //       ? 'TeachernotifCount'
+  //       : '';
+  //   const ayncReadNotificationCountName =
+  //     active === 'AH'
+  //       ? 'AdminNotificationReadCount'
+  //       : active === 'PH'
+  //       ? 'removeNotificationCount'
+  //       : active === 'TH'
+  //       ? 'removeteacherNotifCount'
+  //       : active === 'NNH'
+  //       ? 'NonTeacherNotifRead'
+  //       : '';
+  //   AsyncStorage.getItem(asyncNotificationName).then(
+  //     keyValue => {
+  //       const countNotViewed = keyValue;
+  //       AsyncStorage.getItem(ayncReadNotificationCountName).then(
+  //         keyValue2 => {
+  //           notifcountViewed = keyValue2 === null ? 0 : keyValue2;
+  //           const TotalCount = c - notifcountViewed;
+  //           setcount(TotalCount);
+  //         },
+  //         error => {
+  //           console.log(error);
+  //         },
+  //       );
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     },
+  //   );
+  // };
 
   return (
     <View style={styles.header}>
@@ -222,7 +296,7 @@ const Header = props => {
         <Pressable onPressIn={props.homePress} style={styles.home}>
           <Icon name="home" size={30} color="white" />
         </Pressable>
-        <Pressable onPressIn={props.bellPress} style={styles.bell}>
+        <Pressable onPressIn={bellPress} style={styles.bell}>
           <Icon name="bell" size={30} color="white" />
           {count !== '' &&
             count !== undefined &&

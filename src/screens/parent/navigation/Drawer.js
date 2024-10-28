@@ -46,10 +46,20 @@ const Drawer = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         phno = keyValue;
-        AsyncStorage.getItem('schoolBranchName').then(
+        AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
             const branch = keyValue2;
-            fetch(`${GLOBALS.PARENT_URL}GetStudIdForParent`, {
+            // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`,`<?xml version="1.0" encoding="utf-8"?>
+            //         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+            //     <soap12:Body>
+            //     <GetStudIdForParent xmlns="http://www.m2hinfotech.com//">
+            //     <mobile>${phno}</mobile>
+            //     <Branch>${branch}</Branch>
+            //     </GetStudIdForParent>
+            //     </soap12:Body>
+            //     </soap12:Envelope>
+            // `)
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
                     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -143,7 +153,7 @@ const Drawer = ({navigation}) => {
         text="EXAM"
         icon="file-document"
       />
-      {domain !== 'avk.schoolplusapp.com' && (
+      {/* {domain !== 'avk.schoolplusapp.com' && (
         <DrawerItem
           text="FEE"
           icon="currency-usd"
@@ -151,7 +161,7 @@ const Drawer = ({navigation}) => {
             navigation.navigate('ParentFee');
           }}
         />
-      )}
+      )} */}
       <DrawerItem
         onPress={() => {
           navigation.navigate('ParentEvents');

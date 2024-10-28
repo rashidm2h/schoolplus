@@ -25,7 +25,18 @@ const PastEvents = () => {
         AsyncStorage.getItem('acess_token').then(
           keyValue2 => {
             const status = 'old';
-            fetch(`${GLOBALS.PARENT_URL}GetEventDetailsForParent`, {
+        //     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetEventDetailsForParent`,`<?xml version="1.0" encoding="utf-8"?>
+        // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //   <soap12:Body>
+        //     <GetEventDetailsForParent xmlns="http://www.m2hinfotech.com//">
+        //       <phoneNo>${keyValue2}</phoneNo>
+        //       <status>${status}</status>
+        //       <studentId>${keyValue}</studentId>
+        //     </GetEventDetailsForParent>
+        //   </soap12:Body>
+        // </soap12:Envelope>
+        //   `)
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetEventDetailsForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -151,11 +162,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   teachercontainermiddel: {
-    flex: 1,
-    height: wp('5%'),
+    width: wp('100%'),
+    height: wp('15.5%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
-    borderBottomWidth: 2,
+    borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#E0E0E0',
   },
   textcontaineone: {
@@ -176,23 +187,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.5%'), 
   },
   texthead: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
-    backgroundColor: 'red',
-    marginLeft: 10,
+    // backgroundColor: 'red',
+    marginLeft: wp('3%'),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
   },
   ///////faltlist styles/////////////
   esscontainerbottom: {
     flex: 7,
     flexDirection: 'column',
-    backgroundColor: 'red',
+    backgroundColor: '#FFFFFF',
   },
   flatlistStyle: {
     flex: 1,
@@ -211,13 +222,13 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     textAlign: 'center',
-    marginLeft: 10,
+    marginLeft: wp('3%'),
   },
   itemDesc: {
     flex: 1,
     flexWrap: 'wrap',
     fontSize: 10,
-    marginLeft: 10,
+    marginLeft: wp('3%'),
   },
   itemone: {
     flexDirection: 'column',

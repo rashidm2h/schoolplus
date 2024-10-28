@@ -23,21 +23,32 @@ const StudentDetails = ({navigation}) => {
   const [dropdownValue, setdropdownValue] = useState('');
   const [dropdowndata, setdropdowndata] = useState([]);
   const parser = new DOMParser();
-
   useEffect(() => {
     classDropdownFill();
   }, []);
 
   const classDropdownFill = () => {
-    AsyncStorage.getItem('acess_token')
-      .then(keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}AttClassListForTeacher`, {
+    AsyncStorage.getItem('acess_token').then (keyValue => {
+    AsyncStorage.getItem('BranchID')
+      .then(keyValue1 => {
+        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=AttClassListForTeacher`,`<?xml version="1.0" encoding="utf-8"?>
+        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //   <soap12:Body>
+        //   <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
+        //   <teacherMobNo>${keyValue}</teacherMobNo>
+        //   <BranchId>${keyValue1}</BranchId>
+        //   </AttClassListForTeacher>
+        //   </soap12:Body>
+        //   </soap12:Envelope>
+        //   `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=AttClassListForTeacher`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
           <soap12:Body>
           <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
           <teacherMobNo>${keyValue}</teacherMobNo>
+           <BranchId>${keyValue1}</BranchId>
           </AttClassListForTeacher>
           </soap12:Body>
           </soap12:Envelope>
@@ -66,16 +77,27 @@ const StudentDetails = ({navigation}) => {
               getStudentList(output[0].BranchClassId);
             }
           });
-      })
+          })
+        })
       .catch(error => {
         console.log(error);
-      });
+  });
   };
 
   const getStudentList = classValue => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}StudentListForClassTeacher`, {
+        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StudentListForClassTeacher`,`<?xml version="1.0" encoding="utf-8"?>
+        //           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //           <soap12:Body>
+        //           <StudentListForClassTeacher xmlns="http://www.m2hinfotech.com//">
+        //           <teacherMobNo>${keyValue}</teacherMobNo>
+        //           <BranchClassId>${classValue}</BranchClassId>
+        //           </StudentListForClassTeacher>
+        //           </soap12:Body>
+        //           </soap12:Envelope>
+        //           `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StudentListForClassTeacher`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
                   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -235,9 +257,10 @@ const styles = StyleSheet.create({
     },
   },
   pickerview: {
-    marginVertical: '4%',
+    marginVertical: wp('4%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginLeft: wp('0.7%')
   },
   inputContainer: {borderBottomColor: 'transparent'},
   headingTableView: {
@@ -257,8 +280,9 @@ const styles = StyleSheet.create({
   textcontaintwo: {
     flex: 2,
     backgroundColor: '#B866C6',
-    paddingLeft: wp('3%'),
+    // paddingLeft: wp('3%'),
     justifyContent: 'center',
+    alignItems: 'center',
     borderColor: '#FFFFFF',
     borderRightWidth: wp('0.2%'),
   },
@@ -322,7 +346,8 @@ const styles = StyleSheet.create({
     flex: 2,
     paddingTop: wp('2.5%'),
     paddingBottom: wp('2.5%'),
-    marginLeft: wp('2.5%'),
+    alignItems: 'center',
+    // marginLeft: wp('2.5%'),
     borderRightWidth: wp('0.3%'),
     borderColor: '#D3D3D3',
   },

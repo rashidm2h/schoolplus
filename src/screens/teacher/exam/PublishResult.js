@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  KeyboardAvoidingView
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
@@ -98,7 +99,19 @@ const PublishResult = props => {
     AsyncStorage.setItem('bclsad', drop1);
     AsyncStorage.setItem('subject', drop2);
     AsyncStorage.setItem('examtypes', drop3);
-    fetch(`${GLOBALS.TEACHER_URL}GetClassExamNames`, {
+  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassExamNames`, `<?xml version="1.0" encoding="utf-8"?>
+  //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  //     <soap12:Body>
+  //    <GetClassExamNames xmlns="http://www.m2hinfotech.com//">
+  // <PhoneNo>${token !== undefined ? token : accessToken}</PhoneNo>
+  // <BranchclsId>${drop1}</BranchclsId>
+  // <ExType>${drop3}</ExType>
+  // <SubId>${drop2}</SubId>
+  // </GetClassExamNames>
+  //     </soap12:Body>
+  //     </soap12:Envelope>
+  //     `)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassExamNames`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -151,7 +164,18 @@ const PublishResult = props => {
   };
 
   const studentExamClslistwed = (drop1, drop2, token) => {
-    fetch(`${GLOBALS.TEACHER_URL}StdExamClasswiseList`, {
+  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdExamClasswiseList`,`<?xml version="1.0" encoding="utf-8"?>
+  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  //  <soap12:Body>
+  //      <StdExamClasswiseList xmlns="http://www.m2hinfotech.com//">
+  //          <BranchclsId>${drop1}</BranchclsId>
+  //          <SubId>${drop2}</SubId>
+  //          <PhoneNo>${token !== undefined ? token : accessToken}</PhoneNo>
+  //      </StdExamClasswiseList>
+  //  </soap12:Body>
+  // </soap12:Envelope>
+  // `)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdExamClasswiseList`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -261,7 +285,21 @@ const PublishResult = props => {
               keyValue4 => {
                 AsyncStorage.getItem('examids').then(
                   keyValue5 => {
-                    fetch(`${GLOBALS.TEACHER_URL}InsertStdMarkReact`, {
+  //                   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertStdMarkReact`,`<?xml version="1.0" encoding="utf-8"?>
+  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  // <soap12:Body>
+  // <InsertStdMarkReact xmlns="http://www.m2hinfotech.com//">
+  // <JasonInPut>${arr2}</JasonInPut>
+  // <BranchclsId>${keyValue2}</BranchclsId>
+  // <SubId>${keyValue3}</SubId>
+  // <PhoneNo>${accessToken}</PhoneNo>
+  // <ExamSubId>${keyValue5}</ExamSubId>
+  // <ExamType>${keyValue4}</ExamType>
+  // </InsertStdMarkReact>
+  // </soap12:Body>
+  // </soap12:Envelope>
+  // `)
+                    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertStdMarkReact`, {
                       method: 'POST',
                       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -373,7 +411,7 @@ const PublishResult = props => {
     );
   };
   const classListpublishResult = token => {
-    fetch(`${GLOBALS.TEACHER_URL}ExmClassListForTeacher`, {
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -429,7 +467,7 @@ const PublishResult = props => {
       });
   };
   const selectSubjectweb = (token, dropval) => {
-    fetch(`${GLOBALS.TEACHER_URL}GetClassSubjects`, {
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassSubjects`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -494,6 +532,11 @@ const PublishResult = props => {
     </View>
   ) : (
     <View style={styles.mainContainer}>
+       <KeyboardAvoidingView
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    style={{ flex: 1 }}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}  
+  >
       <View style={styles.mainContainerTop}>
         {Platform.OS === 'ios' ? (
           <KeyboardAwareScrollView
@@ -501,14 +544,14 @@ const PublishResult = props => {
             contentContainerStyle={styles.container}
             extraScrollHeight={extraScrollHeight}
             useNativeDriver={false}>
-            <View style={{flexDirection: 'row', margin: 5}}>
+            <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
               {isVisibleclass && (
                 <View style={{flex: 1}}>
                   <Text>Select Class :</Text>
                   <Dropdown
                     data={dropdownSource}
                     baseColor="transparent"
-                    style={[styles.pickerStyle, {marginRight: 5}]}
+                    style={[styles.pickerStyle, {marginRight: wp('1%')}]}
                     textColor="#121214"
                     selectedItemColor="#7A7A7A"
                     value={dropdownValue}
@@ -537,13 +580,13 @@ const PublishResult = props => {
                 </View>
               )}
             </View>
-            <View style={{flexDirection: 'row', margin: 5}}>
+            <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
               <View style={{flex: 1}}>
                 <Text>Select exam type :</Text>
                 <Dropdown
                   data={dropdownSource2}
                   baseColor="transparent"
-                  style={[styles.pickerStyle, {marginRight: 5}]}
+                  style={[styles.pickerStyle, {marginRight: wp('1%')}]}
                   textColor="#121214"
                   selectedItemColor="#7A7A7A"
                   value={dropdownValue2}
@@ -625,6 +668,7 @@ const PublishResult = props => {
                           </TextInput>
                         </View>
                       </View>
+                    
                     )}
                   />
                 )}
@@ -633,14 +677,14 @@ const PublishResult = props => {
           </KeyboardAwareScrollView>
         ) : (
           <ScrollView useNativeDriver={false}>
-            <View style={{flexDirection: 'row', margin: 5}}>
+            <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
               {isVisibleclass && (
                 <View style={{flex: 1}}>
                   <Text>Select Class :</Text>
                   <Dropdown
                     data={dropdownSource}
                     baseColor="transparent"
-                    style={[styles.pickerStyle, {marginRight: 5}]}
+                    style={[styles.pickerStyle, {marginRight: wp('1%'),paddingHorizontal: wp('1%')}]}
                     textColor="#121214"
                     selectedItemColor="#7A7A7A"
                     value={dropdownValue}
@@ -669,13 +713,13 @@ const PublishResult = props => {
                 </View>
               )}
             </View>
-            <View style={{flexDirection: 'row', margin: 5}}>
+            <View style={{flexDirection: 'row', margin: wp('1%')}}>
               <View style={{flex: 1}}>
                 <Text>Select exam type :</Text>
                 <Dropdown
                   data={dropdownSource2}
                   baseColor="transparent"
-                  style={[styles.pickerStyle, {marginRight: 5}]}
+                  style={[styles.pickerStyle, {marginRight: wp('1%')}]}
                   textColor="#121214"
                   selectedItemColor="#7A7A7A"
                   value={dropdownValue2}
@@ -778,6 +822,7 @@ const PublishResult = props => {
           color="#FFF"
         />
       </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -810,7 +855,7 @@ const styles = StyleSheet.create({
     flex: 6,
   },
   pickerStyle: {
-    marginTop: widthPercentageToDP('2%'),
+    marginTop: wp('2%'),
     borderColor: '#CFCFCF',
     backgroundColor: '#fff',
     borderRadius: 1,
@@ -864,7 +909,7 @@ const styles = StyleSheet.create({
   },
   flatlistView: {
     flex: 6,
-    flexDirection: 'column',
+    flexDirection: 'column', 
     backgroundColor: '#FFFFFF',
   },
   itemone: {
@@ -895,9 +940,9 @@ const styles = StyleSheet.create({
     paddingTop: wp('1.3%'),
   },
   flatListiteminput: {
-    height: wp('10.3%'),
+    height: wp('12.3%'),
     width: wp('22.3%'),
-    fontSize: wp('5.3%'),
+    fontSize: wp('5%'),
     textAlign: 'center',
     borderWidth: wp('0.3%'),
     borderRadius: 5,

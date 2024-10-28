@@ -18,6 +18,7 @@ import Logo from '../../images/logo.png';
 import Progress from '../../components/ProgressIndicator';
 import GLOBALS from '../../config/Globals';
 
+
 const SchoolCode = ({navigation}) => {
   const [text, settext] = useState('');
   const [loading, setloading] = useState(false);
@@ -51,7 +52,7 @@ const SchoolCode = ({navigation}) => {
           if (v === 'failure') {
             Alert.alert(
               'Invalid Code!',
-              'Please Contact your School Admin to get your school code!',
+              'Please Contact your School Admin to get your school code!'
             );
           } else if (v === 'Inactive SchoolCode') {
             Alert.alert(
@@ -86,6 +87,7 @@ const SchoolCode = ({navigation}) => {
         });
     }
   };
+  
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={Logo} />

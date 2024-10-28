@@ -22,7 +22,7 @@ const PastExams = () => {
       keyValue => {
         const Stdid = keyValue;
         const status = 'old';
-        fetch(`${GLOBALS.PARENT_URL}GetStdExamDtls`, {
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStdExamDtls`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -99,7 +99,7 @@ const PastExams = () => {
                     </View>
                     <View style={styles.itemthree}>
                       <Text style={styles.item}>
-                        {item.StartTime}to{item.EndTime}
+                        {item.StartTime} to {item.EndTime}
                       </Text>
                     </View>
                     <View style={styles.itemone}>
@@ -135,7 +135,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
     borderBottomWidth: wp('0.7%'),
+    borderTopWidth: wp('0.7%'),
     borderBottomColor: '#E0E0E0',
+    borderTopColor: '#E0E0E0',
+    paddingTop:wp('1.5%'),
+    paddingLeft: wp('1%')
   },
   textcontaineone: {
     flex: 1.5,
@@ -160,6 +164,7 @@ const styles = StyleSheet.create({
     flexGrow: 7,
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
+    paddingLeft: wp('1%')
   },
 
   itemStyle: {
@@ -170,7 +175,7 @@ const styles = StyleSheet.create({
   },
   item: {
     flexWrap: 'wrap',
-    fontSize: wp('4.2%'),
+    fontSize: wp('3.3%'),
     textAlign: 'center',
     color: '#808080',
   },

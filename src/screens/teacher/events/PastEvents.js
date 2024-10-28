@@ -24,7 +24,18 @@ const PastEvents = () => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
           const string = 'old';
-          fetch(`${GLOBALS.PARENT_URL}GetAllEvents`, {
+      //     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllEvents`, `<?xml version="1.0" encoding="utf-8"?>
+      //       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+      //         <soap12:Body>
+      //           <GetAllEvents xmlns="http://www.m2hinfotech.com//">
+      //             <mobileNo>${keyValue}</mobileNo>
+      //             <BranchID>${BranchID}</BranchID>
+      //             <status>${string}</status>
+      //           </GetAllEvents>
+      //         </soap12:Body>
+      //       </soap12:Envelope>
+      // `)
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllEvents`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -83,7 +94,7 @@ const PastEvents = () => {
                   <Text style={styles.textc}>DATE</Text>
                 </View>
                 <View style={styles.textcontaintwo}>
-                  <Text style={styles.texthead}>EVENT DETAILS</Text>
+                  <Text style={styles.textc}>EVENT DETAILS</Text>
                 </View>
                 <View style={styles.textcontainthree}>
                   <Text style={styles.textc}>TIME</Text>
@@ -137,6 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEFEF',
     borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#E0E0E0',
+    paddingLeft: wp('1%')
   },
   textcontaineone: {
     flex: 1.1,
@@ -148,7 +160,7 @@ const styles = StyleSheet.create({
   textcontaintwo: {
     flex: 2,
     backgroundColor: '#FFFFFF',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   textcontainthree: {
@@ -175,6 +187,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: wp('0.5%'),
     borderBottomColor: '#D3D3D3',
+    paddingLeft: wp('1%')
   },
   item: {
     flex: 1,

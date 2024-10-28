@@ -27,7 +27,7 @@ const Notifications = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue;
-        fetch(`${GLOBALS.PARENT_URL}RetrieveAdminSentNoteAsNotification`, {
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -61,10 +61,8 @@ const Notifications = ({navigation}) => {
                 JSON.stringify(removeteacherNotifCount),
               );
               try {
-                AsyncStorage.setItem(
-                  'AdminNotificationReadCount',
-                  JSON.stringify(removeteacherNotifCount),
-                );
+                const notificationIds = rslt.map(notification => notification.NotificationId);
+                AsyncStorage.setItem('notificationIdsadmin', JSON.stringify(notificationIds))
               } catch (error) {
                 console.log('somthing went');
               }

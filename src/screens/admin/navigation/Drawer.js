@@ -43,7 +43,16 @@ const Drawer = ({navigation}) => {
     AsyncStorage.getItem('BranchID').then(BranchID => {
       branchId = BranchID;
       AsyncStorage.getItem('acess_token').then(keyValue => {
-        fetch(`${GLOBALS.PARENT_URL}GetAdminDetailes`, {
+        // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAdminDetailes`, `<?xml version="1.0" encoding="utf-8"?>
+        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //     <soap12:Body>
+        //     <GetAdminDetailes xmlns="http://www.m2hinfotech.com//">
+        //       <senderNo>${keyValue}</senderNo>
+        //       <branchId>${branchId}</branchId>
+        //     </GetAdminDetailes>
+        //     </soap12:Body>
+        //   </soap12:Envelope>`)
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAdminDetailes`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -128,15 +137,15 @@ const Drawer = ({navigation}) => {
           icon="file-document"
         />
       ) : null}
-      {domain !== 'avk.schoolplusapp.com' ? (
-        <DrawerItem
+      {/* {domain !== 'avk.schoolplusapp.com' ? ( */}
+        {/* <DrawerItem
           onPress={() => {
             navigation.navigate('AdminFee');
           }}
           text="FEE"
           icon="currency-usd"
-        />
-      ) : null}
+        /> */}
+      {/* ) : null} */}
       <DrawerItem
         onPress={() => {
           navigation.navigate('Events');

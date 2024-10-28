@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -11,17 +11,17 @@ import {
   StyleSheet,
   PermissionsAndroid,
 } from 'react-native';
-import {DOMParser} from 'xmldom';
+import { DOMParser } from 'xmldom';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Spinner from '../../../components/Spinner';
 
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 const SendNotes = () => {
   const [loading, setloading] = useState(false);
   const [attachSet, setattachSet] = useState([]);
@@ -51,7 +51,7 @@ const SendNotes = () => {
         Alert.alert('Permission Denaied ', 'Give permission', [
           {
             text: 'Ok',
-            onPress: () => {},
+            onPress: () => { },
           },
         ]);
       }
@@ -93,7 +93,7 @@ const SendNotes = () => {
       },
       {
         text: 'Cancel',
-        onPress: () => {},
+        onPress: () => { },
       },
     ]);
   };
@@ -123,7 +123,7 @@ const SendNotes = () => {
     }
   };
 
-  const renderItems = ({item, index}) => (
+  const renderItems = ({ item, index }) => (
     <View style={styles.renderView}>
       <Text style={styles.renderText}>{item.filename}</Text>
       <Pressable
@@ -207,7 +207,20 @@ const SendNotes = () => {
                                   /&/g,
                                   '&amp;',
                                 );
-                              fetch(`${GLOBALS.PARENT_URL}InsertParentNotes`, {
+                              //                                 console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertParentNotes`,`<?xml version="1.0" encoding="utf-8"?>
+                              // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                              // <soap12:Body>
+                              // <InsertParentNotes xmlns="http://www.m2hinfotech.com//">
+                              // <senderNo>${senderNo}</senderNo>
+                              // <studentId>${studentID}</studentId>
+                              // <title>${title}</title>
+                              // <description>${description}</description>
+                              // <attachs>${attachArray}</attachs>
+                              // </InsertParentNotes>
+                              // </soap12:Body>
+                              // </soap12:Envelope>
+                              // `)
+                              fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertParentNotes`, {
                                 method: 'POST',
                                 body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

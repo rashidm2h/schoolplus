@@ -44,14 +44,14 @@ const NonTeachingNotificationCount = () => {
       keyValue => {
         AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
-            fetch(`${GLOBALS.PARENT_URL}GetNonTStaffsNotes`, {
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?opGetNonTStaffsNotes`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         <soap12:Body>
         <GetNonTStaffsNotes xmlns="http://www.m2hinfotech.com//">
-          <MobileNo>${keyValue}</MobileNo>
-          <BranchId>${keyValue2}</BranchId>
+          <mobileNo>${keyValue}</mobileNo>
+          <BranchID>${keyValue2}</BranchID>
         </GetNonTStaffsNotes>
         </soap12:Body>
       </soap12:Envelope>`,

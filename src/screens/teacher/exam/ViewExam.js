@@ -11,12 +11,14 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  Keyboard,
 } from 'react-native';
 import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Iconarrow from 'react-native-vector-icons/Entypo'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
@@ -25,6 +27,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const ViewExam = () => {
   const [minmark, setminmark] = useState('');
   const [maxmark, setmaxmark] = useState('');
@@ -49,6 +52,9 @@ const ViewExam = () => {
   const [isLoadingalert, setisLoadingalert] = useState(false);
   const [isVisibleStart, setisVisibleStart] = useState(false);
   const [datepickerVisible, setdatepickerVisible] = useState(false);
+  const [selectedSubId, setSelectedSubId] = useState(null);
+
+
   const parser = new DOMParser();
 
   useEffect(() => {
@@ -66,12 +72,33 @@ const ViewExam = () => {
   };
 
   const onValueChangeclass = value => {
-    examCreateTypegrade(value);
     examCreateGetsubject(value);
   };
+  const onValueChangesubject = value => {
+    examCreateTypegrade(value);
+  };
+  const handleGradeChange = (selectedGradeId) => {
+    const selectedGrade = dropdownSource3.find((grade) => grade.value === selectedGradeId);
+    
+    if (selectedGrade) {
+      setminmark(selectedGrade.MarkFrom);
+      setmaxmark(selectedGrade.MarkTo);
+    }
+  };
+  const examCreateGetsubject = async (value) => {
+    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjects`,`<?xml version="1.0" encoding="utf-8"?>
+		// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+		//   <soap12:Body>
+		//     <GetSubjects xmlns="http://www.m2hinfotech.com//">
+		//       <BranchclsId>${value}</BranchclsId>
+		//       <PhoneNo>${accessToken}</PhoneNo>
+		//     </GetSubjects>
+		//   </soap12:Body>
+		// </soap12:Envelope>
+		// `)
+    try{
 
-  const examCreateGetsubject = value => {
-    fetch(`${GLOBALS.TEACHER_URL}GetSubjects`, {
+   const response = await  fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjects`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 		<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -88,23 +115,24 @@ const ViewExam = () => {
         'Content-Type': 'application/soap+xml; charset=utf-8',
       },
     })
-      .then(response => response.text())
-      .then(response => {
-        const modalgetsubject = parser
-          .parseFromString(response)
-          .getElementsByTagName('GetSubjectsResult')[0].childNodes[0].nodeValue;
-        if (modalgetsubject === 'failure') {
-        } else {
-          const modalgetsubjectdata = JSON.parse(modalgetsubject);
-          const dropData = modalgetsubjectdata.map(element => ({
-            value: element.SubId,
-            label: element.SubName,
-          }));
-          setdropdownSource3(dropData);
-          setdropdownValue3(modalgetsubjectdata[0].SubId);
-        }
-      });
-  };
+    const responseText = await response.text();
+    const modalgetsubject = parser.parseFromString(responseText).getElementsByTagName('GetSubjectsResult')[0].childNodes[0].nodeValue;
+
+    if (modalgetsubject !== 'failure') {
+      const modalgetsubjectdata = JSON.parse(modalgetsubject);
+      const dropData = modalgetsubjectdata.map(element => ({
+        value: element.SubId,
+        label: element.SubName,
+      }));
+      setdropdownSource2(dropData);
+      const selectedSubId = modalgetsubjectdata[0].SubId;
+      setdropdownValue2(selectedSubId);
+      setSelectedSubId(selectedSubId);
+    }
+  } catch (error) {
+    console.error('Error fetching subjects:', error);
+  }
+};
   const DatePickerMainFunctionCall = () => {
     let DateHolder = DateHolder;
     setdatepickerVisible(true);
@@ -113,14 +141,27 @@ const ViewExam = () => {
       DateHolder = DateHolder;
     }
   };
-  const examCreateTypegrade = value => {
-    fetch(`${GLOBALS.TEACHER_URL}GetSubjectTypeAndGradeType`, {
+  const examCreateTypegrade = ( SubId ) => {
+
+
+    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjectTypeAndGradeType`,`<?xml version="1.0" encoding="utf-8"?>
+    // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+    //   <soap12:Body>
+    //     <GetSubjectTypeAndGradeType xmlns="http://www.m2hinfotech.com//">
+    //       <BranchclsId>${dropdownValue1}</BranchclsId>
+    //       <SubId>${SubId}</SubId>
+    //     </GetSubjectTypeAndGradeType>
+    //   </soap12:Body>
+    // </soap12:Envelope>
+    // `)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjectTypeAndGradeType`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
       <soap12:Body>
         <GetSubjectTypeAndGradeType xmlns="http://www.m2hinfotech.com//">
-          <BranchclsId>${value}</BranchclsId>
+          <BranchclsId>${dropdownValue1}</BranchclsId>
+          <SubId>${SubId}</SubId>
         </GetSubjectTypeAndGradeType>
       </soap12:Body>
     </soap12:Envelope>
@@ -143,9 +184,13 @@ const ViewExam = () => {
           const dropData = dropdownData.map(element => ({
             value: element.GradeId,
             label: element.GradeType,
+            MarkFrom: element.MarkFrom,
+            MarkTo: element.MarkTo,
           }));
-          setdropdownSource2(dropData);
-          setdropdownValue2(dropdownData[0].GradeId);
+          setdropdownSource3(dropData);
+          setdropdownValue3(dropdownData[0].GradeId);
+          setminmark(dropdownData[0].MarkFrom)
+          setmaxmark(dropdownData[0].MarkTo)
         }
       })
       .catch(error => {
@@ -153,7 +198,16 @@ const ViewExam = () => {
       });
   };
   const examCreatTeacherClass = token => {
-    fetch(`${GLOBALS.TEACHER_URL}ExmClassListForTeacher`, {
+    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`,`<?xml version="1.0" encoding="utf-8"?>
+		// 						<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+		// 					<soap12:Body>
+		// 				<ExmClassListForTeacher xmlns="http://www.m2hinfotech.com//">
+		// 					<teacherMobNo>${token}</teacherMobNo>
+		// 				</ExmClassListForTeacher>
+		// 				</soap12:Body>
+		// 				</soap12:Envelope>
+		// 				`)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 								<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -185,7 +239,7 @@ const ViewExam = () => {
           }));
           setdropdownSource1(dropData);
           setdropdownValue1(modalteacherclassdata[0].BranchClassId);
-          examCreateTypegrade(modalteacherclassdata[0].BranchClassId);
+          // examCreateTypegrade(modalteacherclassdata[0].BranchClassId);
           examCreateGetsubject(modalteacherclassdata[0].BranchClassId);
         }
       });
@@ -193,7 +247,17 @@ const ViewExam = () => {
 
   const examviewlist = () => {
     setloadTable(true);
-    fetch(`${GLOBALS.TEACHER_URL}GetExamDtls`, {
+    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamDtls`, `<?xml version="1.0" encoding="utf-8"?>
+		// 							<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+		// 							<soap12:Body>
+		// 							<GetExamDtls xmlns="http://www.m2hinfotech.com//">
+		// 							<PhoneNo>${accessToken}</PhoneNo>
+		// 							<BranchclsId>${dropdownValue}</BranchclsId>
+		// 							</GetExamDtls>
+		// 							</soap12:Body>
+		// 							</soap12:Envelope>
+		// 							`)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamDtls`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 									<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -235,7 +299,7 @@ const ViewExam = () => {
       });
   };
   const classListViewExam = token => {
-    fetch(`${GLOBALS.TEACHER_URL}ExmClassListForTeacher`, {
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 								<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -299,7 +363,27 @@ const ViewExam = () => {
   const addNewExam = () => {
     const examtype = 'Internal';
     const subtype = 'Compulsory';
-    fetch(`${GLOBALS.TEACHER_URL}InsertTeachInternalExam`, {
+    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeachInternalExam`, `<?xml version="1.0" encoding="utf-8"?>
+    //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+    //   <soap12:Body>
+    //   <InsertTeachInternalExam xmlns="http://www.m2hinfotech.com//">
+    //   <ExamName>${examname}</ExamName>
+    //   <ExamType>${examtype}</ExamType>
+    //   <GradeId>${dropdownValue3}</GradeId>
+    //   <PhoneNo>${accessToken}</PhoneNo>
+    //   <BranchclsId>${dropdownValue1}</BranchclsId>
+    //   <SubType>${subtype}</SubType>
+    //   <SubId>${dropdownValue2}</SubId>
+    //   <Date>${chosenDate}</Date>
+    //   <starttime>${chosenStartTime}</starttime>
+    //   <endtime>${chosenEndTime}</endtime>
+    //   <maxmark>${maxmark}</maxmark>
+    //   <minmark>${minmark}</minmark>
+    //   </InsertTeachInternalExam>
+    //   </soap12:Body>
+    //   </soap12:Envelope>
+    //   `)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeachInternalExam`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -307,11 +391,11 @@ const ViewExam = () => {
 <InsertTeachInternalExam xmlns="http://www.m2hinfotech.com//">
 <ExamName>${examname}</ExamName>
 <ExamType>${examtype}</ExamType>
-<GradeId>${dropdownValue2}</GradeId>
+<GradeId>${dropdownValue3}</GradeId>
 <PhoneNo>${accessToken}</PhoneNo>
 <BranchclsId>${dropdownValue1}</BranchclsId>
 <SubType>${subtype}</SubType>
-<SubId>${dropdownValue3}</SubId>
+<SubId>${dropdownValue2}</SubId>
 <Date>${chosenDate}</Date>
 <starttime>${chosenStartTime}</starttime>
 <endtime>${chosenEndTime}</endtime>
@@ -359,8 +443,8 @@ const ViewExam = () => {
   const _showModal = () => {
     setisModalVisible(true);
     setexamname('');
-    setchosenEndTime('');
-    setchosenStartTime('');
+    setchosenEndTime('00:00');
+    setchosenStartTime('00:00');
     setchosenDate('');
     setminmark('');
     setmaxmark('');
@@ -400,14 +484,19 @@ const ViewExam = () => {
       <View style={styles.pickerButtonView}>
         <View style={styles.pickerView}>
           <Dropdown
-            inputContainerStyle={{borderBottomColor: 'transparent'}}
+            iconStyle={styles.iconStyle}
+            // inputContainerStyle={{borderBottomColor: 'transparent'}}
             data={dropdownSource}
             style={styles.dropdownStyle}
-            textColor="#121214"
-            baseColor="transparent"
+            selectedTextStyle={styles.selectedTextStyle1}
+            textColor="#000"
+            selectedItemColor="#000"
+            labelField="label"
+            valueField="value"
+           maxHeight={dropdownValue1.length * 10}
             value={dropdownValue}
-            onChangeText={value => {
-              setdropdownValue(value);
+            onChange={item => {
+              setdropdownValue(item.value);
             }}
           />
         </View>
@@ -474,7 +563,7 @@ const ViewExam = () => {
             size={28}
             onPress={() => {
               setexamname('');
-              console.log('ooo');
+              // console.log('ooo');
               setchosenEndTime('0.00');
               setchosenStartTime('');
               _showModal();
@@ -490,6 +579,7 @@ const ViewExam = () => {
         <SafeAreaView style={{flex: 1}}>
           <View style={styles.container}>
             <ScrollView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.containercreat}>
                 <View style={styles.containertoprow}>
                   {Platform.OS === 'ios' ? (
@@ -523,7 +613,7 @@ const ViewExam = () => {
                       style={styles.textInputcreat}
                       returnKeyType="next"
                       keyboardType={
-                        Platform.OS === 'ios' ? 'ascii-capable' : 'default'
+                        Platform.OS === 'ios' ? 'ascii-capable' : 'visible-password'
                       }
                       underlineColorAndroid="transparent"
                       onChangeText={text => setexamname(text)}
@@ -536,8 +626,8 @@ const ViewExam = () => {
                       size="large"
                     />
                   )}
-                  <View style={styles.ViewInRowcreat}>
-                    <View style={[styles.ViewCol1in3creat, {width: '32%'}]}>
+                  {/* <View style={styles.ViewInRowcreat}> */}
+                      <View style={styles.ViewInColcreat}>
                       <Text style={styles.textcreat}>Date</Text>
                       <TouchableOpacity onPress={DatePickerMainFunctionCall}>
                         <Text style={styles.textInput1in3creat}>
@@ -549,14 +639,20 @@ const ViewExam = () => {
                         mode="date"
                         onCancel={() => setdatepickerVisible(false)}
                         onConfirm={onDatePickedFunction}
+                        minimumDate={new Date()}
                       />
                     </View>
-                    <View style={styles.ViewCol1in3creat}>
-                      <Text style={styles.textcreat}>Start Time</Text>
+                    <View style={styles.ViewInRowcreat}>
+                    <View style={styles.ViewCol1in2creat}>
+                      {/* <View style={styles.timeinput}> */}
+                      <Text style={styles.textcreat}>Start Time </Text>
                       <TouchableOpacity onPress={showDateTimePickerStartTime}>
+                        {chosenStartTime === '00:00'?(
                         <Text style={styles.textInput1in3creat}>
                           {chosenStartTime}
-                        </Text>
+                        </Text>):(<Text style={styles.textInput1in3creat}>
+                          {chosenStartTime}
+                        </Text>)}
                       </TouchableOpacity>
                       <DateTimePickerModal
                         isVisible={isVisibleStart}
@@ -565,121 +661,119 @@ const ViewExam = () => {
                         onConfirm={handlePickerStarttime}
                       />
                     </View>
-                    <View style={styles.ViewCol1in3creat}>
-                      <Text style={styles.textcreat}>End Time</Text>
+                    {/* </View> */}
+                    {/* <View style={styles.timearrow}>
+                      <Iconarrow
+                      name='arrow-long-right'
+                      color='#000'
+                      size={30}/>
+                    </View> */}
+                    <View style={styles.ViewCol1in2creat}>
+                    {/* <View style={styles.timeinput}> */}
+                      <Text style={styles.textcreat}>End Time </Text>
                       <TouchableOpacity onPress={showDateTimePickerEndTime}>
+                      {chosenEndTime === '00:00'?(
                         <Text style={styles.textInput1in3creat}>
                           {chosenEndTime}
-                        </Text>
+                        </Text>):(<Text style={styles.textInput1in3creat}>
+                          {chosenEndTime}
+                        </Text>)}
                       </TouchableOpacity>
                       <DateTimePickerModal
                         isVisible={isVisibleEnd}
                         mode="time"
                         onCancel={hidePickerEndTime}
                         onConfirm={handlePickerEndtime}
+                        is24Hour={false}
                       />
                     </View>
-                  </View>
-                  <View style={styles.ViewInRowcreat}>
-                    <View style={[styles.ViewCol1in3creat, {paddingRight: 5}]}>
+                    </View>
+                  {/* </View> */}
+                  <View style={styles.ViewInColcreat}>
                       <Text style={styles.textcreat}>Class</Text>
-                      <View style={styles.textInput1in3creatv}>
+                      <View style={styles.textInput1in3creat}>
                         <Dropdown
-                          fontSize={14}
-                          dropdownOffset={{top: 15}}
-                          inputContainerStyle={
-                            {
-                              // borderBottomColor: 'transparent',
-                            }
-                          }
+                        iconStyle={styles.iconStyle}
+                          fontSize={16}
+                          // dropdownOffset={{top: 15}}
                           baseColor="transparent"
                           data={dropdownSource1}
                           containerStyle={styles.pickerStyle}
-                          textColor="#121214"
-                          selectedItemColor="#7A7A7A"
+                          selectedTextStyle={styles.selectedTextStyle}
+                          textColor="#000"
+                          selectedItemColor="#000"
                           value={dropdownValue1}
-                          onChangeText={value => {
-                            setdropdownValue1(value);
-                            onValueChangeclass(value);
+                          labelField="label"
+                           valueField="value"
+                           maxHeight={dropdownValue1.length * 10}
+                          onChange={item => {
+                            setdropdownValue1(item.value);
+                            onValueChangeclass(item.value);
                           }}
                         />
                       </View>
                     </View>
-                    <View style={[styles.ViewCol1in3creat, {paddingRight: 5}]}>
-                      <Text style={styles.textcreat}>Grade Type</Text>
-                      <View style={styles.textInput1in3creatv}>
-                        <Dropdown
-                          fontSize={14}
-                          dropdownOffset={{top: 15}}
-                          baseColor="transparent"
-                          inputContainerStyle={{
-                            borderBottomColor: 'transparent',
-                          }}
-                          data={dropdownSource2}
-                          containerStyle={styles.pickerStyle}
-                          textColor="#121214"
-                          width={wp('29%')}
-                          position="absolute"
-                          bottom={wp('-4%')}
-                          selectedItemColor="#7A7A7A"
-                          value={dropdownValue2}
-                          onChangeText={value => {
-                            setdropdownValue2(value);
-                          }}
-                        />
-                      </View>
-                    </View>
-                    <View style={styles.ViewCol1in3creat}>
+                    <View style={styles.ViewInRowcreat}>
+                    <View style={styles.ViewCol1in2creat}>
                       <Text style={styles.textcreat}>Subject</Text>
-                      <View style={styles.textInput1in3creatv}>
+                      <View style={styles.textInput1in3creat}>
                         <Dropdown
-                          fontSize={14}
+                              fontSize={16}
+                              dropdownOffset={{top: 15}}
+                              baseColor="transparent"
+                              containerStyle={styles.dropdownContainer}
+                              data={dropdownSource2}
+                              labelField="label"
+                              valueField="value"
+                              textColor="#000"
+                              selectedItemColor="#000"
+                              placeholderStyle={styles.placeholderStyle}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              iconStyle={styles.iconStyle}
+                              maxHeight={dropdownValue2.length * 10}
+                              value={dropdownValue2}
+                              onChange={item => {
+                            setdropdownValue2(item.value);
+                            onValueChangesubject(item.value)
+                              }}
+                        />
+                      </View>
+                    </View>
+                    <View style={styles.ViewCol1in2creat}>
+                      <Text style={styles.textcreat}>Grade Type</Text>
+                      <View style={styles.textInput1in3creat}>
+                        <Dropdown
+                         iconStyle={styles.iconStyle}
+                          fontSize={16}
                           dropdownOffset={{top: 15}}
                           baseColor="transparent"
-                          inputContainerStyle={{
-                            borderBottomColor: 'transparent',
-                          }}
                           data={dropdownSource3}
                           containerStyle={styles.pickerStyle}
-                          textColor="#121214"
-                          selectedItemColor="#7A7A7A"
+                          selectedTextStyle={styles.selectedTextStyle}
+                          textColor="#000"
+                          selectedItemColor="#000"
                           value={dropdownValue3}
-                          onChangeText={value => {
-                            setdropdownValue3(value);
+                           labelField="label"
+                           valueField="value"
+                           maxHeight={dropdownValue2.length * 10}
+                          onChange={item => {
+                            setdropdownValue3(item.value);
+                            handleGradeChange(item.value)
                           }}
                         />
                       </View>
                     </View>
-                  </View>
+                    </View>
                   <View style={styles.ViewInRowcreat}>
                     <View style={styles.ViewCol1in2creat}>
                       <Text style={styles.textcreat}>Minimum Mark</Text>
-                      <TextInput
-                        style={styles.textInput1in2creat}
-                        returnKeyType="next"
-                        keyboardType={
-                          Platform.OS === 'ios'
-                            ? 'numbers-and-punctuation'
-                            : 'numeric'
-                        }
-                        underlineColorAndroid="transparent"
-                        onSubmitEditing={() => maxmark.focus()}
-                        onChangeText={text => setminmark(text)}
-                      />
+                      <Text
+                        style={styles.textInput1in2creat}>{minmark}</Text>
                     </View>
                     <View style={styles.ViewCol1in2creat}>
                       <Text style={styles.textcreat}>Maximum Mark</Text>
-                      <TextInput
-                        style={styles.textInput1in2creat}
-                        returnKeyType="done"
-                        keyboardType={
-                          Platform.OS === 'ios'
-                            ? 'numbers-and-punctuation'
-                            : 'numeric'
-                        }
-                        underlineColorAndroid="transparent"
-                        onChangeText={text => setmaxmark(text)}
-                      />
+                      <Text
+                        style={styles.textInput1in2creat}>{maxmark}</Text>
                     </View>
                   </View>
                   <TouchableOpacity
@@ -689,6 +783,7 @@ const ViewExam = () => {
                   </TouchableOpacity>
                 </View>
               </View>
+              </TouchableWithoutFeedback>
             </ScrollView>
           </View>
         </SafeAreaView>
@@ -716,7 +811,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: wp('1.5%'),
+    paddingHorizontal: wp('1%'),
     marginVertical: wp('1%'),
   },
   pickerView: {
@@ -728,6 +823,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  iconStyle: {
+    width: wp('8%'),
+    height: wp('8%'),
+  },
   pickerStyle: {
     ...Platform.select({
       ios: {
@@ -737,15 +836,26 @@ const styles = StyleSheet.create({
       },
       android: {
         flex: 1,
-        width: wp('26%'),
+        // width: wp('40%'),
         justifyContent: 'center',
-        alignItems: 'stretch',
+        // alignItems: 'center',
         // paddingBottom: 0,
         // backgroundColor: 'blue',
-        borderBottomColor: 'white',
-        paddingLeft: 0,
+        borderBottomWidth: 0,  // Set bottom border width to 0
+        borderBottomColor: 'transparent',
+        // paddingLeft: 0,
+        height:hp('30%')
       },
     }),
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    color: '#121214',
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%')
   },
   button: {
     borderRadius: 2,
@@ -799,10 +909,10 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     flexDirection: 'row',
-    height: 30,
+    height: wp('7.5%'),
   },
   item: {
-    height: 20,
+    height: wp('6%'),
     flex: 1,
     textAlign: 'center',
   },
@@ -840,13 +950,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headingTableView: {
-    height: 40,
+    height: wp('9%'),
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
   },
   textc: {
     fontSize: 14,
     color: '#FFFFFF',
+    paddingHorizontal: wp('0.5%')
   },
   flatitem: {
     flexWrap: 'wrap',
@@ -855,8 +966,8 @@ const styles = StyleSheet.create({
   },
   buttonstyle: {
     position: 'absolute',
-    height: 50,
-    width: 50,
+    height: wp('15.3%'),
+    width: wp('15.3%'),
     borderRadius: 50,
     shadowColor: '#000000',
     shadowOffset: {width: 0, height: 2},
@@ -866,17 +977,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
-    left: 30,
-    bottom: 20,
+    left: wp('9.3%'),
+    bottom: wp('7%'),
   },
-  topcontentimagelogo: {
-    height: 30,
-    width: 30,
-    justifyContent: 'center',
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
+  // topcontentimagelogo: {
+  //   height: wp('7%'),
+  //   width: wp('7%'),
+  //   justifyContent: 'center',
+  //   resizeMode: 'contain',
+  //   alignSelf: 'center',
+  //   alignItems: 'center',
+  // },
   container: {
     flexDirection: 'column',
     flex: 1,
@@ -910,14 +1021,17 @@ const styles = StyleSheet.create({
   },
   textcreat: {
     alignItems: 'flex-start',
-    fontSize: wp('5%'),
+    fontSize: 18,
     fontWeight: 'normal',
     color: 'gray',
+    marginBottom: wp('1%')
   },
   textInputcreat: {
     height: wp('11%'),
     borderWidth: wp('0.3%'),
     borderRadius: 5,
+    fontSize: 16,
+    textAlignVertical: 'center',
   },
   ViewInRowcreat: {
     marginVertical: wp('3%'),
@@ -931,10 +1045,34 @@ const styles = StyleSheet.create({
   textInput1in3creat: {
     height: wp('11%'),
     textAlignVertical: 'center',
-    textAlign: 'center',
+    // textAlign: 'center',
+    paddingLeft: wp('2%'),
     justifyContent: 'center',
     borderWidth: wp('0.3%'),
     borderRadius: 5,
+    fontSize: 16
+  
+  },
+  timeinput: {
+    height: wp('20%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: wp('0.3%'),
+    borderRadius: 5,
+    width: wp('35%')
+  },
+  timedisplay: {
+    fontWeight: '700',
+    fontSize: 30,
+    color:'gray'
+  },
+  timedisplay1: {
+    fontWeight: '500',
+    fontSize: 30,
+  },
+  timearrow: {
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   textInput1in3creatv: {
     ...Platform.select({
@@ -952,12 +1090,16 @@ const styles = StyleSheet.create({
   ViewCol1in2creat: {
     flexDirection: 'column',
     flex: 0.48,
+    
   },
   textInput1in2creat: {
     height: wp('11%'),
     textAlign: 'center',
+    textAlignVertical: 'center',
     borderWidth: wp('0.3%'),
     borderRadius: 5,
+    color:'#000',
+    fontSize: 20,
   },
   ButtonAddExamcreat: {
     flex: 1,
@@ -967,6 +1109,7 @@ const styles = StyleSheet.create({
     height: wp('10%'),
     margin: 20,
     elevation: 3,
+    borderRadius: 5,
   },
   textWhitecreat: {
     color: '#FFFFFF',

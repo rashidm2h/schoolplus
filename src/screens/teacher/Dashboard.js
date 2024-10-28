@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {DOMParser} from 'xmldom';
 import IconBadge from 'react-native-icon-badge';
 import {useIsFocused} from '@react-navigation/native';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {BackHandler, Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../config/Globals';
@@ -18,6 +18,25 @@ const TeacherDashboard = ({navigation}) => {
   const [CountTEventTotal, setCountTEventTotal] = useState(0);
   const [CountTNoteTotal, setCountTNoteTotal] = useState(0);
   const parser = new DOMParser();
+  useEffect(() => {
+    const backAction = () => {
+      if (navigation.canGoBack() && isFocused) {  
+        BackHandler.exitApp();
+        return true; 
+      } else {
+        
+        navigation.goBack();
+        return true; 
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [isFocused, navigation]);
 
   useEffect(() => {
     getEventNotificationCount();
@@ -32,10 +51,15 @@ const TeacherDashboard = ({navigation}) => {
     );
   }, [isFocused]);
 
+  const buttonpress = () => {
+     removeNotification();
+      navigation.navigate('TeacherNotes');
+  };
+
   const getEventNotificationCount = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}Getcount`, {
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=Getcount`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 						<soap12:Body>
@@ -81,21 +105,29 @@ const TeacherDashboard = ({navigation}) => {
     );
   };
 
-  const noteTCount = result => {
-    AsyncStorage.getItem('removeTeacherNoteCount').then(
-      keyValue2 => {
-        setCountTNoteTotal(result >= keyValue2 ? result - keyValue2 : result);
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  };
+  // const noteTCount = result => {
+  //   AsyncStorage.getItem('removeTeacherNoteCount').then(
+  //     keyValue2 => {
+  //       setCountTNoteTotal(result >= keyValue2 ? result - keyValue2 : result);
+  //     },
+  //     error => {
+  //       console.log(error);
+  //     },
+  //   );
+  // };
 
   const getNoteCount = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}ViewParentNotes`, {
+      //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+      //     <soap12:Body>
+      //  <ViewParentNotes xmlns="http://www.m2hinfotech.com//">
+      //  <teacherMobile>${keyValue}</teacherMobile>
+      //  </ViewParentNotes>
+      //  </soap12:Body>
+      //  </soap12:Envelope>
+      //  `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 					 <soap12:Body>
@@ -116,10 +148,22 @@ const TeacherDashboard = ({navigation}) => {
             const result = xmlDoc.getElementsByTagName(
               'ViewParentNotesResult',
             )[0].childNodes[0].nodeValue;
-            if (result !== 'failure') {
-              const rslt = JSON.parse(result);
-              noteTCount(rslt[0].count);
+            if (result === 'failure') {
+              setdataerror(true);
             }
+            else{
+              const rslt = JSON.parse(result);
+              setCountTNoteTotal(rslt.Table[0].count);
+           
+            try {
+              const notificationIds = rslt.Table.map(notification => notification.NotificationId);
+              // console.log("Notification IDs.................:", notificationIds);
+              AsyncStorage.setItem('notificationIdsteach', JSON.stringify(notificationIds))
+              // AsyncStorage.setItem('NoteCount', JSON.stringify(notecount));
+            } catch (error) {
+              console.log('somthing went wrong');
+            }
+          }
           })
           .catch(error => {
             console.log(error);
@@ -130,6 +174,48 @@ const TeacherDashboard = ({navigation}) => {
       },
     );
   };
+  const removeNotification = () => {
+    AsyncStorage.getItem('acess_token').then(
+      keyValue => {
+        AsyncStorage.getItem('notificationIdsteach')
+        .then(
+          keyValue2 => {
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNotescount`, {
+              method: 'POST',
+              body: `<?xml version="1.0" encoding="utf-8"?>
+              <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                <soap12:Body>
+                  <UpdateNotescount xmlns="http://www.m2hinfotech.com//">
+                    <PhoneNo>${keyValue}</PhoneNo>
+                    <Status>${1}</Status>
+                    <NotificationId>${keyValue2}</NotificationId>
+                  </UpdateNotescount>
+                </soap12:Body>
+              </soap12:Envelope>`,
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'text/xml; charset=utf-8',
+              },
+            })
+              .then(response => response.text())
+              .then(() => {
+                getNoteCount(); 
+              })
+              .catch(error => {
+                console.log(error);
+              });
+          },
+          error => {
+            console.log(error);
+          },
+        );
+    },
+    error => {
+      console.log(error);
+    },
+  );
+};
+
 
   return (
     <View style={styles.container}>
@@ -151,7 +237,7 @@ const TeacherDashboard = ({navigation}) => {
         <Text style={styles.title}>STUDENT DETAILS</Text>
       </Pressable>
       <Pressable
-        style={[styles.box, {backgroundColor: '#4CB050'}]}
+        style={[styles.box, {backgroundColor: '#3c914b'}]}
         onPress={() => {
           navigation.navigate('TeacherAttendance');
         }}>
@@ -177,7 +263,7 @@ const TeacherDashboard = ({navigation}) => {
 
         <Text style={styles.title}>EXAM</Text>
       </Pressable>
-      {domainName !== 'avk.schoolplusapp.com' ? (
+      {/* {domainName !== 'avk.schoolplusapp.com' ? (
         <Pressable
           style={[styles.box, {backgroundColor: '#DD2C00'}]}
           onPress={() => {
@@ -187,21 +273,18 @@ const TeacherDashboard = ({navigation}) => {
 
           <Text style={styles.title}>FEES MANAGEMENT</Text>
         </Pressable>
-      ) : null}
+      ) : null} */}
 
-      <View style={styles.lastBox}>
+      {/* <View style={styles.lastBox}> */}
         <Pressable
           onPress={() => {
             navigation.navigate('TeacherEvents');
           }}
-          style={[styles.smallBox, {backgroundColor: '#8CC447'}]}>
-          <IconBadge
-            MainElement={
-              <View style={styles.imagetextcenter}>
+          style={[styles.box, {backgroundColor: '#8CC447'}]}>
                 <Icon name="calendar" size={34} color="white" />
                 <Text style={styles.title}>EVENTS</Text>
-              </View>
-            }
+
+          <IconBadge
             BadgeElement={
               <Text style={styles.iconbadgetext}>{CountTEventTotal}</Text>
             }
@@ -210,21 +293,15 @@ const TeacherDashboard = ({navigation}) => {
           />
         </Pressable>
         <Pressable
-          onPress={() => {
-            navigation.navigate('TeacherNotes');
-          }}
-          style={[styles.smallBox, {backgroundColor: '#607D8B'}]}>
-          <IconBadge
-            MainElement={
-              <View style={[styles.imagetextcenter, {width: 107}]}>
+          onPress={buttonpress}
+          style={[styles.box, {backgroundColor: '#607D8B'}]}>
                 <Icon
                   name="message-processing-outline"
                   size={34}
                   color="white"
                 />
                 <Text style={styles.title}>NOTES</Text>
-              </View>
-            }
+          <IconBadge
             BadgeElement={
               <Text style={styles.iconbadgetext}>{CountTNoteTotal}</Text>
             }
@@ -232,7 +309,7 @@ const TeacherDashboard = ({navigation}) => {
             Hidden={CountTNoteTotal === 0 || CountTNoteTotal < 0}
           />
         </Pressable>
-      </View>
+      {/* </View> */}
     </View>
   );
 };
@@ -270,10 +347,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   iconBadge: {
-    marginLeft: wp('3%'),
-    width: wp('21.7%'),
-    height: wp('21.7%'),
+    width: wp('9%'),
+    height: wp('9%'),
+    borderRadius: 50,
     backgroundColor: '#EA1E63',
+    top:-wp('8%'),
+    left:wp('1%')
   },
   imagetextcenter: {
     margin: hp('2.7%'),

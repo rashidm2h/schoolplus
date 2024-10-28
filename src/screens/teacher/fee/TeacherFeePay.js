@@ -49,6 +49,15 @@ const TeacherFeePay = ({route, navigation}) => {
   }, []);
 
   const onData = arr => {
+    console.log(`${GLOBALS.TEACHER_URL}InsertStdFeeReact`,`<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+ <soap12:Body>
+	 <InsertStdFeeReact xmlns="http://www.m2hinfotech.com//">
+		 <JasonOutPut>${JSON.stringify(arr)}</JasonOutPut>
+	 </InsertStdFeeReact>
+ </soap12:Body>
+</soap12:Envelope>
+`)
     fetch(`${GLOBALS.TEACHER_URL}InsertStdFeeReact`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>

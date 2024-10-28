@@ -13,6 +13,7 @@ import {DOMParser} from 'xmldom';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../config/Globals';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const SwitchstudentPage = ({route, navigation}) => {
   const [isLoading, setisLoading] = useState(true);
@@ -31,9 +32,19 @@ const SwitchstudentPage = ({route, navigation}) => {
   const StudentId = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        AsyncStorage.getItem('schoolBranchName').then(
+        AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
-            fetch(`${GLOBALS.PARENT_URL}GetStudIdForParent`, {
+        //     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, `<?xml version="1.0" encoding="utf-8"?>
+        //       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        // <soap12:Body>
+        // <GetStudIdForParent xmlns="http://www.m2hinfotech.com//">
+        // <mobile>${keyValue}</mobile>
+        // <Branch>${keyValue2}</Branch>
+        // </GetStudIdForParent>
+        // </soap12:Body>
+        // </soap12:Envelope>
+        //     `)
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
 			<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -182,16 +193,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   icon: {
-    width: 10,
-    height: 40,
+    width: wp('3%'),
+    height: hp('8%'),
   },
   containertopcontentimage: {
     justifyContent: 'center',
-    height: 40,
-    width: 40,
+    height:hp('6%'),
+    width: wp('6%'),
   },
   esscontainermiddle: {
-    height: 95,
+    height: hp('20%'),
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -199,23 +210,24 @@ const styles = StyleSheet.create({
   },
   viewstyle: {
     flex: 7,
-    marginTop: 10,
+    marginTop: wp('3%'),
   },
   dashtext: {
     justifyContent: 'center',
     fontSize: 18,
-    marginLeft: 25,
+    // marginLeft: 25,
     color: '#FFFFFF',
   },
   productbox: {
     flexDirection: 'row',
-    paddingLeft: 20,
-    paddingRight: 25,
+    paddingLeft: wp('5%'),
+    paddingRight: wp('6%'),
   },
   esscontainerimageflat: {
     alignItems: 'flex-start',
-    height: 90,
-    width: 90,
+    height: hp('15%'),
+    width: wp('15%'),
+
     ...Platform.select({
       ios: {
         borderRadius: 90 / 2,
@@ -234,8 +246,8 @@ const styles = StyleSheet.create({
   },
   textcolum: {
     flexDirection: 'column',
-    paddingLeft: 10,
-    paddingRight: 15,
+    paddingLeft: wp('3%'),
+    paddingRight: wp('4%'),
     justifyContent: 'center',
   },
   row: {

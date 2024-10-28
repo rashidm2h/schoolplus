@@ -1,21 +1,42 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View,BackHandler} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/DashboardHeader';
+import { useIsFocused } from '@react-navigation/native';
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 const AdminDashboard = ({navigation}) => {
+  const isFocused = useIsFocused();
   let mobile = '';
   let branch = '';
   let studentId = '';
 
   const [domain, setdomain] = useState('');
+  useEffect(() => {
+    const backAction = () => {
+      if (navigation.canGoBack() && isFocused) {  
+        BackHandler.exitApp();
+        return true; 
+      } else {
+        
+        navigation.goBack();
+        return true; 
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [isFocused, navigation]);
 
   useEffect(() => {
     AsyncStorage.getItem('domain').then(value => {
@@ -69,7 +90,7 @@ const AdminDashboard = ({navigation}) => {
 
         <Text style={styles.title}>STAFF DETAILS</Text>
       </Pressable>
-      {domain !== 'avk.schoolplusapp.com' && (
+      {/* {domain !== 'avk.schoolplusapp.com' && (
         <Pressable
           onPress={() => {
             navigation.navigate('AdminFee');
@@ -79,7 +100,7 @@ const AdminDashboard = ({navigation}) => {
 
           <Text style={styles.title}>FEES MANAGEMENT</Text>
         </Pressable>
-      )}
+      )} */}
       {domain === 'avk.schoolplusapp.com' ? (
         <Pressable
           onPress={() => {
@@ -91,12 +112,12 @@ const AdminDashboard = ({navigation}) => {
           <Text style={styles.title}>EXAM RESULTS</Text>
         </Pressable>
       ) : null}
-      <View style={styles.lastBox}>
+      {/* <View style={styles.lastBox}> */}
         <Pressable
           onPress={() => {
             navigation.navigate('Events');
           }}
-          style={[styles.smallBox, {backgroundColor: '#8CC447'}]}>
+          style={[styles.box, {backgroundColor: '#8CC447'}]}>
           <Icon name="calendar" size={34} color="white" />
 
           <Text style={styles.title}>EVENTS</Text>
@@ -105,13 +126,13 @@ const AdminDashboard = ({navigation}) => {
           onPress={() => {
             navigation.navigate('Notes');
           }}
-          style={[styles.smallBox, {backgroundColor: '#607D8B'}]}>
+          style={[styles.box, {backgroundColor: '#607D8B'}]}>
           <Icon name="message-processing-outline" size={34} color="white" />
 
           <Text style={styles.title}>NOTES</Text>
         </Pressable>
       </View>
-    </View>
+    // </View>
   );
 };
 

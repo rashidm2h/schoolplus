@@ -111,7 +111,21 @@ const SendNotes = () => {
           AsyncStorage.getItem('acess_token').then(
             keyValue => {
               const username = keyValue;
-              fetch(`${GLOBALS.TEACHER_URL}InsertTeacherNotes`, {
+              console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeacherNotes`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                <soap12:Body>
+                  <InsertTeacherNotes xmlns="http://www.m2hinfotech.com//">
+                    <senderNo>${username}</senderNo>
+                    <studentId>${studentArrayString}</studentId>
+                    <title>${title}</title>
+                    <description>${description}</description>
+                    <branchId>${branch}</branchId>
+                    <status>${status}</status>
+                    <attachs>${attachArray}</attachs>
+                  </InsertTeacherNotes>
+                </soap12:Body>
+              </soap12:Envelope>
+              `)
+              fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeacherNotes`, {
                 method: 'POST',
                 body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     <soap12:Body>
@@ -211,7 +225,16 @@ const SendNotes = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue; //Display key value
-        fetch(`${GLOBALS.TEACHER_URL}TeacherClasses`, {
+      //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`,`
+      //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+      //   <soap12:Body>
+      //     <TeacherClasses xmlns="http://www.m2hinfotech.com//">
+      //       <PhoneNo>${username}</PhoneNo>
+      //     </TeacherClasses>
+      //   </soap12:Body>
+      // </soap12:Envelope>
+      //     `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
           method: 'POST',
           body: `
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -258,7 +281,15 @@ const SendNotes = () => {
 
   const ClassStudentsAccess = id => {
     const branchIds = id;
-    fetch(`${GLOBALS.TEACHER_URL}StdNotesClasswiseList`, {
+  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdNotesClasswiseList`,`<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  // <soap12:Body>
+  //   <StdNotesClasswiseList xmlns="http://www.m2hinfotech.com//">
+  //     <BranchclsId>${branchIds}</BranchclsId>
+  //   </StdNotesClasswiseList>
+  // </soap12:Body>
+  // </soap12:Envelope>
+  // `)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdNotesClasswiseList`, {
       method: 'POST',
       body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Body>
@@ -491,14 +522,14 @@ const SendNotes = () => {
             <Pressable style={styles.P_SD_Bottom_Flatlist}>
               <View style={styles.P_SD_Bottom_Flatlist}>
                 <View style={styles.P_SD_Bottom_Flatlistcheckbox}>
-                  {studentIds.length > 0 ? (
+                  {studentIds.length > 0 && studentIds[index] &&  (
                     <CheckBox
                       backgroundColor="gray"
                       size={20}
                       onPress={() => itemCheck(item, index)}
                       checked={studentIds[index].status}
                     />
-                  ) : null}
+                  ) }
                 </View>
                 <View style={styles.P_SD_Bottom_FlatlistRowLeft}>
                   <Text style={styles.textFlewWrap}>{item.RollNo}</Text>
@@ -667,7 +698,7 @@ const styles = StyleSheet.create({
         marginLeft: wp('3.5%'),
         borderWidth: wp('0.3%'),
         borderRadius: 3,
-        height: wp('10.5%'),
+        height: wp('11.5%'),
         // alignItems: 'stretch',
         paddingLeft: wp('0.3%'),
       },
@@ -725,7 +756,7 @@ const styles = StyleSheet.create({
   P_SD_Bottom_checkbox: {
     elevation: 3,
     flex: 0.2,
-    height: wp('17%'),
+    height: wp('13%'),
     backgroundColor: '#AF67BD',
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -734,7 +765,7 @@ const styles = StyleSheet.create({
   },
   P_SD_Bottom_AttendenceboxLeft: {
     elevation: 3,
-    flex: 0.2,
+    flex: 0.3,
     height: wp('13%'),
     flexDirection: 'column',
     backgroundColor: '#AF67BD',
@@ -770,7 +801,7 @@ const styles = StyleSheet.create({
   },
 
   P_SD_Bottom_FlatlistRowLeft: {
-    flex: 0.2,
+    flex: 0.3,
     height: wp('15%'),
     alignItems: 'flex-start',
     justifyContent: 'center',

@@ -42,7 +42,16 @@ const Notes = ({navigation}) => {
         keyValue => {
           AsyncStorage.getItem('StdID').then(
             keyValue2 => {
-              fetch(`${GLOBALS.PARENT_URL}GetNonTStaffsNotes`, {
+//               console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`,`<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+//  <soap12:Body>
+//  <GetNonTStaffsNotes xmlns="http://www.m2hinfotech.com//">
+//  <mobileNo>${keyValue}</mobileNo>
+//  <BranchID>${branchId}</BranchID>
+//  </GetNonTStaffsNotes>
+//  </soap12:Body>
+//  </soap12:Envelope>
+//  `)
+              fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
                 method: 'POST',
                 body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
  <soap12:Body>
@@ -95,7 +104,7 @@ const Notes = ({navigation}) => {
                       });
                     }
                     setdata(arraySet);
-                    setdata(rslt.Table);
+                    setdata(rslt.Table1);
                   }
                 })
                 .catch(error => {

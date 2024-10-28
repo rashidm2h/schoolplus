@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  Picker,
   FlatList,
   Alert,
   StyleSheet,
@@ -20,6 +19,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { Picker } from '@react-native-picker/picker';
 const ViewResult = () => {
   const [keys, setkeys] = useState('');
   const [domain, setdomain] = useState('');
@@ -146,7 +146,16 @@ const ViewResult = () => {
   };
 
   const viewresultclassFunc = value => {
-    fetch(`${GLOBALS.TEACHER_URL}TeacherClasses`, {
+  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, `<?xml version="1.0" encoding="utf-8"?>
+  //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  //     <soap12:Body>
+  //       <TeacherClasses xmlns="http://www.m2hinfotech.com//">
+  //       <PhoneNo>${value}</PhoneNo>
+  //     </TeacherClasses>
+  //   </soap12:Body>
+  // </soap12:Envelope>
+  // `)
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -185,8 +194,8 @@ const ViewResult = () => {
           value: element.BranchClassId,
           label: element.Class,
         }));
-        console.log('classwwwwwwwwwwww');
-        console.log('class', dropdownData);
+        // console.log('classwwwwwwwwwwww');
+        // console.log('class', dropdownData);
         setdropdownSource(dropData);
         setdropdownValue(dropdownData[0].BranchClassId);
         viewresultexamnamesFunc(
@@ -213,7 +222,22 @@ const ViewResult = () => {
     } else {
       AsyncStorage.setItem('branchidresult', bcl);
       const result = JSON.parse(JSON.stringify(dropval));
-      fetch(`${GLOBALS.TEACHER_URL}GetExamList`, {
+      // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamList`,`<?xml version="1.0" encoding="utf-8"?>
+      //           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+      //           <soap12:Body>
+      //             <GetExamList xmlns="http://www.m2hinfotech.com//">
+      //             <PhoneNo>${
+      //               value !== undefined ? value : accessToken
+      //             }</PhoneNo>
+      //             <BranchclsId>${
+      //               bcl !== undefined ? bcl : dropdownValue
+      //             }</BranchclsId>
+      //             <ExType>${result}</ExType>
+      //           </GetExamList>
+      //         </soap12:Body>
+      //       </soap12:Envelope>
+      //       `)
+      fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamList`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
                 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -276,7 +300,7 @@ const ViewResult = () => {
     examids = drop2;
     bcls = drop1;
     AsyncStorage.setItem('examid', drop2);
-    fetch(`${GLOBALS.TEACHER_URL}StdAttClasswiseList`, {
+    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -320,7 +344,7 @@ const ViewResult = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{flexDirection: 'row', margin: 5}}>
+      <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
         <View style={{flex: 1}}>
           <Text style={{}}>Select Class :</Text>
           {isVisiblefst === true ? (
@@ -331,7 +355,7 @@ const ViewResult = () => {
               style={[
                 styles.pickerStyle,
                 {
-                  marginRight: 5,
+                  marginRight: wp('1.5%'),
                 },
               ]}
               textColor="#121214"
@@ -367,7 +391,7 @@ const ViewResult = () => {
       </View>
       {dropdownValue1 === 'CommonExam' &&
       domain === 'avk.schoolplusapp.com' ? null : (
-        <View style={{flex: 1, margin: 5}}>
+        <View style={{flex: 1, margin: wp('1%'),paddingHorizontal: wp('1%')}}>
           <Text style={{}}>Select Exam :</Text>
           <Dropdown
             inputContainerStyle={styles.dropdownInput}
@@ -425,7 +449,7 @@ const ViewResult = () => {
                           }
 
                           AsyncStorage.getItem('BranchID').then(BranchID => {
-                            fetch(`${GLOBALS.PARENT_URL}RetrieveAllMarksheet`, {
+                            fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllMarksheet`, {
                               method: 'POST',
                               body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -468,7 +492,18 @@ const ViewResult = () => {
                               AsyncStorage.getItem('examid').then(
                                 keyValueid => {
                                   examids = keyValueid;
-                                  fetch(`${GLOBALS.TEACHER_URL}GetStdMark`, {
+                                  console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetStdMark`,`<?xml version="1.0" encoding="utf-8"?>
+                                  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                                  <soap12:Body>
+                                    <GetStdMark xmlns="http://www.m2hinfotech.com//">
+                                    <BranchclsId>${bclsd}</BranchclsId>
+                                    <StdId>${item.StudId}</StdId>
+                                    <ExamId>${examids}</ExamId>
+                                  </GetStdMark>
+                                </soap12:Body>
+                              </soap12:Envelope>
+                              `)
+                                  fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetStdMark`, {
                                     method: 'POST',
                                     body: `<?xml version="1.0" encoding="utf-8"?>
                                   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -784,7 +819,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   pickerStyle: {
-    marginTop: widthPercentageToDP('2%'),
+    marginTop: wp('2%'),
     borderColor: '#CFCFCF',
     backgroundColor: '#fff',
     borderRadius: wp('0.3%'),
@@ -821,6 +856,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: wp('0.3%'),
     borderBottomColor: '#E0E0E0',
+    paddingHorizontal: wp('1%'),
   },
   itemones: {
     flex: 0.5,

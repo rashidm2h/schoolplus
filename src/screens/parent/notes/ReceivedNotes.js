@@ -43,7 +43,16 @@ const ReceivedNotes = () => {
         AsyncStorage.getItem('StdID').then(
           keyValue2 => {
             StudentID = keyValue2;
-            fetch(`${GLOBALS.PARENT_URL}RetrieveParentNoteHistory`, {
+//             console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveParentNoteHistory`,`<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+//  <soap12:Body>
+//  <RetrieveParentNoteHistory xmlns="http://www.m2hinfotech.com//">
+//  <parentNo>${parentNo}</parentNo>
+//  <studentId>${StudentID}</studentId>
+//  </RetrieveParentNoteHistory>
+//  </soap12:Body>
+//  </soap12:Envelope>
+//  `)
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveParentNoteHistory`, {
               method: 'POST',
               body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
  <soap12:Body>
@@ -75,7 +84,7 @@ const ReceivedNotes = () => {
                   setloading(false);
                   setrn_visible(true);
                   setnoDataView(false);
-                  console.log(rslt, 'rslt');
+                  // console.log(rslt, 'rslt');
                   const arraySet = [...rslt.Table];
                   arraySet.map(i => (i.attachments = []));
                   if (
@@ -124,6 +133,7 @@ const ReceivedNotes = () => {
       },
     );
   };
+  
 
   const renderItems = ({item, index}) => (
     <Pressable

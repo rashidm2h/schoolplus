@@ -81,7 +81,7 @@ const AdminFeeFirstScreen = ({navigation}) => {
 
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
-          fetch(`${GLOBALS.PARENT_URL}GetClassFeeTotal`, {
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetClassFeeTotal`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -148,7 +148,7 @@ const AdminFeeFirstScreen = ({navigation}) => {
     }
 
     AsyncStorage.getItem('BranchID').then(BranchID => {
-      fetch(`${GLOBALS.PARENT_URL}MultiSelectDivisions`, {
+      fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=MultiSelectDivisions`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -211,7 +211,7 @@ const AdminFeeFirstScreen = ({navigation}) => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
           username = keyValue;
-          fetch(`${GLOBALS.PARENT_URL}GetAllClasses`, {
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

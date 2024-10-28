@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const UpcomingEvents = () => {
   const [loading, setloading] = useState(true);
@@ -25,7 +26,18 @@ const UpcomingEvents = () => {
         AsyncStorage.getItem('acess_token').then(
           keyValue2 => {
             const status = 'new';
-            fetch(`${GLOBALS.PARENT_URL}GetEventDetailsForParent`, {
+            console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetEventDetailsForParent`,`<?xml version="1.0" encoding="utf-8"?>
+      <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        <soap12:Body>
+          <GetEventDetailsForParent xmlns="http://www.m2hinfotech.com//">
+            <phoneNo>${keyValue2}</phoneNo>
+            <status>${status}</status>
+            <studentId>${keyValue}</studentId>
+          </GetEventDetailsForParent>
+        </soap12:Body>
+      </soap12:Envelope>
+        `)
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetEventDetailsForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -82,7 +94,7 @@ const UpcomingEvents = () => {
         setstudentID(keyValue);
         AsyncStorage.getItem('acess_token').then(
           keyValue2 => {
-            fetch(`${GLOBALS.PARENT_URL}Getcount`, {
+            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`, {
               method: 'POST',
               body: `
 				 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -210,11 +222,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   teachercontainermiddel: {
-    flex: 1,
-    height: 50,
+    width: wp('100%'),
+    height: wp('15.5%'),
     flexDirection: 'row',
     backgroundColor: '#EFEFEF',
-    borderBottomWidth: 2,
+    borderBottomWidth: wp('0.6%'),
     borderBottomColor: '#E0E0E0',
   },
   textcontaineone: {
@@ -235,15 +247,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 1,
+    margin: wp('0.5%'), 
   },
   texthead: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
-    marginLeft: 10,
+    marginLeft: wp('3%'),
   },
   textc: {
-    fontSize: 14,
+    fontSize: wp('5%'),
     color: '#BA69C8',
   },
   ///////faltlist styles/////////////
@@ -269,13 +281,13 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     textAlign: 'center',
-    marginLeft: 10,
+    marginLeft: wp('3%'),
   },
   itemDesc: {
     flex: 1,
     flexWrap: 'wrap',
     fontSize: 10,
-    marginLeft: 10,
+    marginLeft: wp('3%'),
   },
   itemone: {
     flexDirection: 'column',

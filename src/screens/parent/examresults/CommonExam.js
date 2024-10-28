@@ -43,7 +43,7 @@ const CommonExam = () => {
       } else {
         AsyncStorage.getItem('StdID').then(keyValue => {
           stdId = keyValue;
-          fetch(`${GLOBALS.PARENT_URL}GetStudentExamListNew`, {
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudentExamListNew`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -111,7 +111,7 @@ const CommonExam = () => {
       //   BranchID,
       //   upcmgEventLoading: true,
       // });
-      fetch(`${GLOBALS.PARENT_URL}RetrieveAllMarksheet`, {
+      fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllMarksheet`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -160,7 +160,7 @@ const CommonExam = () => {
   };
 
   const getExamMarks = examId => {
-    fetch(`${GLOBALS.PARENT_URL}GetStdExmMarks`, {
+    fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStdExmMarks`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

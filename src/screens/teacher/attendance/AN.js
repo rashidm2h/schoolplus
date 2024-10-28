@@ -10,6 +10,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { log } from 'react-native-reanimated';
 const AN = () => {
   const [data, setdata] = useState('');
   const [checked, setchecked] = useState([]);
@@ -36,11 +37,12 @@ const AN = () => {
   };
 
   const onData = dataSet => {
-    let dataArray = JSON.parse(JSON.stringify(dataSet));
+    let arr2 = JSON.stringify(dataSet);
+    let arr3 = JSON.parse(arr2);
     let count = 0;
     let attendancestatus;
-    for (var i = 0; i < dataArray.length; i++) {
-      if (dataArray[i].Stud_Id !== '') {
+    for (var i = 0; i < arr3.length; i++) {
+      if (arr3[i].Stud_Id !== '') {
         count++;
       }
     }
@@ -49,7 +51,20 @@ const AN = () => {
       keyValue => {
         AsyncStorage.getItem('bclsatt').then(
           keyValue2 => {
-            fetch(`${GLOBALS.TEACHER_URL}StdAttInsertion`, {
+            console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttInsertion`,`<?xml version="1.0" encoding="utf-8"?>
+              <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                <soap12:Body>
+                  <StdAttInsertion xmlns="http://www.m2hinfotech.com//">
+                    <BclsId>${keyValue2}</BclsId>
+                    <teacherMobNo>${keyValue}</teacherMobNo>
+                    <DayStatus>AN</DayStatus>
+                    <StdIds>${arr2}</StdIds>
+                    <MainStatus>${attendancestatus}</MainStatus>
+                  </StdAttInsertion>
+                </soap12:Body>
+              </soap12:Envelope>
+                 `)
+            fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttInsertion`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -58,7 +73,7 @@ const AN = () => {
         <BclsId>${keyValue2}</BclsId>
         <teacherMobNo>${keyValue}</teacherMobNo>
         <DayStatus>AN</DayStatus>
-        <StdIds>${dataArray}</StdIds>
+        <StdIds>${arr2}</StdIds>
         <MainStatus>${attendancestatus}</MainStatus>
       </StdAttInsertion>
     </soap12:Body>
@@ -90,6 +105,21 @@ const AN = () => {
                     'Failure',
                     'Attendance insertion failed! Try Again!',
                   );
+                }else if (result === 'Failure: Cannot insert past date.') {
+                  Alert.alert(
+                    'Failure',
+                    'Attendance insertion After Date is not Possible',
+                  );
+                }else if (result === 'Failure: Not in the forenoon.') {
+                  Alert.alert(
+                    'Please insert in Afternoon',
+                    'Afternoon attendance cannot insert in forenoon',
+                  );
+                }else if (result === 'Failure') {
+                  Alert.alert(
+                    'Failure',
+                    'Attendance insertion failed! Try Again!',
+                  );
                 } else {
                   Alert.alert('Error', 'Unexpected error occured! Try Again !');
                 }
@@ -112,7 +142,7 @@ const AN = () => {
   const accessdataFN = () => {
     AsyncStorage.getItem('bclsatt').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}StdAttClasswiseList`, {
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

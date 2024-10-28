@@ -19,15 +19,27 @@ const Attendance = ({navigation}) => {
   }, []);
 
   const onPressButtonPOST = () => {
+    AsyncStorage.getItem('BranchID').then (branch => {
     AsyncStorage.getItem('acess_token')
       .then(keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}AttClassListForTeacher`, {
+        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=AttClassListForTeacher`,`<?xml version="1.0" encoding="utf-8"?>
+        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //   <soap12:Body>
+        //   <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
+        //   <teacherMobNo>${keyValue}</teacherMobNo>
+        //    <BranchId>${branch}</BranchId>
+        //   </AttClassListForTeacher>
+        //   </soap12:Body>
+        //   </soap12:Envelope>
+        //   `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=AttClassListForTeacher`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
           <soap12:Body>
           <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
           <teacherMobNo>${keyValue}</teacherMobNo>
+          <BranchId>${branch}</BranchId>
           </AttClassListForTeacher>
           </soap12:Body>
           </soap12:Envelope>
@@ -56,6 +68,7 @@ const Attendance = ({navigation}) => {
             }
           });
       })
+    })
       .catch(error => {
         console.log(error);
       });

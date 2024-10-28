@@ -55,8 +55,17 @@ const ParentNotificationCount = () => {
             console.log(error); //Display error
           },
         );
-
-        fetch(`${GLOBALS.PARENT_URL}Getcount`, {
+  //       console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`,`
+  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  // <soap12:Body>
+  //   <Getcount xmlns="http://www.m2hinfotech.com//">
+  //     <PhoneNo>${keyValue}</PhoneNo>
+  //     <studentId>${StudentId}</studentId>
+  //   </Getcount>
+  // </soap12:Body>
+  // </soap12:Envelope>
+  // `)  
+        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`, {
           method: 'POST',
           body: `
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

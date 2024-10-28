@@ -50,7 +50,20 @@ const FN = () => {
       keyValue => {
         AsyncStorage.getItem('bclsatt').then(
           keyValue2 => {
-            fetch(`${GLOBALS.TEACHER_URL}StdAttInsertion`, {
+            console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttInsertion`,`<?xml version="1.0" encoding="utf-8"?>
+  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+    <soap12:Body>
+      <StdAttInsertion xmlns="http://www.m2hinfotech.com//">
+        <BclsId>${keyValue2}</BclsId>
+        <teacherMobNo>${keyValue}</teacherMobNo>
+        <DayStatus>FN</DayStatus>
+        <StdIds>${arr2}</StdIds>
+        <MainStatus>${attendancestatus}</MainStatus>
+      </StdAttInsertion>
+    </soap12:Body>
+  </soap12:Envelope>
+     `)
+            fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttInsertion`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -86,7 +99,7 @@ const FN = () => {
                     'Attendance',
                     'Attendance has been registered Successfully !',
                   );
-                } else if (result === 'failure') {
+                } else if (result === 'Failure') {
                   Alert.alert(
                     'Failure',
                     'Attendance insertion failed! Try Again!',
@@ -113,7 +126,16 @@ const FN = () => {
   const accessdataFN = () => {
     AsyncStorage.getItem('bclsatt').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}StdAttClasswiseList`, {
+  //       console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`,`<?xml version="1.0" encoding="utf-8"?>
+  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  //   <soap12:Body>
+  //     <StdAttClasswiseList xmlns="http://www.m2hinfotech.com//">
+  //       <BranchclsId>${keyValue}</BranchclsId>
+  //     </StdAttClasswiseList>
+  //   </soap12:Body>
+  // </soap12:Envelope>
+  //  `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

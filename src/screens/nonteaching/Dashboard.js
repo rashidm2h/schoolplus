@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View, BackHandler} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
@@ -15,6 +15,25 @@ const NonTeachingDashboard = ({navigation}) => {
   const [CountTEventTotal, setCountTEventTotal] = useState(0);
   const [CountTNoteTotal, setCountTNoteTotal] = useState(0);
 
+  useEffect(() => {
+    const backAction = () => {
+      if (navigation.canGoBack() && isFocused) {  
+        BackHandler.exitApp();
+        return true; 
+      } else {
+        
+        navigation.goBack();
+        return true; 
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [isFocused, navigation]);
   useEffect(() => {
     getEventNotificationCount();
     getNoteNotificationCount();
