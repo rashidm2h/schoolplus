@@ -909,7 +909,7 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     flexDirection: 'row',
-    height: wp('7.5%'),
+    height: wp('11.9%'),
   },
   item: {
     height: wp('6%'),

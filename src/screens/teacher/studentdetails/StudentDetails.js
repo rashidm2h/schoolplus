@@ -310,13 +310,13 @@ const styles = StyleSheet.create({
     //responsive
     ...Platform.select({
       ios: {
-        height: 30,
+        height: wp('7.5%'),
         borderRadius: 3,
-        paddingBottom: 15,
+        // paddingBottom: 15,
         marginLeft: 10,
       },
       android: {
-        height: 35,
+        height: wp('8.75%'),
       },
     }),
   },

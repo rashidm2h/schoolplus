@@ -104,6 +104,11 @@ const FN = () => {
                     'Failure',
                     'Attendance insertion failed! Try Again!',
                   );
+                }else if (result === 'Failure: Not in the afternoon.') {
+                  Alert.alert(
+                    'Please insert in Forenoon',
+                    'Forenoon attendance cannot insert in Afternoon',
+                  );
                 } else {
                   Alert.alert('Error', 'Unexpected error occured! Try Again !');
                 }

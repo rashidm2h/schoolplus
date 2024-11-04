@@ -60,12 +60,12 @@ const Notifications = ({navigation}) => {
                 branch,
                 JSON.stringify(removeteacherNotifCount),
               );
-              try {
-                const notificationIds = rslt.map(notification => notification.NotificationId);
-                AsyncStorage.setItem('notificationIdsadmin', JSON.stringify(notificationIds))
-              } catch (error) {
-                console.log('somthing went');
-              }
+              // try {
+              //   const notificationIds = rslt.map(notification => notification.NotificationId);
+              //   AsyncStorage.setItem('notificationIdsadmin', JSON.stringify(notificationIds))
+              // } catch (error) {
+              //   console.log('somthing went');
+              // }
               console.log(rslt);
               setdata(rslt);
             }

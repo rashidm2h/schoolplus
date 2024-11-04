@@ -60,8 +60,8 @@ const Notifications = ({navigation}) => {
               setdataerror(true);
             } else {
               const rslt = JSON.parse(result);
-              const notificationIds = rslt.map(notification => notification.NotificationId);
-              AsyncStorage.setItem('notificationIds', JSON.stringify(notificationIds))
+              // const notificationIds = rslt.map(notification => notification.NotificationId);
+              // AsyncStorage.setItem('notificationIds', JSON.stringify(notificationIds))
               setdata(rslt);
             }
           })

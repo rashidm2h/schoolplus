@@ -412,14 +412,20 @@ const styles = StyleSheet.create({
   },
   signin: {
     flexDirection: 'row',
-    marginTop: hp('23%'),
     alignItems: 'center',
-    justifyContent: 'center'
-
+    justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: hp('20%'),
+      },
+      android: {
+        marginTop: hp('23%'),
+      },
+    })
   },
   signintext: {
     fontSize: 16,
-    color: 'white'
+    color: 'white',
   },
   signintextlink: {
     fontSize: 16,

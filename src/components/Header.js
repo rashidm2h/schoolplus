@@ -16,7 +16,10 @@ const Header = props => {
   const navigation = useNavigation();
   const [count, setcount] = useState('');
   useEffect(() => {
+    Notification()
+  }, [props.homePress, isFocused]);
     // console.log('kkkkkkk');
+    const Notification = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
       let noticount;
       let rslt;
@@ -158,8 +161,8 @@ const Header = props => {
                     setcount('');
                   } else {
                     rslt = JSON.parse(v);
-                    noticount = rslt[2].count;
-                    setcount(rslt[2].count, active);
+                    noticount = rslt[1].count;
+                    setcount(rslt[1].count, active);
                   }
                 })
                 .catch(error => {
@@ -174,7 +177,7 @@ const Header = props => {
       );
     });
     // NTS SSP TH PH AS ASH AH EH
-  }, [props.homePress, isFocused]);
+  }
 
   const bellPress = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
@@ -191,56 +194,57 @@ const Header = props => {
     })
   }
 
-  const removeNotification = () => {
-    AsyncStorage.getItem('Dashboard').then(active => {
-    AsyncStorage.getItem('acess_token').then(
-      keyValue => {
-        let notificationid;
-        if (active === 'TH') {
-          notificationid = AsyncStorage.getItem('notificationIds')
-        }
-        else if (active === 'PH') {
-          notificationid = AsyncStorage.getItem('notificationIdsparent')
-        }
-        else {
-          notificationid = AsyncStorage.getItem('notificationIdsadmin');
-        }
-        notificationid.then(
-          keyValue2 => {
-            // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`, `<?xml version="1.0" encoding="utf-8"?>
-            // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            //     <soap12:Body>
-            //       <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
-            //     <PhoneNo>${keyValue}</PhoneNo>
-            //     <Status>${1}</Status>
-            //     <NotificationId>${keyValue2}</NotificationId>
-            //     </UpdateNoticount>
-            //     </soap12:Body>
-            //     </soap12:Envelope>`)
-            fetch(
-              `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,
-              {
-                method: 'POST',
-                body: `<?xml version="1.0" encoding="utf-8"?>
-        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                <soap12:Body>
+  const removeNotification = async () => {
+    try {
+      const active = await AsyncStorage.getItem('Dashboard');
+      const keyValue = await AsyncStorage.getItem('acess_token');
+      let notificationIdKey = '';
+  
+      if (active === 'TH') {
+        notificationIdKey = 'notificationIds';
+      } else if (active === 'PH') {
+        notificationIdKey = 'notificationIdsparent1';
+      } else {
+        notificationIdKey = 'notificationIdsadmin';
+      }
+  
+      const notificationId = await AsyncStorage.getItem(notificationIdKey);
+  
+      if (notificationId) {
+        const response = await fetch(
+          `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,
+          {
+            method: 'POST',
+            body: `<?xml version="1.0" encoding="utf-8"?>
+            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+              <soap12:Body>
                 <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
-                <PhoneNo>${keyValue}</PhoneNo>
-                <Status>#${1}</Status>
-                <NotificationId>${keyValue2}</NotificationId>
+                  <PhoneNo>${keyValue}</PhoneNo>
+                  <Status>1</Status>
+                  <NotificationId>${notificationId}</NotificationId>
                 </UpdateNoticount>
-                </soap12:Body>
-                </soap12:Envelope>`,
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'text/xml; charset=utf-8',
-                }
-              }
-            )
-          })
-      })
-    })
-  }
+              </soap12:Body>
+            </soap12:Envelope>`,
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'text/xml; charset=utf-8',
+            },
+          }
+        );
+  
+        const result = await response.text();
+        if (response.ok) {
+          console.log("Notification updated successfully");
+          Notification(); 
+        } else {
+          console.log("Error updating notification count:", result);
+        }
+      }
+    } catch (error) {
+      console.log("Error in removeNotification:", error);
+    }
+  };
+  
 
   // const Count = (c, active) => {
   //   let notifcountViewed = 0;

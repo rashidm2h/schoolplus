@@ -15,13 +15,22 @@ const Header = props => {
   const [count, setcount] = useState('');
   const [role, setrole] = useState('');
   const isFocused = useIsFocused();
+  const [loading, setloading] = useState(true);
+  const [dataerror, setdataerror] = useState(false);
+  const [data, setdata] = useState('');
   const [activeDashboard, setactiveDashboard] = useState('');
+  const parser = new DOMParser();
   useEffect(() => {
     AsyncStorage.getItem('role').then(rol => {
       setrole(rol);
     });
     Notification()
   }, [props.homePress, isFocused]);
+useEffect(() => {
+  accessNotification()
+  accessNotificationteach()
+})
+
 
     const Notification = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
@@ -74,13 +83,12 @@ const Header = props => {
                       rslt = JSON.parse(v);
                       noticount = rslt.length;
                       try {
-                        AsyncStorage.setItem(
-                          'AdminNotificationCount',
-                          JSON.stringify(rslt.length),
-                        );
+                        const notificationIds = rslt.map(notification => notification.NotificationId);
+                        AsyncStorage.setItem('notificationIdsadmin', JSON.stringify(notificationIds))
                       } catch (error) {
                         console.log('somthing went');
                       }
+                      setdata(rslt);
                     }
                   });
               },
@@ -183,7 +191,6 @@ const Header = props => {
               )
                 .then(response => response.text())
                 .then(response => {
-                  console.log('count reaponse',response)
                   const parser = new DOMParser();
                   const xmlDoc = parser.parseFromString(response);
                   const v =
@@ -193,8 +200,8 @@ const Header = props => {
                     setcount('');
                   } else {
                     rslt = JSON.parse(v);
-                    noticount = rslt[2].count;
-                    setcount(rslt[2].count)
+                    noticount = rslt[1].count;
+                    setcount(rslt[1].count)
                   }
                 })
                 .catch(error => {
@@ -220,70 +227,193 @@ const Header = props => {
     else if (active === 'PH'){
       navigation.navigate('ParentNotifications')
     }
-    else if (active === 'AH'){
-      navigation.navigate('Notifications')
+    // else if (active === 'AH'){
+    //   navigation.navigate('Notifications')
+    // }
+    else{
+         navigation.navigate('Notifications');
     }
   })
   }
-
-  const removeNotification = async () => {
-    try {
-      let notificationId;
-      const active = await AsyncStorage.getItem('Dashboard');
-  
-      if (active === 'TH') {
-        notificationId = await AsyncStorage.getItem('notificationIds');
-      } else if (active === 'PH') {
-        notificationId = await AsyncStorage.getItem('notificationIdsparent1');
-      } else if (active === 'AH') {
-        notificationId = await AsyncStorage.getItem('notificationIdsadmin');
+  const accessNotification = () => {
+    AsyncStorage.getItem('acess_token').then(
+      keyValue => {
+        const phno = keyValue;
+        AsyncStorage.getItem('StdID').then(value => {
+          studentID = value;
+        //   console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`,`
+        // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        // <soap12:Body>
+        // <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
+        // <recieverNo>${phno}</recieverNo>
+        // <studentId>${studentID}</studentId>
+        // </RetrieveAllParentNotifications>
+        // </soap12:Body>
+        // </soap12:Envelope>
+        // `)
+          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`, {
+        method: 'POST',
+        body: `
+        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+          <soap12:Body>
+            <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
+              <recieverNo>${phno}</recieverNo>
+              <studentId>${studentID}</studentId>
+            </RetrieveAllParentNotifications>
+          </soap12:Body>
+        </soap12:Envelope>
+        `,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'text/xml; charset=utf-8',
+        },
+          })
+            .then(response => response.text())
+            .then(response => {
+              setloading(false);
+      const parser = new DOMParser();
+              const xmlDoc = parser.parseFromString(response);
+              const v = xmlDoc.getElementsByTagName(
+                'RetrieveAllParentNotificationsResult',
+              )[0].childNodes[0].nodeValue;
+              if (v === 'failure') {
+        setdataerror(true);
+      } else {
+                const rslt = JSON.parse(v);
+                // console.log('notification', rslt);
+                try {
+        const notificationIds = rslt.map(notification => notification.NotificationId);
+                  // console.log("Notification IDs:", notificationIds);
+                  AsyncStorage.setItem('notificationIdsparent1', JSON.stringify(notificationIds))
+                } catch (error) {
+                  console.log('somthing went');
+                }
+        setdata(rslt);
       }
-  
-      const acess_token = await AsyncStorage.getItem('acess_token');
-  
-      if (notificationId && acess_token) {
-        console.log('hlooo')
-        console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,`<?xml version="1.0" encoding="utf-8"?>
-            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-              <soap12:Body>
-                <UpdateNotescount xmlns="http://www.m2hinfotech.com//">
-                  <PhoneNo>${acess_token}</PhoneNo>
-                  <Status>${1}</Status>
-                  <NotificationId>${notificationId}</NotificationId>
-                </UpdateNotescount>
-              </soap12:Body>
-            </soap12:Envelope>`)
-        const response = await fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`, {
+            })
+            .catch(error => {});
+        });
+      },
+      error => {
+        console.log(error); //Display error
+      },
+    );
+  };
+
+  const accessNotificationteach = () => {
+    AsyncStorage.getItem('acess_token').then(
+      keyValue => {
+        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllTeacherNotifications`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //   <soap12:Body>
+        //     <RetrieveAllTeacherNotifications xmlns="http://www.m2hinfotech.com//">
+        //       <recieverNo>${keyValue}</recieverNo>
+        //     </RetrieveAllTeacherNotifications>
+        //   </soap12:Body>
+        // </soap12:Envelope>
+        //       `)
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllTeacherNotifications`, {
           method: 'POST',
-          body: `<?xml version="1.0" encoding="utf-8"?>
+          body: `
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-              <soap12:Body>
-                <UpdateNotescount xmlns="http://www.m2hinfotech.com//">
-                  <PhoneNo>${acess_token}</PhoneNo>
-                  <Status>${1}</Status>
-                  <NotificationId>${notificationId}</NotificationId>
-                </UpdateNotescount>
-              </soap12:Body>
-            </soap12:Envelope>`,
+        <soap12:Body>
+          <RetrieveAllTeacherNotifications xmlns="http://www.m2hinfotech.com//">
+            <recieverNo>${keyValue}</recieverNo>
+          </RetrieveAllTeacherNotifications>
+        </soap12:Body>
+      </soap12:Envelope>
+            `,
           headers: {
             Accept: 'application/json',
             'Content-Type': 'text/xml; charset=utf-8',
           },
-        });
+        })
+          .then(response => response.text())
+          .then(response => {
+            setloading(false);
+            const xmlDoc = parser.parseFromString(response);
+            const result = xmlDoc.getElementsByTagName(
+              'RetrieveAllTeacherNotificationsResult',
+            )[0].childNodes[0].nodeValue;
+            if (result === 'failure') {
+              setdataerror(true);
+            } else {
+              const rslt = JSON.parse(result);
+              const notificationIds = rslt.map(notification => notification.NotificationId);
+              AsyncStorage.setItem('notificationIds', JSON.stringify(notificationIds))
+              setdata(rslt);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  };
+
+  const removeNotification = async () => {
+    try {
+      const active = await AsyncStorage.getItem('Dashboard');
+      const keyValue = await AsyncStorage.getItem('acess_token');
+      let notificationIdKey = '';
   
-        const resultText = await response.text();
-        console.log("Notification update response:", resultText);
-  
-        // After updating the notification count, call Notification() to refresh
-        Notification();
+      if (active === 'TH') {
+        notificationIdKey = 'notificationIds';
+      } else if (active === 'PH') {
+        notificationIdKey = 'notificationIdsparent1';
       } else {
-        console.log("Missing notificationId or access token.");
+        notificationIdKey = 'notificationIdsadmin';
+      }
+  
+      const notificationId = await AsyncStorage.getItem(notificationIdKey);
+
+      
+  
+      if (notificationId) {
+        // console.log( `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,`<?xml version="1.0" encoding="utf-8"?>
+        //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        //       <soap12:Body>
+        //         <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
+        //           <PhoneNo>${keyValue}</PhoneNo>
+        //           <Status>1</Status>
+        //           <NotificationId>${notificationId}</NotificationId>
+        //         </UpdateNoticount>
+        //       </soap12:Body>
+        //     </soap12:Envelope>`)
+        const response = await fetch(
+          `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,
+          {
+            method: 'POST',
+            body: `<?xml version="1.0" encoding="utf-8"?>
+            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+              <soap12:Body>
+                <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
+                  <PhoneNo>${keyValue}</PhoneNo>
+                  <Status>1</Status>
+                  <NotificationId>${notificationId}</NotificationId>
+                </UpdateNoticount>
+              </soap12:Body>
+            </soap12:Envelope>`,
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'text/xml; charset=utf-8',
+            },
+          }
+        );
+  
+        const result = await response.text();
+        if (response.ok) {
+          await Notification(); 
+        } 
       }
     } catch (error) {
-      console.log("Error updating notification count:", error);
+      console.log(error);
     }
   };
   
+
 
 
   const swapPress = () => {

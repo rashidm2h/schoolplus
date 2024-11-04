@@ -284,6 +284,8 @@ const styles = StyleSheet.create({
     fontSize: wp('5%'),
     fontWeight: 'bold',
     color: '#8A8A8A',
+    flexWrap: 'wrap',
+    width: wp('50%')
   },
   carddate: {
     fontSize: wp('5%'),

@@ -18,12 +18,17 @@ const NonTeachingNotifications = ({navigation}) => {
   }, []);
 
   const accessNotification = () => {
-    console.log('qqqqqq');
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        const phno = keyValue;
         AsyncStorage.getItem('BranchID').then(keyValue2 => {
-          const BranchID = keyValue2;
+          // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+          //   <soap12:Body>
+          //   <GetNonTStaffsNotes xmlns="http://www.m2hinfotech.com//">
+          //   <mobileNo>${keyValue}</mobileNo>
+          //   <BranchID>${keyValue2}</BranchID>
+          //   </GetNonTStaffsNotes>
+          //   </soap12:Body>
+          //   </soap12:Envelope>`)
           fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
             method: 'POST',
             body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -61,14 +66,15 @@ const NonTeachingNotifications = ({navigation}) => {
                 } catch (error) {
                   console.log('somthing went');
                 }
-                setdata(rslt);
+                setdata(rslt.Table1);
+                setdataerror(false);
               }
             })
             .catch(error => {});
         });
       },
       error => {
-        console.log(error); //Display error
+        console.log(error); 
       },
     );
   };
@@ -107,6 +113,7 @@ const NonTeachingNotifications = ({navigation}) => {
                   </View>
                 )}
               />
+              {console.log(data,"ggg")}
             </View>
           )}
         </View>

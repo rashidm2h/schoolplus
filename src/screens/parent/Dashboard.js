@@ -20,7 +20,7 @@ const ParentDashboard = ({ navigation }) => {
   const [countEvent, setcountEvent] = useState(0);
   const [notecount, setnotecount] = useState(0);
   const [CountNoteTotal, setCountNoteTotal] = useState(0);
-  const [CountEventTotal, setCountEventTotal] = useState(0);
+  const [CountTEventTotal, setCountTEventTotal] = useState(0);
   const [dataSource, setdataSource] = useState('');
   const [loading, setloading] = useState(false);
   const [rn_visible, setrn_visible] = useState('');
@@ -60,6 +60,7 @@ const ParentDashboard = ({ navigation }) => {
       setdomain(data);
     });
     getRole();
+    noteCount();
 
   }, [isFocused]);
 
@@ -355,14 +356,7 @@ const ParentDashboard = ({ navigation }) => {
                     .nodeValue;
                 const rslt = JSON.parse(v);
                 setdataSource(rslt);
-                setalertEvent(rslt);
-                setalertNotes(rslt[0].Alert);
-                setalertNotification(rslt[2].Alert);
-                setcountEvent(rslt[0].count);
-                setcountNote(rslt[1].count);
-                setcountNotif(rslt[2].count);
-                noteCount();
-                countEventBadge(rslt[0].count);
+                eventTCount(rslt[0].count);
               })
               .catch(error => {
                 console.log(error);
@@ -378,28 +372,17 @@ const ParentDashboard = ({ navigation }) => {
       },
     );
   };
-  const countEventBadge = c => {
-    let AsynECount = 0;
-    let removeEcount = 0;
-    let count;
+  const eventTCount = result => {
     AsyncStorage.getItem('removecountEvent').then(
-      keyValue3 => {
-        removeEcount = keyValue3;
-        AsynECount = c;
-        if (AsynECount >= keyValue3) {
-          count = AsynECount - keyValue3;
-          setCountEventTotal(count);
-        } else {
-          removeEcount = 0;
-          count = AsynECount - removeEcount;
-          setCountEventTotal(count);
-        }
+      keyValue2 => {
+        setCountTEventTotal(result >= keyValue2 ? result - keyValue2 : result);
       },
       error => {
         console.log(error);
       },
     );
   };
+    
   const removeNotification = () => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
@@ -531,11 +514,13 @@ const ParentDashboard = ({ navigation }) => {
         <Text style={styles.title}>EVENTS</Text>
         <IconBadge
           BadgeElement={
-              <Text style={styles.iconbadgetext}>{CountEventTotal}</Text>
+              <Text style={styles.iconbadgetext}>{CountTEventTotal}</Text>
           }
           IconBadgeStyle={styles.iconBadge}
-            Hidden={CountEventTotal === 0 || CountEventTotal < 0}
+            Hidden={CountTEventTotal === 0 || CountTEventTotal < 0}
+          
         />
+          {console.log(CountTEventTotal,"jjj")}
       </Pressable>
       <Pressable
         onPress={buttonpress}

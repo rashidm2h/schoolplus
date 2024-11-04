@@ -859,7 +859,7 @@ const styles = StyleSheet.create({
     borderColor: '#CFCFCF',
     backgroundColor: '#fff',
     borderRadius: 1,
-    borderWidth: wp('0.3%'),
+    // borderWidth: wp('0.3%'),
     height: wp('11.3%'),
   },
   containerTable: {

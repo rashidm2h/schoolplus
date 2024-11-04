@@ -46,7 +46,7 @@ const NonTeachingDashboard = ({navigation}) => {
         keyValue => {
           // username = keyValue; //Display key value
           const string = 'new';
-          fetch(`${GLOBALS.PARENT_URL}GetEventDetails`, {
+          fetch(`http://10.25.25.124:85//EschoolWebService.asmx?op=GetEventDetails`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -114,7 +114,7 @@ const NonTeachingDashboard = ({navigation}) => {
   const getNoteNotificationCount = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`${GLOBALS.TEACHER_URL}ViewParentNotes`, {
+        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 						<soap12:Body>

@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         height: wp('7.5%'),
         flex: 1,
         borderRadius: 3,
-        paddingBottom: wp('3.5%'),
+        // paddingBottom: wp('3.5%'),
       },
       android: {
         height: wp('8.75%'),

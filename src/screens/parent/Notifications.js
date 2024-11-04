@@ -34,44 +34,44 @@ const Notifications = ({navigation}) => {
         // </soap12:Envelope>
         // `)
           fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`, {
-            method: 'POST',
-            body: `
+        method: 'POST',
+        body: `
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        <soap12:Body>
-        <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
-        <recieverNo>${phno}</recieverNo>
-        <studentId>${studentID}</studentId>
-        </RetrieveAllParentNotifications>
-        </soap12:Body>
+          <soap12:Body>
+            <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
+              <recieverNo>${phno}</recieverNo>
+              <studentId>${studentID}</studentId>
+            </RetrieveAllParentNotifications>
+          </soap12:Body>
         </soap12:Envelope>
         `,
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'text/xml; charset=utf-8',
-            },
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'text/xml; charset=utf-8',
+        },
           })
             .then(response => response.text())
             .then(response => {
               setloading(false);
-              const parser = new DOMParser();
+      const parser = new DOMParser();
               const xmlDoc = parser.parseFromString(response);
               const v = xmlDoc.getElementsByTagName(
                 'RetrieveAllParentNotificationsResult',
               )[0].childNodes[0].nodeValue;
               if (v === 'failure') {
-                setdataerror(true);
-              } else {
+        setdataerror(true);
+      } else {
                 const rslt = JSON.parse(v);
                 // console.log('notification', rslt);
-                try {
-                  const notificationIds = rslt.map(notification => notification.NotificationId);
-                  // console.log("Notification IDs:", notificationIds);
-                  AsyncStorage.setItem('notificationIdsparent1', JSON.stringify(notificationIds))
-                } catch (error) {
-                  console.log('somthing went');
-                }
-                setdata(rslt);
-              }
+        //         try {
+        // const notificationIds = rslt.map(notification => notification.NotificationId);
+        //           // console.log("Notification IDs:", notificationIds);
+        //           AsyncStorage.setItem('notificationIdsparent1', JSON.stringify(notificationIds))
+        //         } catch (error) {
+        //           console.log('somthing went');
+        //         }
+        setdata(rslt);
+      }
             })
             .catch(error => {});
         });
