@@ -111,23 +111,6 @@ const PastEvents = () => {
           username = keyValue;
           const title = sendNoteTitle.replace(/&/g, '&amp;');
           const description = sendNoteDescription.replace(/&/g, '&amp;');
-          console.log(`<?xml version="1.0" encoding="utf-8"?>
-          <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            <soap12:Body>
-              <InsertEvents xmlns="http://www.m2hinfotech.com//">
-                <senderNo>${username}</senderNo>
-                <branchId>${branchId}</branchId>
-                <roleId>${to}</roleId>
-                <startDate>${formattedFromDate}</startDate>
-                <endDate>${formattedToDate}</endDate>
-                <startTime>${startTime}</startTime>
-                <endTime>${endTime}</endTime>
-                <title>${title}</title>
-                <description>${description}</description>
-              </InsertEvents>
-              </soap12:Body>
-              </soap12:Envelope>
-          `);
           fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertEvents`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
@@ -159,7 +142,6 @@ const PastEvents = () => {
               const ccc =
                 xmlDoc.getElementsByTagName('InsertEventsResult')[0]
                   .childNodes[0].nodeValue;
-              console.log('cc', ccc);
               if (ccc === 'failure') {
                 Alert.alert('Oops! Something unexpected happened!');
                 setisModalVisible(false);
@@ -244,7 +226,6 @@ const PastEvents = () => {
                 setdataerror(true);
               } else {
                 const output = JSON.parse(ccc);
-                console.log(output);
                 setdata(output);
               }
             })

@@ -24,7 +24,6 @@ const Studentdetails = ({navigation}) => {
 
   useEffect(() => {
     if (dropdownValue !== '') {
-      console.log('get');
       getDivisions();
     }
   }, [dropdownValue]);
@@ -74,14 +73,12 @@ const Studentdetails = ({navigation}) => {
                 );
               } else {
                 const output = JSON.parse(ccc);
-                console.log(output);
                 let dropdownData = output;
                 const dropData = dropdownData.map(element => ({
                   value: element.class_Id,
                   label: element.Class_name,
                 }));
                 setdropdownSource(dropData);
-                console.log(dropdownData[0].class_Id);
                 setdropdownValue(dropdownData[0].class_Id);
               }
             })
@@ -98,8 +95,6 @@ const Studentdetails = ({navigation}) => {
 
   const getDivisions = () => {
     setdata('');
-    console.log('here', dropdownValue);
-    console.log(branchId);
     fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetDivisions`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -123,21 +118,16 @@ const Studentdetails = ({navigation}) => {
         const ccc =
           xmlDoc.getElementsByTagName('GetDivisionsResult')[0].childNodes[0]
             .nodeValue;
-        console.log('cc', ccc);
         if (ccc === 'failure') {
-          console.log('fail');
         } else {
           const output = JSON.parse(ccc);
-          console.log('data', output);
           let dropdownData = output;
           const dropData = dropdownData.map(element => ({
             value: element.BranchClassId,
             label: element.DivCode,
           }));
-          console.log(dropData);
           setdropdownSource1(dropData);
           setdropdownValue1(dropdownData[0].BranchClassId);
-          console.log(dropdownData[0].BranchClassId);
           getList(dropdownData[0].BranchClassId);
         }
       })
@@ -171,7 +161,6 @@ const Studentdetails = ({navigation}) => {
             const ccc = xmlDoc.getElementsByTagName(
               'StdAttClasswiseListResult',
             )[0].childNodes[0].nodeValue;
-            console.log('cc', ccc);
             if (ccc === 'failure') {
               setdata('');
               setdataerror(true);

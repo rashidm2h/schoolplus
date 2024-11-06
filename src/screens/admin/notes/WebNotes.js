@@ -62,7 +62,6 @@ const WebNotes = () => {
             const xmlDoc = parser.parseFromString(response);
             const v = xmlDoc.getElementsByTagName('RetrieveWebNotesResult')[0]
               .childNodes[0].nodeValue;
-            console.log('vmsg', v);
             if (v === 'failure') {
               setdataerror(true);
             } else {

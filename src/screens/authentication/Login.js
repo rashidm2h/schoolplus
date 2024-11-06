@@ -81,18 +81,6 @@ const Login = ({navigation}) => {
         const pin = await AsyncStorage.getItem('pin')
         AsyncStorage.getItem('acess_token').then(value => {
           username = value;
-//           console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=Login`,`<?xml version="1.0" encoding="utf-8"?>
-// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-//   <soap12:Body>
-//     <Login xmlns="http://www.m2hinfotech.com//">
-//        <mobile>${username}</mobile>
-//                     <sessionId>${Platform.OS}</sessionId>
-//                     <deviceId>${fcmToken}</deviceId>
-//                     <pinNumber>${pin}</pinNumber>
-//     </Login>
-//   </soap12:Body>
-// </soap12:Envelope>`)
-
           if (
             v !== null &&
             v !== undefined &&
@@ -127,7 +115,6 @@ const Login = ({navigation}) => {
                 const ccc =
                 JSON.parse(xmlDoc.getElementsByTagName('LoginResult')[0].childNodes[0]
                   .nodeValue)[0]?.UserRole;
-                // console.log(ccc);
                 if (ccc === 'failure') {
                   Alert.alert(
                     'Signin Failed!',
@@ -307,7 +294,6 @@ const Login = ({navigation}) => {
     })
       .then(response => response.text())
       .then(response => {
-        // console.log(response, 'responseLogin');
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(response);
         const v = xmlDoc.getElementsByTagName('GetMobileVersionResult')[0]
@@ -323,7 +309,6 @@ const Login = ({navigation}) => {
       });
   };
   const updateAlert = result => {
-    console.log('entered');
     const schoolplusAndroid = result[0].Android;
     const schoolplusIos = result[0].IOS;
     if (Platform.OS === 'android') {
@@ -370,7 +355,6 @@ const Login = ({navigation}) => {
 
   const compareVersion = updatedVersion => {
     const currentVersion = DeviceInfo.getVersion();
-    // console.log(currentVersion, 'current', updatedVersion);
     const splitCurrent = currentVersion.toString().split('.');
     const splitUpdated = updatedVersion.toString().split('.');
 

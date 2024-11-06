@@ -13,7 +13,6 @@ const ParentNotificationCount = () => {
   const [StudentId, setStudentId] = useState('');
 
   useEffect(() => {
-    // console.log('oooooooo');
     notificationCount();
   }, []);
 
@@ -40,7 +39,6 @@ const ParentNotificationCount = () => {
   };
 
   const notificationCount = () => {
-    // console.log('notificationCount');
     let v;
     let noticount;
     let rslt;
@@ -54,17 +52,7 @@ const ParentNotificationCount = () => {
           error => {
             console.log(error); //Display error
           },
-        );
-  //       console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`,`
-  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  // <soap12:Body>
-  //   <Getcount xmlns="http://www.m2hinfotech.com//">
-  //     <PhoneNo>${keyValue}</PhoneNo>
-  //     <studentId>${StudentId}</studentId>
-  //   </Getcount>
-  // </soap12:Body>
-  // </soap12:Envelope>
-  // `)  
+        ); 
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`, {
           method: 'POST',
           body: `
@@ -84,18 +72,15 @@ const ParentNotificationCount = () => {
         })
           .then(response => response.text())
           .then(response => {
-            console.log('rees', response);
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(response);
             const v =
               xmlDoc.getElementsByTagName('GetcountResult')[0].childNodes[0]
                 .nodeValue;
-            // console.log('rev::::::::s', v);
             if (v === 'failure') {
               setnotifCount_notview(0);
             } else {
               rslt = JSON.parse(v);
-              //   console.log('pnotc', rslt);
               noticount = rslt[2].count;
               try {
                 AsyncStorage.setItem('notifCount', JSON.stringify(noticount));

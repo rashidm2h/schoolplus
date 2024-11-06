@@ -42,15 +42,6 @@ useEffect(() => {
           if (active === 'AH') {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
-                // console.log( `http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`, `<?xml version="1.0" encoding="utf-8"?>
-                //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                //     <soap12:Body>
-                //     <RetrieveAdminSentNoteAsNotification xmlns="http://www.m2hinfotech.com//">
-                //       <MobileNo>${keyValue}</MobileNo>
-                //       <BranchId>${keyValue2}</BranchId>
-                //     </RetrieveAdminSentNoteAsNotification>
-                //     </soap12:Body>
-                //   </soap12:Envelope>`)
                 fetch(
                   `http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`,
                   {
@@ -99,15 +90,6 @@ useEffect(() => {
           } else if (active === 'NTS') {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
-            //     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`,`<?xml version="1.0" encoding="utf-8"?>
-            // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            //   <soap12:Body>
-            //   <GetNonTStaffsNotes xmlns="http://www.m2hinfotech.com//">
-            //     <mobileNo>${keyValue}</mobileNo>
-            //     <BranchID>${keyValue2}</BranchID>
-            //   </GetNonTStaffsNotes>
-            //   </soap12:Body>
-            // </soap12:Envelope>`)
                 fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
                   method: 'POST',
                   body: `<?xml version="1.0" encoding="utf-8"?>
@@ -147,22 +129,6 @@ useEffect(() => {
             );
           } else {
             AsyncStorage.getItem('StdID').then(keyValue2 => {
-              // console.log("resss", `${
-              //   active === 'PH'
-              //     ? `http://10.25.25.124:85/EschoolWebService.asmx?op=`
-              //     : active === 'TH'
-              //     ? `http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=`
-              //     : `http://10.25.25.124:85/EschoolWebService.asmx?op=`
-              // }Getcount`, `
-              //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-              //   <soap12:Body>
-              //   <Getcount xmlns="http://www.m2hinfotech.com//">
-              //   <PhoneNo>${keyValue}</PhoneNo>
-              //   ${active === 'PH' && `<studentId>${keyValue2}</studentId> `}
-              //   </Getcount>
-              //   </soap12:Body>
-              //   </soap12:Envelope>
-              //   `)
               fetch(
                 `${
                   active === 'PH'
@@ -241,16 +207,6 @@ useEffect(() => {
         const phno = keyValue;
         AsyncStorage.getItem('StdID').then(value => {
           studentID = value;
-        //   console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`,`
-        // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        // <soap12:Body>
-        // <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
-        // <recieverNo>${phno}</recieverNo>
-        // <studentId>${studentID}</studentId>
-        // </RetrieveAllParentNotifications>
-        // </soap12:Body>
-        // </soap12:Envelope>
-        // `)
           fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`, {
         method: 'POST',
         body: `
@@ -280,10 +236,8 @@ useEffect(() => {
         setdataerror(true);
       } else {
                 const rslt = JSON.parse(v);
-                // console.log('notification', rslt);
                 try {
         const notificationIds = rslt.map(notification => notification.NotificationId);
-                  // console.log("Notification IDs:", notificationIds);
                   AsyncStorage.setItem('notificationIdsparent1', JSON.stringify(notificationIds))
                 } catch (error) {
                   console.log('somthing went');
@@ -303,14 +257,6 @@ useEffect(() => {
   const accessNotificationteach = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllTeacherNotifications`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //   <soap12:Body>
-        //     <RetrieveAllTeacherNotifications xmlns="http://www.m2hinfotech.com//">
-        //       <recieverNo>${keyValue}</recieverNo>
-        //     </RetrieveAllTeacherNotifications>
-        //   </soap12:Body>
-        // </soap12:Envelope>
-        //       `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllTeacherNotifications`, {
           method: 'POST',
           body: `
@@ -372,16 +318,6 @@ useEffect(() => {
       
   
       if (notificationId) {
-        // console.log( `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,`<?xml version="1.0" encoding="utf-8"?>
-        //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //       <soap12:Body>
-        //         <UpdateNoticount xmlns="http://www.m2hinfotech.com//">
-        //           <PhoneNo>${keyValue}</PhoneNo>
-        //           <Status>1</Status>
-        //           <NotificationId>${notificationId}</NotificationId>
-        //         </UpdateNoticount>
-        //       </soap12:Body>
-        //     </soap12:Envelope>`)
         const response = await fetch(
           `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,
           {

@@ -29,7 +29,6 @@ const CommonExam = () => {
   const getExams = () => {
     AsyncStorage.getItem('domain').then(keyValue => {
       setdomain(keyValue);
-      console.log(domain, 'ak');
       //avk.schoolplusapp.com
       if (keyValue === 'avk.schoolplusapp.com') {
         // this.setState({

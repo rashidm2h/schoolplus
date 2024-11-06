@@ -66,7 +66,6 @@ const Notifications = ({navigation}) => {
               // } catch (error) {
               //   console.log('somthing went');
               // }
-              console.log(rslt);
               setdata(rslt);
             }
           })

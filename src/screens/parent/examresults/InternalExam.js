@@ -26,15 +26,6 @@ const InternalExam = () => {
   const getExams = () => {
     AsyncStorage.getItem('StdID').then(keyValue => {
       stdId = keyValue;
-      // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudentExamListNew`,`<?xml version="1.0" encoding="utf-8"?>
-      //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-      //     <soap12:Body>
-      //       <GetStudentExamListNew xmlns="http://www.m2hinfotech.com//">
-      //         <stdId>${keyValue}</stdId>
-      //         <type>2</type>
-      //       </GetStudentExamListNew>
-      //     </soap12:Body>
-      //   </soap12:Envelope>`)
       fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudentExamListNew`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
@@ -83,16 +74,6 @@ const InternalExam = () => {
 
   const getExamMarks = examId => {
     AsyncStorage.getItem('StdID').then(keyValue => {
-//     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStdExmMarks`,`<?xml version="1.0" encoding="utf-8"?>
-// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-// <soap12:Body>
-// <GetStdExmMarks xmlns="http://www.m2hinfotech.com//">
-// <StdId>${keyValue}</StdId>
-// <ExamId>${examId}</ExamId>
-// </GetStdExmMarks>
-// </soap12:Body>
-// </soap12:Envelope>
-//  `)
     fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStdExmMarks`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>

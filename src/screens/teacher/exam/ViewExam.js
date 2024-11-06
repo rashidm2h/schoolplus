@@ -23,6 +23,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import {Pressable} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -86,16 +87,7 @@ const ViewExam = () => {
     }
   };
   const examCreateGetsubject = async (value) => {
-    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjects`,`<?xml version="1.0" encoding="utf-8"?>
-		// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-		//   <soap12:Body>
-		//     <GetSubjects xmlns="http://www.m2hinfotech.com//">
-		//       <BranchclsId>${value}</BranchclsId>
-		//       <PhoneNo>${accessToken}</PhoneNo>
-		//     </GetSubjects>
-		//   </soap12:Body>
-		// </soap12:Envelope>
-		// `)
+
     try{
 
    const response = await  fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjects`, {
@@ -143,17 +135,6 @@ const ViewExam = () => {
   };
   const examCreateTypegrade = ( SubId ) => {
 
-
-    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjectTypeAndGradeType`,`<?xml version="1.0" encoding="utf-8"?>
-    // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-    //   <soap12:Body>
-    //     <GetSubjectTypeAndGradeType xmlns="http://www.m2hinfotech.com//">
-    //       <BranchclsId>${dropdownValue1}</BranchclsId>
-    //       <SubId>${SubId}</SubId>
-    //     </GetSubjectTypeAndGradeType>
-    //   </soap12:Body>
-    // </soap12:Envelope>
-    // `)
     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjectTypeAndGradeType`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -198,15 +179,6 @@ const ViewExam = () => {
       });
   };
   const examCreatTeacherClass = token => {
-    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`,`<?xml version="1.0" encoding="utf-8"?>
-		// 						<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-		// 					<soap12:Body>
-		// 				<ExmClassListForTeacher xmlns="http://www.m2hinfotech.com//">
-		// 					<teacherMobNo>${token}</teacherMobNo>
-		// 				</ExmClassListForTeacher>
-		// 				</soap12:Body>
-		// 				</soap12:Envelope>
-		// 				`)
     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -247,16 +219,7 @@ const ViewExam = () => {
 
   const examviewlist = () => {
     setloadTable(true);
-    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamDtls`, `<?xml version="1.0" encoding="utf-8"?>
-		// 							<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-		// 							<soap12:Body>
-		// 							<GetExamDtls xmlns="http://www.m2hinfotech.com//">
-		// 							<PhoneNo>${accessToken}</PhoneNo>
-		// 							<BranchclsId>${dropdownValue}</BranchclsId>
-		// 							</GetExamDtls>
-		// 							</soap12:Body>
-		// 							</soap12:Envelope>
-		// 							`)
+
     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamDtls`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -363,26 +326,7 @@ const ViewExam = () => {
   const addNewExam = () => {
     const examtype = 'Internal';
     const subtype = 'Compulsory';
-    // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeachInternalExam`, `<?xml version="1.0" encoding="utf-8"?>
-    //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-    //   <soap12:Body>
-    //   <InsertTeachInternalExam xmlns="http://www.m2hinfotech.com//">
-    //   <ExamName>${examname}</ExamName>
-    //   <ExamType>${examtype}</ExamType>
-    //   <GradeId>${dropdownValue3}</GradeId>
-    //   <PhoneNo>${accessToken}</PhoneNo>
-    //   <BranchclsId>${dropdownValue1}</BranchclsId>
-    //   <SubType>${subtype}</SubType>
-    //   <SubId>${dropdownValue2}</SubId>
-    //   <Date>${chosenDate}</Date>
-    //   <starttime>${chosenStartTime}</starttime>
-    //   <endtime>${chosenEndTime}</endtime>
-    //   <maxmark>${maxmark}</maxmark>
-    //   <minmark>${minmark}</minmark>
-    //   </InsertTeachInternalExam>
-    //   </soap12:Body>
-    //   </soap12:Envelope>
-    //   `)
+
     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeachInternalExam`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -579,7 +523,7 @@ const ViewExam = () => {
         <SafeAreaView style={{flex: 1}}>
           <View style={styles.container}>
             <ScrollView>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
               <View style={styles.containercreat}>
                 <View style={styles.containertoprow}>
                   {Platform.OS === 'ios' ? (
@@ -783,7 +727,7 @@ const ViewExam = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-              </TouchableWithoutFeedback>
+              </KeyboardAwareScrollView>
             </ScrollView>
           </View>
         </SafeAreaView>
@@ -1047,7 +991,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     // textAlign: 'center',
     paddingLeft: wp('2%'),
-    justifyContent: 'center',
+   justifyContent: 'center',
     borderWidth: wp('0.3%'),
     borderRadius: 5,
     fontSize: 16

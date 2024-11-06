@@ -194,8 +194,6 @@ const ViewResult = () => {
           value: element.BranchClassId,
           label: element.Class,
         }));
-        // console.log('classwwwwwwwwwwww');
-        // console.log('class', dropdownData);
         setdropdownSource(dropData);
         setdropdownValue(dropdownData[0].BranchClassId);
         viewresultexamnamesFunc(
@@ -222,21 +220,6 @@ const ViewResult = () => {
     } else {
       AsyncStorage.setItem('branchidresult', bcl);
       const result = JSON.parse(JSON.stringify(dropval));
-      // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamList`,`<?xml version="1.0" encoding="utf-8"?>
-      //           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-      //           <soap12:Body>
-      //             <GetExamList xmlns="http://www.m2hinfotech.com//">
-      //             <PhoneNo>${
-      //               value !== undefined ? value : accessToken
-      //             }</PhoneNo>
-      //             <BranchclsId>${
-      //               bcl !== undefined ? bcl : dropdownValue
-      //             }</BranchclsId>
-      //             <ExType>${result}</ExType>
-      //           </GetExamList>
-      //         </soap12:Body>
-      //       </soap12:Envelope>
-      //       `)
       fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamList`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
@@ -492,17 +475,6 @@ const ViewResult = () => {
                               AsyncStorage.getItem('examid').then(
                                 keyValueid => {
                                   examids = keyValueid;
-                                  console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetStdMark`,`<?xml version="1.0" encoding="utf-8"?>
-                                  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                                  <soap12:Body>
-                                    <GetStdMark xmlns="http://www.m2hinfotech.com//">
-                                    <BranchclsId>${bclsd}</BranchclsId>
-                                    <StdId>${item.StudId}</StdId>
-                                    <ExamId>${examids}</ExamId>
-                                  </GetStdMark>
-                                </soap12:Body>
-                              </soap12:Envelope>
-                              `)
                                   fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetStdMark`, {
                                     method: 'POST',
                                     body: `<?xml version="1.0" encoding="utf-8"?>

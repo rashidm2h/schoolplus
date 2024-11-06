@@ -168,15 +168,6 @@ const WebNotes = ({navigation}) => {
     });
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-//         console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNote`,`<?xml version="1.0" encoding="utf-8"?>
-//  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-//  <soap12:Body>
-//  <RetrieveAdminSentNote xmlns="http://www.m2hinfotech.com//">
-//  <MobileNo>${keyValue}</MobileNo>
-//  <BranchId>${branchId}</BranchId>
-//  </RetrieveAdminSentNote>
-//  </soap12:Body>
-//  </soap12:Envelope>`)
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNote`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
@@ -333,22 +324,6 @@ const WebNotes = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue;
-        // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertAdminNotes`,`<?xml version="1.0" encoding="utf-8"?>
-        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //   <soap12:Body>
-        //   <InsertAdminNotes xmlns="http://www.m2hinfotech.com//">
-        //    <senderNo>${username}</senderNo>
-        //    <roleId>${to}</roleId>
-        //    <title>${NoteTitle}</title>
-        //    <description>${NoteDescription}</description>
-        //    <branchId>${branchId}</branchId>
-        //    <sendSms>${sendSms}</sendSms>
-        //    <attachs>${attachArray}</attachs>
-        //    <templateId>${templateId}</templateId>
-        //   </InsertAdminNotes>
-        //   </soap12:Body>
-        //   </soap12:Envelope>
-        //   `)
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertAdminNotes`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
@@ -379,8 +354,6 @@ const WebNotes = ({navigation}) => {
             const output = xmlDoc.getElementsByTagName(
               'InsertAdminNotesResult',
             )[0].childNodes[0].nodeValue;
-
-            console.log('sendNoteFunction output', output);
             if (output === 'failure') {
               setspinnerVisible(false);
               setsendNoteDescription('');

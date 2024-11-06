@@ -145,13 +145,11 @@ const TeacherNotes = () => {
         })
           .then(response => response.text())
           .then(response => {
-            console.log(response, 'yfd');
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(response);
             const v = xmlDoc.getElementsByTagName(
               'TeachersSentNotesForAdminDashBoardResult',
             )[0].childNodes[0].nodeValue;
-            console.log(v, 'vvv');
             if (v === 'failure') {
               setdata('');
             } else {
@@ -187,15 +185,13 @@ const TeacherNotes = () => {
                 });
                 setdata(arraySet);
                 setDataerror(false);
-                console.log('tdy');
               } else {
-                console.log('t', dataerror);
                 setDataerror(true);
               }
             }
           })
           .catch(error => {
-            console.log(error, 'errer');
+            console.log(error, 'error');
           });
       },
       error => {

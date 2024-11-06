@@ -160,22 +160,6 @@ const SendIndividualNotes = ({navigation}) => {
     NoteDescription = NoteDescription.replace(/>/g, '&gt;');
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertIndividualParentNoteByAdmin`,`<?xml version="1.0" encoding="utf-8"?>
-        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //     <soap12:Body>
-        //       <InsertIndividualParentNoteByAdmin xmlns="http://www.m2hinfotech.com//">
-        //         <senderNo>${username}</senderNo>
-        //         <studentId>${studentArrayString}</studentId>
-        //         <templateId>${templateId}</templateId>
-        //         <title>${NoteTitle}</title>
-        //         <description>${NoteDescription}</description>
-        //         <branchId>${branchId}</branchId>
-        //         <branchClassId>${branchClassId}</branchClassId>
-        //         <sendSMS>${sendSms}</sendSMS>
-        //         <attachs>${attachArray}</attachs>
-        //       </InsertIndividualParentNoteByAdmin>
-        //     </soap12:Body>
-        //   </soap12:Envelope>`)
         const username = keyValue;
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertIndividualParentNoteByAdmin`, {
           method: 'POST',
@@ -241,15 +225,6 @@ const SendIndividualNotes = ({navigation}) => {
     });
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=FillTemplates`,`<?xml version="1.0" encoding="utf-8"?>
-        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //     <soap12:Body>
-        //       <FillTemplates xmlns="http://www.m2hinfotech.com//">
-        //         <MobileNo>${keyValue}</MobileNo>
-        //         <BranchId>${branchId}</BranchId>
-        //       </FillTemplates>
-        //     </soap12:Body>
-        //   </soap12:Envelope>`)
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=FillTemplates`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>

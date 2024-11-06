@@ -99,18 +99,6 @@ const PublishResult = props => {
     AsyncStorage.setItem('bclsad', drop1);
     AsyncStorage.setItem('subject', drop2);
     AsyncStorage.setItem('examtypes', drop3);
-  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassExamNames`, `<?xml version="1.0" encoding="utf-8"?>
-  //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  //     <soap12:Body>
-  //    <GetClassExamNames xmlns="http://www.m2hinfotech.com//">
-  // <PhoneNo>${token !== undefined ? token : accessToken}</PhoneNo>
-  // <BranchclsId>${drop1}</BranchclsId>
-  // <ExType>${drop3}</ExType>
-  // <SubId>${drop2}</SubId>
-  // </GetClassExamNames>
-  //     </soap12:Body>
-  //     </soap12:Envelope>
-  //     `)
     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassExamNames`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -164,17 +152,6 @@ const PublishResult = props => {
   };
 
   const studentExamClslistwed = (drop1, drop2, token) => {
-  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdExamClasswiseList`,`<?xml version="1.0" encoding="utf-8"?>
-  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  //  <soap12:Body>
-  //      <StdExamClasswiseList xmlns="http://www.m2hinfotech.com//">
-  //          <BranchclsId>${drop1}</BranchclsId>
-  //          <SubId>${drop2}</SubId>
-  //          <PhoneNo>${token !== undefined ? token : accessToken}</PhoneNo>
-  //      </StdExamClasswiseList>
-  //  </soap12:Body>
-  // </soap12:Envelope>
-  // `)
     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdExamClasswiseList`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -285,20 +262,6 @@ const PublishResult = props => {
               keyValue4 => {
                 AsyncStorage.getItem('examids').then(
                   keyValue5 => {
-  //                   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertStdMarkReact`,`<?xml version="1.0" encoding="utf-8"?>
-  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  // <soap12:Body>
-  // <InsertStdMarkReact xmlns="http://www.m2hinfotech.com//">
-  // <JasonInPut>${arr2}</JasonInPut>
-  // <BranchclsId>${keyValue2}</BranchclsId>
-  // <SubId>${keyValue3}</SubId>
-  // <PhoneNo>${accessToken}</PhoneNo>
-  // <ExamSubId>${keyValue5}</ExamSubId>
-  // <ExamType>${keyValue4}</ExamType>
-  // </InsertStdMarkReact>
-  // </soap12:Body>
-  // </soap12:Envelope>
-  // `)
                     fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertStdMarkReact`, {
                       method: 'POST',
                       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -358,6 +321,19 @@ const PublishResult = props => {
                           Alert.alert(
                             'Exam Publish',
                             'The Exam has been published Successfully',
+                            [
+                              {
+                                text: 'OK',
+                                onPress: () =>
+                                  navigate('TeacherExamResultView'),
+                              },
+                            ],
+                          );
+                        } else if (output === 'Exam Not Finished') {
+                          setisVisbledata(false);
+                          Alert.alert(
+                            'Exam Publishing',
+                            'Exam is Ongoing..!',
                             [
                               {
                                 text: 'OK',
@@ -859,7 +835,7 @@ const styles = StyleSheet.create({
     borderColor: '#CFCFCF',
     backgroundColor: '#fff',
     borderRadius: 1,
-    // borderWidth: wp('0.3%'),
+    borderWidth: wp('0.3%'),
     height: wp('11.3%'),
   },
   containerTable: {

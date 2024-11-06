@@ -18,7 +18,6 @@ const Header = props => {
   useEffect(() => {
     Notification()
   }, [props.homePress, isFocused]);
-    // console.log('kkkkkkk');
     const Notification = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
       let noticount;
@@ -28,15 +27,6 @@ const Header = props => {
           if (active === 'AH') {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
-            //     console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`, `<?xml version="1.0" encoding="utf-8"?>
-            // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            //   <soap12:Body>
-            //   <RetrieveAdminSentNoteAsNotification xmlns="http://www.m2hinfotech.com//">
-            //     <MobileNo>${keyValue}</MobileNo>
-            //     <BranchId>${keyValue2}</BranchId>
-            //   </RetrieveAdminSentNoteAsNotification>
-            //   </soap12:Body>
-            // </soap12:Envelope>`)
                 fetch(
                   `http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`,
                   {
@@ -234,7 +224,6 @@ const Header = props => {
   
         const result = await response.text();
         if (response.ok) {
-          console.log("Notification updated successfully");
           Notification(); 
         } else {
           console.log("Error updating notification count:", result);
@@ -244,47 +233,6 @@ const Header = props => {
       console.log("Error in removeNotification:", error);
     }
   };
-  
-
-  // const Count = (c, active) => {
-  //   let notifcountViewed = 0;
-  //   const asyncNotificationName =
-  //     active === 'AH'
-  //       ? 'AdminNotificationCount'
-  //       : active === 'PH'
-  //       ? 'notifCount'
-  //       : active === 'TH'
-  //       ? 'TeachernotifCount'
-  //       : '';
-  //   const ayncReadNotificationCountName =
-  //     active === 'AH'
-  //       ? 'AdminNotificationReadCount'
-  //       : active === 'PH'
-  //       ? 'removeNotificationCount'
-  //       : active === 'TH'
-  //       ? 'removeteacherNotifCount'
-  //       : active === 'NNH'
-  //       ? 'NonTeacherNotifRead'
-  //       : '';
-  //   AsyncStorage.getItem(asyncNotificationName).then(
-  //     keyValue => {
-  //       const countNotViewed = keyValue;
-  //       AsyncStorage.getItem(ayncReadNotificationCountName).then(
-  //         keyValue2 => {
-  //           notifcountViewed = keyValue2 === null ? 0 : keyValue2;
-  //           const TotalCount = c - notifcountViewed;
-  //           setcount(TotalCount);
-  //         },
-  //         error => {
-  //           console.log(error);
-  //         },
-  //       );
-  //     },
-  //     error => {
-  //       console.log(error);
-  //     },
-  //   );
-  // };
 
   return (
     <View style={styles.header}>

@@ -119,14 +119,6 @@ const TeacherDashboard = ({navigation}) => {
   const getNoteCount = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-      //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-      //     <soap12:Body>
-      //  <ViewParentNotes xmlns="http://www.m2hinfotech.com//">
-      //  <teacherMobile>${keyValue}</teacherMobile>
-      //  </ViewParentNotes>
-      //  </soap12:Body>
-      //  </soap12:Envelope>
-      //  `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -157,7 +149,6 @@ const TeacherDashboard = ({navigation}) => {
            
             try {
               const notificationIds = rslt.Table.map(notification => notification.NotificationId);
-              // console.log("Notification IDs.................:", notificationIds);
               AsyncStorage.setItem('notificationIdsteach', JSON.stringify(notificationIds))
               // AsyncStorage.setItem('NoteCount', JSON.stringify(notecount));
             } catch (error) {

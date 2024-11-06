@@ -102,16 +102,6 @@ const ParentDashboard = ({ navigation }) => {
         AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
             const Branch = keyValue2;
-            //             console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`,`<?xml version="1.0" encoding="utf-8"?>
-            // 		      <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-            //   <soap12:Body>
-            //     <GetStudIdForParent xmlns="http://www.m2hinfotech.com//">
-            //       <mobile>${keyValue}</mobile>
-            //       <Branch>${keyValue2}</Branch>
-            //     </GetStudIdForParent>
-            //   </soap12:Body>
-            // </soap12:Envelope>
-            // 				`)
             fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
@@ -166,17 +156,6 @@ const ParentDashboard = ({ navigation }) => {
         AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
             const Branch = keyValue2;
-    //         console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, `<?xml version="1.0" encoding="utf-8"?>
-    //           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-    //   <soap12:Body>
-    //     <GetStudIdForParent xmlns="http://www.m2hinfotech.com//">
-    //       <mobile>${keyValue}</mobile>
-    //       <Branch>${keyValue2}</Branch>
-    //     </GetStudIdForParent>
-    //   </soap12:Body>
-    // </soap12:Envelope>
-    //         `)
-
             fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
@@ -234,15 +213,6 @@ const ParentDashboard = ({ navigation }) => {
         AsyncStorage.getItem('StdID').then(
           keyValue2 => {
             // StudentID = keyValue2;
-            console.log("hii",`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveParentNoteHistory`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-					 <soap12:Body>
-						 <RetrieveParentNoteHistory xmlns="http://www.m2hinfotech.com//">
-							 <parentNo>${keyValue}</parentNo>
-							 <studentId>${keyValue2}</studentId>
-						 </RetrieveParentNoteHistory>
-					 </soap12:Body>
-				 </soap12:Envelope>
-				 `)
 
             fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveParentNoteHistory`, {
               method: 'POST',
@@ -275,7 +245,6 @@ const ParentDashboard = ({ navigation }) => {
 
                 try {
                   const notificationIds = rslt.Table.map(notification => notification.NotificationId);
-                  // console.log("Notification IDs.................:", notificationIds);
                   AsyncStorage.setItem('notificationIdsparent', JSON.stringify(notificationIds))
                   // AsyncStorage.setItem('NoteCount', JSON.stringify(notecount));
                 } catch (error) {
@@ -296,31 +265,6 @@ const ParentDashboard = ({ navigation }) => {
       },
     );
   };
-
-  // const countNoteBadge = c => {
-  //   let AsynCount = 0;
-  //   let removecount = 0;
-  //   let count1;
-  //   let count2;
-  //   AsyncStorage.getItem('removeNoteCount').then(
-  //     keyValue2 => {
-  //       removecount = keyValue2;
-  //       if (c >= keyValue2) {
-  //         AsynCount = c;
-  //         count1 = AsynCount - keyValue2;
-  //         setCountNoteTotal(count1);
-  //       } else {
-  //         removecount = 0;
-  //         count2 = AsynCount - removecount;
-  //         setCountNoteTotal(count2);
-  //       }
-  //     },
-
-  //     error => {
-  //       console.log(error);
-  //     },
-  //   );
-  // };
   const countData = () => {
     let phoneNo;
     let StdId;
@@ -389,16 +333,6 @@ const ParentDashboard = ({ navigation }) => {
           AsyncStorage.getItem('notificationIdsparent')
           .then(
             keyValue2 => {
-              console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNotescount`, `<?xml version="1.0" encoding="utf-8"?>
-              <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                  <soap12:Body>
-                    <UpdateNotescount xmlns="http://www.m2hinfotech.com//">
-                  <PhoneNo>${keyValue}</PhoneNo>
-                  <Status>${1}</Status>
-                  <NotificationId>${keyValue2}</NotificationId>
-                  </UpdateNotescount>
-                  </soap12:Body>
-                  </soap12:Envelope>`)
               fetch(
                 `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNotescount`,
                 {

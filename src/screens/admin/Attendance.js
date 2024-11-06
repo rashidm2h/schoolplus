@@ -132,11 +132,9 @@ const Attendance = ({ navigation }) => {
             const ccc =
               xmlDoc.getElementsByTagName('GetDivisionsResult')[0].childNodes[0]
                 .nodeValue;
-            console.log('cc', ccc);
             if (ccc === 'failure') {
             } else {
               const output = JSON.parse(ccc);
-              console.log('data', output);
               let dropdownData = output;
               const dropData = dropdownData.map(element => ({
                 value: element.BranchClassId,
@@ -198,7 +196,6 @@ const Attendance = ({ navigation }) => {
             setdataerror(true);
           } else {
             const rsltcheck = JSON.parse(v);
-            console.log('rsltcheck', rsltcheck);
             setdataSourceEditcheck(rsltcheck);
             setdatacheck(rsltcheck.filter(x => x.Status === 'A'));
             getUnchecked(rsltcheck);

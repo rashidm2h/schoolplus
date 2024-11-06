@@ -37,14 +37,7 @@ const ReceivedNotes = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue; //Display key value
-        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`,`<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //    <soap12:Body>
-        // <ViewParentNotes xmlns="http://www.m2hinfotech.com//">
-        // <teacherMobile>${username}</teacherMobile>
-        // </ViewParentNotes>
-        // </soap12:Body>
-        // </soap12:Envelope>
-        // `)
+  
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -65,14 +58,12 @@ const ReceivedNotes = () => {
             setloading(false);
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(response);
-            // console.log(xmlDoc, 'xmlDoc');
             const v = xmlDoc.getElementsByTagName('ViewParentNotesResult')[0]
               .childNodes[0].nodeValue;
             if (v === 'failure') {
               setdataerror(true);
             } else {
               const rslt = JSON.parse(v);
-              // console.log(rslt, 'Tables');
               const arraySet = [...rslt.Table];
               arraySet.map(i => (i.attachments = []));
               if (
@@ -137,15 +128,12 @@ const ReceivedNotes = () => {
       'DDMMYYYYhhmm',
     )}${name}`;
     const paths = encodeURI(path);
-    console.log(path, 'path');
-    console.log(`${imagePreUrl}${paths}`, imagePath, imagePathIos);
     RNFetchBlob.config({
       path: Platform.OS === 'ios' ? imagePathIos : imagePath,
       fileCache: true,
     })
       .fetch('GET', `${imagePreUrl}${paths}`, {})
       .then(res => {
-        console.log(res, 'res');
         if (Platform.OS === 'android') {
           FileViewer.open(res.path(), {
             showOpenWithDialog: true,
@@ -195,9 +183,7 @@ const ReceivedNotes = () => {
                     <View style={styles.cardinrow}>
                       <Text style={styles.cardintext}>From </Text>
                       <Text style={styles.cardintext}>{item.ParentName}</Text>
-                      <Text> ( </Text>
-                      <Text style={styles.cardintext}>{item.StudName}</Text>
-                      <Text> ) </Text>
+                      <Text style={styles.cardintext}> ({item.StudName})</Text>
                     </View>
                   </View>
                 )}
@@ -285,7 +271,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#8A8A8A',
     flexWrap: 'wrap',
-    width: wp('50%')
+    width: wp('60%')
   },
   carddate: {
     fontSize: wp('5%'),

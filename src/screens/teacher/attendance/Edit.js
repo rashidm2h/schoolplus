@@ -94,15 +94,6 @@ const Edit = () => {
     AsyncStorage.getItem('BranchID').then (branch => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-//         console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`,`<?xml version="1.0" encoding="utf-8"?>
-// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-// <soap12:Body>
-// <TeacherClasses xmlns="http://www.m2hinfotech.com//">
-//   <PhoneNo>${keyValue}</PhoneNo>
-// </TeacherClasses>
-// </soap12:Body>
-// </soap12:Envelope>
-// `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
@@ -164,17 +155,6 @@ const Edit = () => {
       setflatlistLoading(true);
       timestatus = pickertime;
       bclsatt = classselected;
-      // console.log(`http://10.25.25.124:85/EschoolTeacherWebService.asmx?op= ViewDailyAttList`, `<?xml version="1.0" encoding="utf-8"?>
-      //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-      //   <soap12:Body>
-      //     <ViewDailyAttList xmlns="http://www.m2hinfotech.com//">
-      //       <BranchclsId>${bclsatt}</BranchclsId>
-      //       <DayStatus>${timestatus}</DayStatus>
-      //       <Date>${DateText}</Date>
-      //     </ViewDailyAttList>
-      //   </soap12:Body>
-      //   </soap12:Envelope>
-      //   `)
       fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op= ViewDailyAttList`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
@@ -258,20 +238,6 @@ const Edit = () => {
     bclsatt = classselected;
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-//         console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttUpdate`,`<?xml version="1.0" encoding="utf-8"?>
-// <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-// <soap12:Body>
-//   <StdAttUpdate xmlns="http://www.m2hinfotech.com//">
-//     <BclsId>${bclsatt}</BclsId>
-//     <teacherMobNo>${keyValue}</teacherMobNo>
-//     <DayStatus>${timestatus}</DayStatus>
-//     <StdIds>${arr2}</StdIds>
-//     <MainStatus>${attendancestatus}</MainStatus>
-//     <Date>${DateText}</Date>
-//   </StdAttUpdate>
-// </soap12:Body>
-// </soap12:Envelope>
-//      `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttUpdate`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>

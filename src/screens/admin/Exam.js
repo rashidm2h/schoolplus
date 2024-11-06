@@ -57,7 +57,6 @@ const Exam = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         username = keyValue; //Display key value
-        console.log('branch', branchId);
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
@@ -80,7 +79,6 @@ const Exam = ({navigation}) => {
             const xmlDoc = parser.parseFromString(response);
             const ccc = xmlDoc.getElementsByTagName('GetAllClassesResult')[0]
               .childNodes[0].nodeValue;
-            console.log('cc', ccc);
             if (ccc === 'failure') {
               Alert.alert('', 'It seems like you have no access to any class!');
             } else {
@@ -114,7 +112,6 @@ const Exam = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         username = keyValue; //Display key value
-        console.log('branch', branchId);
         fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetDivisions`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
@@ -138,12 +135,10 @@ const Exam = ({navigation}) => {
             const ccc =
               xmlDoc.getElementsByTagName('GetDivisionsResult')[0].childNodes[0]
                 .nodeValue;
-            console.log('cc', ccc);
             if (ccc === 'failure') {
             } else {
               // this.getExams();
               const output = JSON.parse(ccc);
-              console.log('data', output);
               let dropdownData = output;
               const dropData = dropdownData.map(element => ({
                 value: element.BranchClassId,
@@ -324,7 +319,6 @@ const Exam = ({navigation}) => {
             const ccc = xmlDoc.getElementsByTagName(
               'StdAttClasswiseListResult',
             )[0].childNodes[0].nodeValue;
-            console.log('cc', ccc);
             if (ccc === 'failure') {
               setdataSource('');
             } else {
@@ -427,7 +421,7 @@ const Exam = ({navigation}) => {
 
                         AsyncStorage.getItem('BranchID').then(BranchID => {
                           branchId = BranchID;
-                          fetch(`${GLOBALS.PARENT_URL}RetrieveAllMarksheet`, {
+                          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllMarksheet`, {
                             method: 'POST',
                             body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -446,18 +440,6 @@ const Exam = ({navigation}) => {
                           })
                             .then(response => response.text())
                             .then(response => {
-                              console.log(
-                                `${GLOBALS.PARENT_URL}RetrieveAllMarksheet`,
-                              );
-                              console.log(`<?xml version="1.0" encoding="utf-8"?>
-            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-              <soap12:Body>
-                <RetrieveAllMarksheet xmlns="http://www.m2hinfotech.com//">
-                  <studentId>${item.StudId}</studentId>
-                  <brnachId>${branchId}</brnachId>
-                </RetrieveAllMarksheet>
-              </soap12:Body>
-            </soap12:Envelope>`);
                               const parser = new DOMParser();
                               const xmlDoc = parser.parseFromString(response);
                               const v = xmlDoc.getElementsByTagName(

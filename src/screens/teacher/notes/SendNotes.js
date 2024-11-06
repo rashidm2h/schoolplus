@@ -111,20 +111,6 @@ const SendNotes = () => {
           AsyncStorage.getItem('acess_token').then(
             keyValue => {
               const username = keyValue;
-              console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeacherNotes`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                <soap12:Body>
-                  <InsertTeacherNotes xmlns="http://www.m2hinfotech.com//">
-                    <senderNo>${username}</senderNo>
-                    <studentId>${studentArrayString}</studentId>
-                    <title>${title}</title>
-                    <description>${description}</description>
-                    <branchId>${branch}</branchId>
-                    <status>${status}</status>
-                    <attachs>${attachArray}</attachs>
-                  </InsertTeacherNotes>
-                </soap12:Body>
-              </soap12:Envelope>
-              `)
               fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeacherNotes`, {
                 method: 'POST',
                 body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -225,15 +211,6 @@ const SendNotes = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue; //Display key value
-      //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`,`
-      //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-      //   <soap12:Body>
-      //     <TeacherClasses xmlns="http://www.m2hinfotech.com//">
-      //       <PhoneNo>${username}</PhoneNo>
-      //     </TeacherClasses>
-      //   </soap12:Body>
-      // </soap12:Envelope>
-      //     `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
           method: 'POST',
           body: `

@@ -44,7 +44,6 @@ const Drawer = ({navigation}) => {
               'GetNonTStaffsDetailsResult',
             )[0].childNodes[0].nodeValue;
             if (v === 'failure') {
-              console.log('failure');
             } else {
               const rslt = JSON.parse(v);
               let SubName = rslt[0].Occupation;

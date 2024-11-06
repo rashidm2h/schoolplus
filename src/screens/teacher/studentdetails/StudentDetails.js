@@ -31,16 +31,6 @@ const StudentDetails = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then (keyValue => {
     AsyncStorage.getItem('BranchID')
       .then(keyValue1 => {
-        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=AttClassListForTeacher`,`<?xml version="1.0" encoding="utf-8"?>
-        //   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //   <soap12:Body>
-        //   <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
-        //   <teacherMobNo>${keyValue}</teacherMobNo>
-        //   <BranchId>${keyValue1}</BranchId>
-        //   </AttClassListForTeacher>
-        //   </soap12:Body>
-        //   </soap12:Envelope>
-        //   `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=AttClassListForTeacher`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
@@ -87,16 +77,6 @@ const StudentDetails = ({navigation}) => {
   const getStudentList = classValue => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        // console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StudentListForClassTeacher`,`<?xml version="1.0" encoding="utf-8"?>
-        //           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-        //           <soap12:Body>
-        //           <StudentListForClassTeacher xmlns="http://www.m2hinfotech.com//">
-        //           <teacherMobNo>${keyValue}</teacherMobNo>
-        //           <BranchClassId>${classValue}</BranchClassId>
-        //           </StudentListForClassTeacher>
-        //           </soap12:Body>
-        //           </soap12:Envelope>
-        //           `)
         fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StudentListForClassTeacher`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>

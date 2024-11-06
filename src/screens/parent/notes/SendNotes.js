@@ -207,19 +207,6 @@ const SendNotes = () => {
                                   /&/g,
                                   '&amp;',
                                 );
-                              //                                 console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertParentNotes`,`<?xml version="1.0" encoding="utf-8"?>
-                              // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-                              // <soap12:Body>
-                              // <InsertParentNotes xmlns="http://www.m2hinfotech.com//">
-                              // <senderNo>${senderNo}</senderNo>
-                              // <studentId>${studentID}</studentId>
-                              // <title>${title}</title>
-                              // <description>${description}</description>
-                              // <attachs>${attachArray}</attachs>
-                              // </InsertParentNotes>
-                              // </soap12:Body>
-                              // </soap12:Envelope>
-                              // `)
                               fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertParentNotes`, {
                                 method: 'POST',
                                 body: `<?xml version="1.0" encoding="utf-8"?>
