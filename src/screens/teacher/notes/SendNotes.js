@@ -111,7 +111,7 @@ const SendNotes = () => {
           AsyncStorage.getItem('acess_token').then(
             keyValue => {
               const username = keyValue;
-              fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeacherNotes`, {
+              fetch(`${GLOBALS.TEACHER_SERVICE}InsertTeacherNotes`, {
                 method: 'POST',
                 body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     <soap12:Body>
@@ -211,7 +211,7 @@ const SendNotes = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue; //Display key value
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}TeacherClasses`, {
           method: 'POST',
           body: `
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -258,15 +258,8 @@ const SendNotes = () => {
 
   const ClassStudentsAccess = id => {
     const branchIds = id;
-  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdNotesClasswiseList`,`<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  // <soap12:Body>
-  //   <StdNotesClasswiseList xmlns="http://www.m2hinfotech.com//">
-  //     <BranchclsId>${branchIds}</BranchclsId>
-  //   </StdNotesClasswiseList>
-  // </soap12:Body>
-  // </soap12:Envelope>
-  // `)
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdNotesClasswiseList`, {
+ 
+    fetch(`${GLOBALS.TEACHER_SERVICE}StdNotesClasswiseList`, {
       method: 'POST',
       body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
   <soap12:Body>

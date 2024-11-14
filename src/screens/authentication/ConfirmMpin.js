@@ -17,6 +17,7 @@ import {
 import {DOMParser} from 'xmldom';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from 'react-native';
+import GLOBALS from '../../config/Globals';
 
 const { width } = Dimensions.get("window");
 
@@ -142,7 +143,7 @@ export default function PassCodeV1({ navigation, route }) {
     const fcmToken = '';
     try {
         const phoneNumber = await AsyncStorage.getItem('access_token');
-        const response = await fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertLoginPin`, {
+        const response = await fetch(`${GLOBALS.PARENT_SERVICE}InsertLoginPin`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

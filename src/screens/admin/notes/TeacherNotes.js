@@ -47,7 +47,7 @@ const TeacherNotes = () => {
     });
     AsyncStorage.getItem('acess_token').then(
       () => {
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=LatestAcademicYear`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}LatestAcademicYear`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -125,7 +125,7 @@ const TeacherNotes = () => {
         let momentDate = moment(startDate, 'DD-MM-YYYY');
         let start = moment(momentDate).startOf('month').format('MM-DD-YYYY');
         let end = moment(momentDate).endOf('month').format('MM-DD-YYYY');
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeachersSentNotesForAdminDashBoard`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}TeachersSentNotesForAdminDashBoard`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -209,7 +209,7 @@ const TeacherNotes = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         let mobile = keyValue; //Display key value
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}GetAllClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
               <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -261,7 +261,7 @@ const TeacherNotes = () => {
 
     AsyncStorage.getItem('acess_token').then(
       () => {
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetDivisions`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}GetDivisions`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

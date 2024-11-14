@@ -94,7 +94,7 @@ const Edit = () => {
     AsyncStorage.getItem('BranchID').then (branch => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}TeacherClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -155,7 +155,7 @@ const Edit = () => {
       setflatlistLoading(true);
       timestatus = pickertime;
       bclsatt = classselected;
-      fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op= ViewDailyAttList`, {
+      fetch(`${GLOBALS.TEACHER_SERVICE} ViewDailyAttList`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -238,7 +238,7 @@ const Edit = () => {
     bclsatt = classselected;
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttUpdate`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}StdAttUpdate`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

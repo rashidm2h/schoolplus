@@ -102,7 +102,7 @@ const ParentDashboard = ({ navigation }) => {
         AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
             const Branch = keyValue2;
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}GetStudIdForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
 		      <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -156,7 +156,7 @@ const ParentDashboard = ({ navigation }) => {
         AsyncStorage.getItem('BranchID').then(
           keyValue2 => {
             const Branch = keyValue2;
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetStudIdForParent`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}GetStudIdForParent`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
 		      <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -214,7 +214,7 @@ const ParentDashboard = ({ navigation }) => {
           keyValue2 => {
             // StudentID = keyValue2;
 
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveParentNoteHistory`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}RetrieveParentNoteHistory`, {
               method: 'POST',
               body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 					 <soap12:Body>
@@ -274,7 +274,7 @@ const ParentDashboard = ({ navigation }) => {
         AsyncStorage.getItem('StdID').then(
           keyValue2 => {
             StdId = keyValue2;
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}Getcount`, {
               method: 'POST',
               body: `
 				 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -334,7 +334,7 @@ const ParentDashboard = ({ navigation }) => {
           .then(
             keyValue2 => {
               fetch(
-                `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNotescount`,
+                `${GLOBALS.PARENT_SERVICE}UpdateNotescount`,
                 {
                   method: 'POST',
                   body: `<?xml version="1.0" encoding="utf-8"?>

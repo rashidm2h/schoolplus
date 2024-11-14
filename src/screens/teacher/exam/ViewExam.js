@@ -90,7 +90,7 @@ const ViewExam = () => {
 
     try{
 
-   const response = await  fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjects`, {
+   const response = await  fetch(`${GLOBALS.TEACHER_SERVICE}GetSubjects`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 		<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -135,7 +135,7 @@ const ViewExam = () => {
   };
   const examCreateTypegrade = ( SubId ) => {
 
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetSubjectTypeAndGradeType`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}GetSubjectTypeAndGradeType`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -179,7 +179,7 @@ const ViewExam = () => {
       });
   };
   const examCreatTeacherClass = token => {
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 								<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -220,7 +220,7 @@ const ViewExam = () => {
   const examviewlist = () => {
     setloadTable(true);
 
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamDtls`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}GetExamDtls`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 									<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -262,7 +262,7 @@ const ViewExam = () => {
       });
   };
   const classListViewExam = token => {
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 								<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -327,7 +327,7 @@ const ViewExam = () => {
     const examtype = 'Internal';
     const subtype = 'Compulsory';
 
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertTeachInternalExam`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}InsertTeachInternalExam`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

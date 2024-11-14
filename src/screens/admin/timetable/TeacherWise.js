@@ -36,7 +36,7 @@ const TeacherWise = ({navigation}) => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
           username = keyValue;
-          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllTeachers`, {
+          fetch(`${GLOBALS.PARENT_SERVICE}GetAllTeachers`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -94,7 +94,7 @@ const TeacherWise = ({navigation}) => {
           const SchoolBranch = keyValue2;
           //Display key value
           fetch(
-            `http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveTeacherTimeTableForAdminDashBoard`,
+            `${GLOBALS.TEACHER_SERVICE}RetrieveTeacherTimeTableForAdminDashBoard`,
             {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>

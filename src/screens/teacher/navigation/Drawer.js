@@ -43,7 +43,7 @@ const Drawer = ({navigation}) => {
   const getTeacherDetail = () => {
     AsyncStorage.getItem('acess_token').then(username => {
       AsyncStorage.getItem('BranchID').then(branchName => {
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetTeacherDetails`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}GetTeacherDetails`, {
           method: 'POST',
           body: `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://www.m2hinfotech.com//">
 <soap:Header/>

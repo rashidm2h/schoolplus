@@ -24,7 +24,7 @@ const PastEvents = () => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
           const string = 'old';
-          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllEvents`, {
+          fetch(`${GLOBALS.PARENT_SERVICE}GetAllEvents`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

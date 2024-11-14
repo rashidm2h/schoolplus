@@ -89,7 +89,7 @@ const Login = ({navigation}) => {
             value !== null &&
             value !== undefined
           ) {
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Login`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}Login`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -278,7 +278,7 @@ const Login = ({navigation}) => {
   };
 
   const appversionCheck = () => {
-    fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetMobileVersion`, {
+    fetch(`${GLOBALS.PARENT_SERVICE}GetMobileVersion`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

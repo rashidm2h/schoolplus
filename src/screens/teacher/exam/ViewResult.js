@@ -146,16 +146,8 @@ const ViewResult = () => {
   };
 
   const viewresultclassFunc = value => {
-  //   console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, `<?xml version="1.0" encoding="utf-8"?>
-  //     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  //     <soap12:Body>
-  //       <TeacherClasses xmlns="http://www.m2hinfotech.com//">
-  //       <PhoneNo>${value}</PhoneNo>
-  //     </TeacherClasses>
-  //   </soap12:Body>
-  // </soap12:Envelope>
-  // `)
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=TeacherClasses`, {
+
+    fetch(`${GLOBALS.TEACHER_SERVICE}TeacherClasses`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -220,7 +212,7 @@ const ViewResult = () => {
     } else {
       AsyncStorage.setItem('branchidresult', bcl);
       const result = JSON.parse(JSON.stringify(dropval));
-      fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetExamList`, {
+      fetch(`${GLOBALS.TEACHER_SERVICE}GetExamList`, {
         method: 'POST',
         body: `<?xml version="1.0" encoding="utf-8"?>
                 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -283,7 +275,7 @@ const ViewResult = () => {
     examids = drop2;
     bcls = drop1;
     AsyncStorage.setItem('examid', drop2);
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}StdAttClasswiseList`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -432,7 +424,7 @@ const ViewResult = () => {
                           }
 
                           AsyncStorage.getItem('BranchID').then(BranchID => {
-                            fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllMarksheet`, {
+                            fetch(`${GLOBALS.TEACHER_SERVICE}RetrieveAllMarksheet`, {
                               method: 'POST',
                               body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -475,7 +467,7 @@ const ViewResult = () => {
                               AsyncStorage.getItem('examid').then(
                                 keyValueid => {
                                   examids = keyValueid;
-                                  fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetStdMark`, {
+                                  fetch(`${GLOBALS.TEACHER_SERVICE}GetStdMark`, {
                                     method: 'POST',
                                     body: `<?xml version="1.0" encoding="utf-8"?>
                                   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

@@ -22,7 +22,7 @@ const EventNotificationCount = () => {
       keyValue => {
         AsyncStorage.getItem('acess_token').then(
           keyValue2 => {
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=Getcount`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}Getcount`, {
               method: 'POST',
               body: `
                  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

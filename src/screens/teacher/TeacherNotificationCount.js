@@ -16,7 +16,7 @@ const TeacherNotificationCount = () => {
   const notificationCount = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=Getcount`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}Getcount`, {
           method: 'POST',
           body: `
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

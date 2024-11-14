@@ -50,7 +50,7 @@ const FN = () => {
       keyValue => {
         AsyncStorage.getItem('bclsatt').then(
           keyValue2 => {
-            fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttInsertion`, {
+            fetch(`${GLOBALS.TEACHER_SERVICE}StdAttInsertion`, {
               method: 'POST',
               body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -118,16 +118,7 @@ const FN = () => {
   const accessdataFN = () => {
     AsyncStorage.getItem('bclsatt').then(
       keyValue => {
-  //       console.log(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`,`<?xml version="1.0" encoding="utf-8"?>
-  // <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  //   <soap12:Body>
-  //     <StdAttClasswiseList xmlns="http://www.m2hinfotech.com//">
-  //       <BranchclsId>${keyValue}</BranchclsId>
-  //     </StdAttClasswiseList>
-  //   </soap12:Body>
-  // </soap12:Envelope>
-  //  `)
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdAttClasswiseList`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}StdAttClasswiseList`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

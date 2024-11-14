@@ -7,6 +7,9 @@ export default {
   BEFORE: 'http://',
   AFT_TEACHER: '/EschoolTeacherWebService.asmx?op=',
   AFT_PARENT: '/EschoolWebService.asmx?op=',
+  AFT_PARENT: '/EschoolWebService.asmx?op=',
+  TEACHER_SERVICE: 'http://alfitrah.schoolplusapp.com/EschoolTeacherWebService.asmx?op=',
+  PARENT_SERVICE: 'http://alfitrah.schoolplusapp.com/EschoolWebService.asmx?op=',
   TEST_PHONES: [
     '919995610445',
     '9876000000',

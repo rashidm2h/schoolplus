@@ -38,7 +38,7 @@ const ReceivedNotes = () => {
       keyValue => {
         const username = keyValue; //Display key value
   
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ViewParentNotes`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}ViewParentNotes`, {
           method: 'POST',
           body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
            <soap12:Body>

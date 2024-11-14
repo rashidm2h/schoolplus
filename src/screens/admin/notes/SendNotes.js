@@ -106,7 +106,7 @@ const WebNotes = ({navigation}) => {
     });
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=FillTemplates`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}FillTemplates`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -168,7 +168,7 @@ const WebNotes = ({navigation}) => {
     });
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNote`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}RetrieveAdminSentNote`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -324,7 +324,7 @@ const WebNotes = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const username = keyValue;
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertAdminNotes`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}InsertAdminNotes`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -397,7 +397,7 @@ const WebNotes = ({navigation}) => {
     });
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=MultiSelectDivisions`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}MultiSelectDivisions`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -476,7 +476,7 @@ const WebNotes = ({navigation}) => {
     });
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=SMSBalance`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}SMSBalance`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -607,7 +607,7 @@ const WebNotes = ({navigation}) => {
         let array = BranchClassId;
         const attachArray = JSON.stringify(attachSet);
         let arrayJoined = array.join();
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=InsertAdminNotesBranchWise`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}InsertAdminNotesBranchWise`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -677,7 +677,7 @@ const WebNotes = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         username = keyValue; //Display key value
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}GetAllClasses`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
  <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

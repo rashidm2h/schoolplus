@@ -99,7 +99,8 @@ const PublishResult = props => {
     AsyncStorage.setItem('bclsad', drop1);
     AsyncStorage.setItem('subject', drop2);
     AsyncStorage.setItem('examtypes', drop3);
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassExamNames`, {
+ 
+    fetch(`${GLOBALS.TEACHER_SERVICE}GetClassExamNames`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -152,7 +153,7 @@ const PublishResult = props => {
   };
 
   const studentExamClslistwed = (drop1, drop2, token) => {
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StdExamClasswiseList`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}StdExamClasswiseList`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -262,7 +263,7 @@ const PublishResult = props => {
               keyValue4 => {
                 AsyncStorage.getItem('examids').then(
                   keyValue5 => {
-                    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=InsertStdMarkReact`, {
+                    fetch(`${GLOBALS.TEACHER_SERVICE}InsertStdMarkReact`, {
                       method: 'POST',
                       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -387,7 +388,8 @@ const PublishResult = props => {
     );
   };
   const classListpublishResult = token => {
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=ExmClassListForTeacher`, {
+    
+    fetch(`${GLOBALS.TEACHER_SERVICE}ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -443,7 +445,7 @@ const PublishResult = props => {
       });
   };
   const selectSubjectweb = (token, dropval) => {
-    fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetClassSubjects`, {
+    fetch(`${GLOBALS.TEACHER_SERVICE}GetClassSubjects`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

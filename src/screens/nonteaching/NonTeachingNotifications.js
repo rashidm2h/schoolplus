@@ -21,15 +21,7 @@ const NonTeachingNotifications = ({navigation}) => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         AsyncStorage.getItem('BranchID').then(keyValue2 => {
-          // console.log(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-          //   <soap12:Body>
-          //   <GetNonTStaffsNotes xmlns="http://www.m2hinfotech.com//">
-          //   <mobileNo>${keyValue}</mobileNo>
-          //   <BranchID>${keyValue2}</BranchID>
-          //   </GetNonTStaffsNotes>
-          //   </soap12:Body>
-          //   </soap12:Envelope>`)
-          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
+          fetch(`${GLOBALS.PARENT_SERVICE}GetNonTStaffsNotes`, {
             method: 'POST',
             body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             <soap12:Body>

@@ -43,7 +43,7 @@ useEffect(() => {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
                 fetch(
-                  `http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAdminSentNoteAsNotification`,
+                  `${GLOBALS.PARENT_SERVICE}RetrieveAdminSentNoteAsNotification`,
                   {
                     method: 'POST',
                     body: `<?xml version="1.0" encoding="utf-8"?>
@@ -90,7 +90,7 @@ useEffect(() => {
           } else if (active === 'NTS') {
             AsyncStorage.getItem('BranchID').then(
               keyValue2 => {
-                fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetNonTStaffsNotes`, {
+                fetch(`${GLOBALS.PARENT_SERVICE}GetNonTStaffsNotes`, {
                   method: 'POST',
                   body: `<?xml version="1.0" encoding="utf-8"?>
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -132,10 +132,10 @@ useEffect(() => {
               fetch(
                 `${
                   active === 'PH'
-                    ? `http://10.25.25.124:85/EschoolWebService.asmx?op=`
+                    ? `${GLOBALS.PARENT_SERVICE}`
                     : active === 'TH'
-                    ? `http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=`
-                    : `http://10.25.25.124:85/EschoolWebService.asmx?op=`
+                    ? `${GLOBALS.TEACHER_SERVICE}`
+                    : `${GLOBALS.PARENT_SERVICE}`
                 }Getcount`,
                 {
                   method: 'POST',
@@ -207,7 +207,7 @@ useEffect(() => {
         const phno = keyValue;
         AsyncStorage.getItem('StdID').then(value => {
           studentID = value;
-          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveAllParentNotifications`, {
+          fetch(`${GLOBALS.PARENT_SERVICE}RetrieveAllParentNotifications`, {
         method: 'POST',
         body: `
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -257,7 +257,7 @@ useEffect(() => {
   const accessNotificationteach = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=RetrieveAllTeacherNotifications`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}RetrieveAllTeacherNotifications`, {
           method: 'POST',
           body: `
             <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -319,7 +319,7 @@ useEffect(() => {
   
       if (notificationId) {
         const response = await fetch(
-          `http://10.25.25.124:85/EschoolWebService.asmx?op=UpdateNoticount`,
+          `${GLOBALS.PARENT_SERVICE}UpdateNoticount`,
           {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>

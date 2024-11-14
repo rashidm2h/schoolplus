@@ -37,7 +37,7 @@ const Teachers2 = ({route, navigation}) => {
     AsyncStorage.getItem('BranchID').then(
       keyValue => {
         let value = route.params.itemId.toString();
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=GetNonTeachStaffsDetails`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}GetNonTeachStaffsDetails`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">

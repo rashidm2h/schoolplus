@@ -43,7 +43,7 @@ const ReceivedNotes = () => {
         AsyncStorage.getItem('StdID').then(
           keyValue2 => {
             StudentID = keyValue2;
-            fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=RetrieveParentNoteHistory`, {
+            fetch(`${GLOBALS.PARENT_SERVICE}RetrieveParentNoteHistory`, {
               method: 'POST',
               body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
  <soap12:Body>

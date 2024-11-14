@@ -47,7 +47,7 @@ const ClassWise = () => {
       AsyncStorage.getItem('acess_token').then(
         keyValue => {
           let mobile = keyValue; //Display key value
-          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetAllClasses`, {
+          fetch(`${GLOBALS.PARENT_SERVICE}GetAllClasses`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
               <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -98,7 +98,7 @@ const ClassWise = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         username = keyValue; //Display key value
-        fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetDivisions`, {
+        fetch(`${GLOBALS.PARENT_SERVICE}GetDivisions`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -151,7 +151,7 @@ const ClassWise = () => {
       keyValue => {
         AsyncStorage.getItem('BranchID').then(keyValue2 => {
           const SchoolBranch = keyValue2;
-          fetch(`http://10.25.25.124:85/EschoolWebService.asmx?op=GetClassWiseTimeTable_Admin`, {
+          fetch(`${GLOBALS.PARENT_SERVICE}GetClassWiseTimeTable_Admin`, {
             method: 'POST',
             body: `<?xml version="1.0" encoding="utf-8"?>
       <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
