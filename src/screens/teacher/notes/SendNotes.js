@@ -11,6 +11,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   PermissionsAndroid,
+  SafeAreaView,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
@@ -19,7 +20,8 @@ import {CheckBox} from 'react-native-elements';
 import {useIsFocused} from '@react-navigation/core';
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -258,7 +260,7 @@ const SendNotes = () => {
 
   const ClassStudentsAccess = id => {
     const branchIds = id;
- 
+
     fetch(`${GLOBALS.TEACHER_SERVICE}StdNotesClasswiseList`, {
       method: 'POST',
       body: `<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -369,75 +371,94 @@ const SendNotes = () => {
   return (
     <View style={styles.container}>
       <Modal isVisible={isModalVisible}>
-        <ScrollView keyboardShouldPersistTaps="always">
-          <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={10}>
-            <View style={styles.ModalContainer}>
-              <View style={styles.containerColoum}>
-                <Text style={styles.Modaltext}>Note Title</Text>
-                <TextInput
-                  style={styles.textinputtitleView}
-                  underlineColorAndroid="transparent"
-                  returnKeyType="next"
-                  onChangeText={text => setsendNoteTitle(text)}
-                />
-                <Text style={styles.Modaltext}>Details</Text>
-                <TextInput
-                  style={styles.TextInputContainer}
-                  underlineColorAndroid="transparent"
-                  multiline={true}
-                  textAlignVertical={'top'}
-                  returnKeyType="next"
-                  onChangeText={text => setsendNoteDescription(text)}
-                />
-                <FlatList data={attachSet} renderItem={renderItems} />
-                <View style={styles.directionRow}>
-                  <Text style={styles.Modaltext}>Attachments</Text>
-                  <Pressable
-                    onPress={() => {
-                      uploadFile();
-                    }}
-                    style={styles.browseButton}>
-                    <Text style={styles.MOdalButtontext}>Browse</Text>
-                  </Pressable>
-                </View>
-                <View style={styles.Buttoncontainer}>
-                  <Pressable
-                    onPress={() => sendNote()}
-                    style={styles.ModalButtonLeft}>
-                    <Text style={styles.MOdalButtontext}>SEND</Text>
-                  </Pressable>
+        <SafeAreaView style={{flex: 1}}>
+          <ScrollView keyboardShouldPersistTaps="always">
+            <KeyboardAvoidingView
+              behavior="padding"
+              keyboardVerticalOffset={10}>
+              <View style={styles.ModalContainer}>
+                <View style={styles.containerColoum}>
+                  <Text style={styles.Modaltext}>Note Title</Text>
+                  <TextInput
+                    style={styles.textinputtitleView}
+                    underlineColorAndroid="transparent"
+                    returnKeyType="next"
+                    onChangeText={text => setsendNoteTitle(text)}
+                  />
+                  <Text style={styles.Modaltext}>Details</Text>
+                  <TextInput
+                    style={styles.TextInputContainer}
+                    underlineColorAndroid="transparent"
+                    multiline={true}
+                    textAlignVertical={'top'}
+                    returnKeyType="next"
+                    onChangeText={text => setsendNoteDescription(text)}
+                  />
+                  <FlatList data={attachSet} renderItem={renderItems} />
+                  <View style={styles.directionRow}>
+                    <Text style={styles.Modaltext}>Attachments</Text>
+                    <Pressable
+                      onPress={() => {
+                        uploadFile();
+                      }}
+                      style={styles.browseButton}>
+                      <Text style={styles.MOdalButtontext}>Browse</Text>
+                    </Pressable>
+                  </View>
+                  <View style={styles.Buttoncontainer}>
+                    <Pressable
+                      onPress={() => sendNote()}
+                      style={styles.ModalButtonLeft}>
+                      <Text style={styles.MOdalButtontext}>SEND</Text>
+                    </Pressable>
 
-                  <Pressable
-                    onPress={() => hideModal()}
-                    style={styles.MOdalButtonRight}>
-                    <Text style={styles.MOdalButtontext}>CANCEL</Text>
-                  </Pressable>
+                    <Pressable
+                      onPress={() => hideModal()}
+                      style={styles.MOdalButtonRight}>
+                      <Text style={styles.MOdalButtontext}>CANCEL</Text>
+                    </Pressable>
+                  </View>
                 </View>
               </View>
-            </View>
-          </KeyboardAvoidingView>
-        </ScrollView>
+            </KeyboardAvoidingView>
+          </ScrollView>
+        </SafeAreaView>
       </Modal>
 
       <View style={styles.containerTop_sendNotes}>
         <Text style={styles.text}>Choose Class: </Text>
         <View style={styles.containerTopPIckerButton}>
           <View style={{flex: 2}}>
-            <Dropdown
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              inputContainerStyle={{borderBottomColor: 'transparent'}}
-              data={dropdownSource}
-              containerStyle={styles.pickerStyle}
-              textColor="#121214"
-              selectedItemColor="#7A7A7A"
-              value={dropdownValue}
-              onChangeText={value => {
-                ClassStudentsAccess(value);
-                setdropdownValue(value);
-              }}
-            />
+            {Platform.OS === 'ios' ? (
+              <Dropdown
+                selectedItemColor="#000"
+                labelField="label"
+                valueField="value"
+                selectedTextStyle={styles.selectedTextStyle1}
+                data={dropdownSource}
+                style={styles.pickerStyle}
+                textColor="#121214"
+                value={dropdownValue}
+                onChange={item => {
+                  ClassStudentsAccess(item.value);
+                  setdropdownValue(item.value);
+                }}
+              />
+            ) : (
+              <Dropdown1
+                data={dropdownSource}
+                value={dropdownValue}
+                icon="chevron-down"
+                baseColor="transparent"
+                underlineColor="transparent"
+                containerStyle={styles.pickerStyle}
+                selectedItemColor="#7A7A7A"
+                onChangeText={value => {
+                  ClassStudentsAccess(value);
+                  setdropdownValue(value);
+                }}
+              />
+            )}
           </View>
           <Pressable
             onPress={() => {
@@ -492,14 +513,14 @@ const SendNotes = () => {
             <Pressable style={styles.P_SD_Bottom_Flatlist}>
               <View style={styles.P_SD_Bottom_Flatlist}>
                 <View style={styles.P_SD_Bottom_Flatlistcheckbox}>
-                  {studentIds.length > 0 && studentIds[index] &&  (
+                  {studentIds.length > 0 && studentIds[index] && (
                     <CheckBox
                       backgroundColor="gray"
                       size={20}
                       onPress={() => itemCheck(item, index)}
                       checked={studentIds[index].status}
                     />
-                  ) }
+                  )}
                 </View>
                 <View style={styles.P_SD_Bottom_FlatlistRowLeft}>
                   <Text style={styles.textFlewWrap}>{item.RollNo}</Text>
@@ -655,7 +676,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         justifyContent: 'center',
-        paddingTop: wp('3.5%'),
+        // paddingTop: wp('3.5%'),
         borderWidth: wp('0.3%'),
         borderRadius: 3,
         marginLeft: wp('3.5%'),
@@ -673,6 +694,19 @@ const styles = StyleSheet.create({
         paddingLeft: wp('0.3%'),
       },
     }),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   buttonSENTALL: {
     flex: 0.75,

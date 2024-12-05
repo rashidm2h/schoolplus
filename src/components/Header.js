@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, Pressable, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, Text, Pressable, View} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { DOMParser } from 'xmldom';
+import {DOMParser} from 'xmldom';
 import IconBadge from 'react-native-icon-badge';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import GLOBALS from '../config/Globals';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 const Header = props => {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const [count, setcount] = useState('');
+  const [loading, setloading] = useState(true);
+  const [dataerror, setdataerror] = useState(false);
+  const [data, setdata] = useState('');
   useEffect(() => {
-    Notification()
+    Notification();
   }, [props.homePress, isFocused]);
-    const Notification = () => {
+  useEffect(() => {
+    accessNotification();
+    accessNotificationteach();
+  }, []);
+  const Notification = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
       let noticount;
       let rslt;
@@ -116,11 +123,12 @@ const Header = props => {
           } else {
             AsyncStorage.getItem('StdID').then(keyValue2 => {
               fetch(
-                `${active === 'PH'
-                  ? '${GLOBALS.PARENT_SERVICE}'
-                  : active === 'TH'
-                    ? '${GLOBALS.TEACHER_SERVICE}'
-                    : '${GLOBALS.PARENT_SERVICE}'
+                `${
+                  active === 'PH'
+                    ? `${GLOBALS.PARENT_SERVICE}`
+                    : active === 'TH'
+                    ? `${GLOBALS.TEACHER_SERVICE}`
+                    : `${GLOBALS.PARENT_SERVICE}`
                 }Getcount`,
                 {
                   method: 'POST',
@@ -167,29 +175,136 @@ const Header = props => {
       );
     });
     // NTS SSP TH PH AS ASH AH EH
-  }
+  };
 
   const bellPress = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
-      removeNotification()
-      if (active === 'TH'){
-      navigation.navigate('TeacherNotifications')
+      removeNotification();
+      if (active === 'TH') {
+        navigation.navigate('TeacherNotifications');
+      } else if (active === 'PH') {
+        navigation.navigate('ParentNotifications');
+      } else if (active === 'AH') {
+        navigation.navigate('Notifications');
       }
-      else if (active === 'PH'){
-        navigation.navigate('ParentNotifications')
-      }
-      else if (active === 'AH'){
-        navigation.navigate('Notifications')
-      }
-    })
-  }
+    });
+  };
+
+  const accessNotification = () => {
+    AsyncStorage.getItem('acess_token').then(
+      keyValue => {
+        const phno = keyValue;
+        AsyncStorage.getItem('StdID').then(value => {
+          const studentID = value;
+          fetch(`${GLOBALS.PARENT_SERVICE}RetrieveAllParentNotifications`, {
+            method: 'POST',
+            body: `
+        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+          <soap12:Body>
+            <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
+              <recieverNo>${phno}</recieverNo>
+              <studentId>${studentID}</studentId>
+            </RetrieveAllParentNotifications>
+          </soap12:Body>
+        </soap12:Envelope>
+        `,
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'text/xml; charset=utf-8',
+            },
+          })
+            .then(response => response.text())
+            .then(response => {
+              setloading(false);
+              const parser = new DOMParser();
+              const xmlDoc = parser.parseFromString(response);
+              const v = xmlDoc.getElementsByTagName(
+                'RetrieveAllParentNotificationsResult',
+              )[0].childNodes[0].nodeValue;
+              if (v === 'failure') {
+                setdataerror(true);
+              } else {
+                const rslt = JSON.parse(v);
+                try {
+                  const notificationIds = rslt.map(
+                    notification => notification.NotificationId,
+                  );
+                  AsyncStorage.setItem(
+                    'notificationIdsparent1',
+                    JSON.stringify(notificationIds),
+                  );
+                } catch (error) {
+                  console.log('somthing went');
+                }
+                setdata(rslt);
+              }
+            })
+            .catch(error => {});
+        });
+      },
+      error => {
+        console.log(error); //Display error
+      },
+    );
+  };
+
+  const accessNotificationteach = () => {
+    AsyncStorage.getItem('acess_token').then(
+      keyValue => {
+        fetch(`${GLOBALS.TEACHER_SERVICE}RetrieveAllTeacherNotifications`, {
+          method: 'POST',
+          body: `
+            <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+        <soap12:Body>
+          <RetrieveAllTeacherNotifications xmlns="http://www.m2hinfotech.com//">
+            <recieverNo>${keyValue}</recieverNo>
+          </RetrieveAllTeacherNotifications>
+        </soap12:Body>
+      </soap12:Envelope>
+            `,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'text/xml; charset=utf-8',
+          },
+        })
+          .then(response => response.text())
+          .then(response => {
+            setloading(false);
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(response);
+            const result = xmlDoc.getElementsByTagName(
+              'RetrieveAllTeacherNotificationsResult',
+            )[0].childNodes[0].nodeValue;
+            if (result === 'failure') {
+              setdataerror(true);
+            } else {
+              const rslt = JSON.parse(result);
+              const notificationIds = rslt.map(
+                notification => notification.NotificationId,
+              );
+              AsyncStorage.setItem(
+                'notificationIds',
+                JSON.stringify(notificationIds),
+              );
+              setdata(rslt);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  };
 
   const removeNotification = async () => {
     try {
       const active = await AsyncStorage.getItem('Dashboard');
       const keyValue = await AsyncStorage.getItem('acess_token');
       let notificationIdKey = '';
-  
+
       if (active === 'TH') {
         notificationIdKey = 'notificationIds';
       } else if (active === 'PH') {
@@ -197,9 +312,9 @@ const Header = props => {
       } else {
         notificationIdKey = 'notificationIdsadmin';
       }
-  
+
       const notificationId = await AsyncStorage.getItem(notificationIdKey);
-  
+
       if (notificationId) {
         const response = await fetch(
           `${GLOBALS.PARENT_SERVICE}UpdateNoticount`,
@@ -219,18 +334,18 @@ const Header = props => {
               Accept: 'application/json',
               'Content-Type': 'text/xml; charset=utf-8',
             },
-          }
+          },
         );
-  
+
         const result = await response.text();
         if (response.ok) {
-          Notification(); 
+          Notification();
         } else {
-          console.log("Error updating notification count:", result);
+          console.log('Error updating notification count:', result);
         }
       }
     } catch (error) {
-      console.log("Error in removeNotification:", error);
+      console.log('Error in removeNotification:', error);
     }
   };
 

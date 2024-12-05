@@ -152,21 +152,18 @@ const styles = StyleSheet.create({
     borderColor: '#000000',
   },
   cardtitle: {
-    flexWrap: 'wrap',
-    flex: 0.8,
-    fontSize: hp('2.7%'),
+    fontSize: wp('5%'),
     fontWeight: 'bold',
-    color: '#3ECAD8',
+    color: '#8A8A8A',
+    flexWrap: 'wrap',
+    width: wp('60%')
   },
   cardDate: {
-    flexWrap: 'wrap',
-    flex: 0.25,
-    fontSize: hp('2%'),
-    paddingRight:wp('0.5%')
+    fontSize: wp('5%'),
   },
   cardDesc: {
-    fontSize: 14,
-    padding: hp('1%'),
+    fontSize: wp('5%'),
+    padding: wp('1.5%'),
     flexWrap: 'wrap',
   },
   cardBottomView: {

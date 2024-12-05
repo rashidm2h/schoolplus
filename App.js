@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import {useEffect} from 'react';
+import {View, Text} from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthContext from './src/config/Context';
 import Login from './src/screens/authentication/Login';
@@ -21,7 +21,7 @@ import NonTeachingStack from './src/screens/nonteaching/navigation/NonTeachingSt
 import NonTeachingDrawer from './src/screens/nonteaching/navigation/Drawer';
 import SwitchStudent from './src/components/SwitchStudent';
 import EvaluatorHome from './src/screens/evaluator/navigation/EvaluatorStack';
-import { SafeAreaView, BackHandler, Alert } from 'react-native';
+import {SafeAreaView, BackHandler, Alert} from 'react-native';
 import SwitchBranch from './src/screens/admin/SwitchBranch';
 import MobLogin from './src/screens/authentication/MobLogin';
 import LoginPage from './src/screens/authentication/LoginPage';
@@ -72,28 +72,25 @@ const App = () => {
       } catch (e) {
         // Restoring token failed
       }
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      dispatch({type: 'RESTORE_TOKEN', token: userToken});
     };
 
     bootstrapAsync();
   }, []);
 
-
-
   const authContext = React.useMemo(
     () => ({
       signIn: async uid => {
-        dispatch({ type: 'SIGN_IN', token: uid });
+        dispatch({type: 'SIGN_IN', token: uid});
       },
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signOut: () => dispatch({type: 'SIGN_OUT'}),
     }),
     [],
   );
- 
 
   return (
     <AuthContext.Provider value={authContext}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#13C0CE' }}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#13C0CE'}}>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -101,22 +98,20 @@ const App = () => {
             }}>
             {state.isLoading ? (
               <Stack.Screen name="Login" component={Login} />
-
             ) : state.userToken == null ? (
               <>
                 <Stack.Screen name="MobLogin" component={MobLogin} />
-                <Stack.Screen name='SignIn' component={SignIn} />
+                <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="MPin" component={MPin} />
                 <Stack.Screen name="ConfirmPin" component={ConfirmPin} />
                 <Stack.Screen name="LoginPage" component={LoginPage} />
-
               </>
             ) : (
               <>
-               <Stack.Screen name="Login" component={Login} />
-                 <Stack.Screen name="ParentHome" component={ParentHome} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="ParentHome" component={ParentHome} />
                 <Stack.Screen name="TeacherHome" component={TeacherHome} />
-             
+
                 <Stack.Screen name="AdminHome" component={AdminHome} />
                 <Stack.Screen name="SwitchStudent" component={SwitchStudent} />
                 <Stack.Screen
@@ -145,7 +140,7 @@ const TeacherHome = () => {
   return (
     <Drawer.Navigator
       gestureEnabled
-      screenOptions={{ headerShown: false }}
+      screenOptions={{headerShown: false}}
       drawerContent={props => <TeacherDrawer {...props} />}>
       <Drawer.Screen name="TeacherStack" component={TeacherStack} />
     </Drawer.Navigator>
@@ -153,25 +148,21 @@ const TeacherHome = () => {
 };
 
 const ParentHome = () => {
-
-
   return (
     <Drawer.Navigator
       gestureEnabled
-      screenOptions={{ headerShown: false }}
-      drawerContent={props => <ParentDrawer {...props} />}
-    >
+      screenOptions={{headerShown: false}}
+      drawerContent={props => <ParentDrawer {...props} />}>
       <Drawer.Screen name="ParentStack" component={ParentStack} />
     </Drawer.Navigator>
   );
 };
 
-
 const AdminHome = () => {
   return (
     <Drawer.Navigator
       gestureEnabled
-      screenOptions={{ headerShown: false }}
+      screenOptions={{headerShown: false}}
       drawerContent={props => <AdminDrawer {...props} />}>
       <Drawer.Screen name="AdminStack" component={AdminStack} />
     </Drawer.Navigator>
@@ -183,7 +174,7 @@ const NonTeachingHome = () => {
     <Drawer.Navigator
       initialRouteName="NonTeachingDashboard"
       gestureEnabled
-      screenOptions={{ headerShown: false }}
+      screenOptions={{headerShown: false}}
       drawerContent={props => <NonTeachingDrawer {...props} />}>
       <Drawer.Screen name="NonTeachingDashboard" component={NonTeachingStack} />
     </Drawer.Navigator>

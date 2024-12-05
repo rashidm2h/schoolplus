@@ -12,7 +12,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
@@ -197,34 +198,65 @@ const ClassWise = () => {
       <View style={styles.horizontalView}>
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Class:</Text>
-
-          <Dropdown
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle1}
-            data={dropdownSource}
-            value={dropdownValue}
-            onChangeText={value => {
-              setdropdownValue(value);
-              getDivisions();
-            }}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              selectedTextStyle={styles.selectedTextStyle1}
+              style={styles.pickerStyle1}
+              data={dropdownSource}
+              value={dropdownValue}
+              onChange={item => {
+                setdropdownValue(item.value);
+                getDivisions();
+              }}
+            />
+          ) : (
+            <Dropdown1
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              data={dropdownSource}
+              value={dropdownValue}
+              onChangeText={value => {
+                setdropdownValue(value);
+                getDivisions(value);
+              }}
+            />
+          )}
         </View>
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Division:</Text>
-          <Dropdown
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle1}
-            data={dropdownSource1}
-            value={dropdownValue1}
-            onChangeText={value => {
-              setdropdownValue1(value);
-              TimeTableData(value);
-            }}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              selectedTextStyle={styles.selectedTextStyle1}
+              style={styles.pickerStyle1}
+              data={dropdownSource1}
+              value={dropdownValue1}
+              onChange={item => {
+                setdropdownValue1(item.value);
+                TimeTableData(item.value);
+              }}
+            />
+          ) : (
+            <Dropdown1
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              data={dropdownSource1}
+              value={dropdownValue1}
+              onChangeText={value => {
+                setdropdownValue1(value);
+                TimeTableData(value);
+              }}
+            />
+          )}
         </View>
       </View>
       {/* </View> */}
@@ -434,8 +466,8 @@ const styles = StyleSheet.create({
       ios: {
         borderWidth: 0.5,
         borderColor: 'grey',
-        height: wp('30%'),
-        paddingTop: wp('3.5%'),
+        height: wp('10%'),
+        // paddingTop: wp('3.5%'),
         justifyContent: 'center',
         borderRadius: 3,
         paddingLeft: wp('0.5%'),
@@ -444,6 +476,19 @@ const styles = StyleSheet.create({
         marginBottom: wp('3.5%'),
       },
     }),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   horizontalView: {
     flexDirection: 'row',

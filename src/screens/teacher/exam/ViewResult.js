@@ -7,11 +7,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import Modal from 'react-native-modal';
 import DeviceInfo from 'react-native-device-info';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
@@ -19,7 +22,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 const ViewResult = () => {
   const [keys, setkeys] = useState('');
   const [domain, setdomain] = useState('');
@@ -146,7 +149,6 @@ const ViewResult = () => {
   };
 
   const viewresultclassFunc = value => {
-
     fetch(`${GLOBALS.TEACHER_SERVICE}TeacherClasses`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -319,23 +321,44 @@ const ViewResult = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          margin: wp('1%'),
+          paddingHorizontal: wp('1%'),
+        }}>
         <View style={{flex: 1}}>
           <Text style={{}}>Select Class :</Text>
-          {isVisiblefst === true ? (
-            <Dropdown
-              inputContainerStyle={styles.dropdownInput}
-              baseColor="transparent"
+          {Platform.OS === 'ios' ? (
+            isVisiblefst === true ? (
+              <Dropdown
+                textColor="#121214"
+                selectedTextStyle={styles.selectedTextStyle1}
+                selectedItemColor="#000"
+                labelField="label"
+                valueField="value"
+                data={dropdownSource}
+                style={styles.dropdownStyle}
+                value={dropdownValue}
+                onChange={item => {
+                  setdropdownValue(item.value);
+                  onValueResultExam(item.value);
+                }}
+              />
+            ) : (
+              <View style={styles.pickerviewstwos}>
+                <Picker />
+              </View>
+            )
+          ) : isVisiblefst === true ? (
+            <Dropdown1
               data={dropdownSource}
-              style={[
-                styles.pickerStyle,
-                {
-                  marginRight: wp('1.5%'),
-                },
-              ]}
-              textColor="#121214"
-              selectedItemColor="#7A7A7A"
               value={dropdownValue}
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              selectedItemColor="#7A7A7A"
               onChangeText={value => {
                 setdropdownValue(value);
                 onValueResultExam(value);
@@ -349,38 +372,75 @@ const ViewResult = () => {
         </View>
         <View style={{flex: 1}}>
           <Text style={{}}>Select exam type :</Text>
-          <Dropdown
-            inputContainerStyle={styles.dropdownInput}
-            baseColor="transparent"
-            data={dropdownSource1}
-            style={styles.pickerStyle}
-            textColor="#121214"
-            selectedItemColor="#7A7A7A"
-            value={dropdownValue1}
-            onChangeText={value => {
-              setdropdownValue1(value);
-              onValueexamtype(value);
-            }}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              inputContainerStyle={styles.dropdownInput}
+              data={dropdownSource1}
+              style={styles.dropdownStyle}
+              textColor="#121214"
+              selectedTextStyle={styles.selectedTextStyle1}
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              value={dropdownValue1}
+              onChange={item => {
+                setdropdownValue1(item.value);
+                onValueexamtype(item.value);
+              }}
+            />
+          ) : (
+            <Dropdown1
+              data={dropdownSource1}
+              value={dropdownValue}
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              selectedItemColor="#7A7A7A"
+              onChangeText={value => {
+                setdropdownValue1(value);
+                onValueexamtype(value);
+              }}
+            />
+          )}
         </View>
       </View>
       {dropdownValue1 === 'CommonExam' &&
       domain === 'avk.schoolplusapp.com' ? null : (
-        <View style={{flex: 1, margin: wp('1%'),paddingHorizontal: wp('1%')}}>
+        <View style={{flex: 1, margin: wp('1%'), paddingHorizontal: wp('1%')}}>
           <Text style={{}}>Select Exam :</Text>
-          <Dropdown
-            inputContainerStyle={styles.dropdownInput}
-            baseColor="transparent"
-            data={dropdownSource2}
-            style={styles.pickerStyle}
-            textColor="#121214"
-            selectedItemColor="#7A7A7A"
-            value={dropdownValue2}
-            onChangeText={value => {
-              setdropdownValue2(value);
-              onValuegetexmaname(value);
-            }}
-          />
+
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              inputContainerStyle={styles.dropdownInput}
+              data={dropdownSource2}
+              style={styles.dropdownStyle}
+              textColor="#121214"
+              selectedTextStyle={styles.selectedTextStyle1}
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              value={dropdownValue2}
+              onChange={item => {
+                setdropdownValue2(item.value);
+                onValuegetexmaname(item.value);
+              }}
+            />
+          ) : (
+            <Dropdown1
+              data={dropdownSource2}
+              value={dropdownValue2}
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              selectedItemColor="#7A7A7A"
+              onChangeText={value => {
+                setdropdownValue2(value);
+                onValuegetexmaname(value);
+              }}
+            />
+          )}
         </View>
       )}
       <View style={styles.mainContainerTop}>
@@ -424,9 +484,11 @@ const ViewResult = () => {
                           }
 
                           AsyncStorage.getItem('BranchID').then(BranchID => {
-                            fetch(`${GLOBALS.TEACHER_SERVICE}RetrieveAllMarksheet`, {
-                              method: 'POST',
-                              body: `<?xml version="1.0" encoding="utf-8"?>
+                            fetch(
+                              `${GLOBALS.TEACHER_SERVICE}RetrieveAllMarksheet`,
+                              {
+                                method: 'POST',
+                                body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             <soap12:Body>
               <RetrieveAllMarksheet xmlns="http://www.m2hinfotech.com//">
@@ -435,12 +497,13 @@ const ViewResult = () => {
               </RetrieveAllMarksheet>
             </soap12:Body>
           </soap12:Envelope>`,
-                              headers: {
-                                Accept: 'application/json',
-                                'Content-Type':
-                                  'application/soap+xml; charset=utf-8',
+                                headers: {
+                                  Accept: 'application/json',
+                                  'Content-Type':
+                                    'application/soap+xml; charset=utf-8',
+                                },
                               },
-                            })
+                            )
                               .then(response => response.text())
                               .then(response => {
                                 const xmlDoc = parser.parseFromString(response);
@@ -467,9 +530,11 @@ const ViewResult = () => {
                               AsyncStorage.getItem('examid').then(
                                 keyValueid => {
                                   examids = keyValueid;
-                                  fetch(`${GLOBALS.TEACHER_SERVICE}GetStdMark`, {
-                                    method: 'POST',
-                                    body: `<?xml version="1.0" encoding="utf-8"?>
+                                  fetch(
+                                    `${GLOBALS.TEACHER_SERVICE}GetStdMark`,
+                                    {
+                                      method: 'POST',
+                                      body: `<?xml version="1.0" encoding="utf-8"?>
                                   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                                   <soap12:Body>
                                     <GetStdMark xmlns="http://www.m2hinfotech.com//">
@@ -480,12 +545,13 @@ const ViewResult = () => {
                                 </soap12:Body>
                               </soap12:Envelope>
                               `,
-                                    headers: {
-                                      Accept: 'application/json',
-                                      'Content-Type':
-                                        'application/soap+xml; charset=utf-8',
+                                      headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type':
+                                          'application/soap+xml; charset=utf-8',
+                                      },
                                     },
-                                  })
+                                  )
                                     .then(response => response.text())
                                     .then(response => {
                                       const result = parser
@@ -537,163 +603,167 @@ const ViewResult = () => {
           isVisible={isModalVisible}
           onBackButtonPress={() => setisModalVisible(false)}>
           {domain === 'avk.schoolplusapp.com' ? (
-            <View style={styles.container}>
-              <View style={styles.welcomeAlert}>
-                {dataSourceAlert.length > 0 && (
+            <SafeAreaView style={{flex: 1}}>
+              <View style={styles.container}>
+                <View style={styles.welcomeAlert}>
+                  {dataSourceAlert.length > 0 && (
+                    <FlatList
+                      data={dataSourceAlert}
+                      renderItem={({item}) => {
+                        return (
+                          <View style={styles.modalViewStyle}>
+                            {avkHeader(
+                              item[Object.keys(item)[0]],
+                              item[Object.keys(item)[1]],
+                              item,
+                            )}
+                            <View style={styles.flatlistMarkTable}>
+                              {item[Object.keys(item)[0]] > 4 ? (
+                                <View style={styles.itemStylealert}>
+                                  <View style={styles.itemsoneAlertSubject}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[2]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[6]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[7]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[8]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[9]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[10]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[11]]}
+                                    </Text>
+                                  </View>
+                                </View>
+                              ) : (
+                                <View style={styles.itemStylealert}>
+                                  <View style={styles.itemsoneAlertSubject}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[2]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[3]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {item[Object.keys(item)[4]]}
+                                    </Text>
+                                  </View>
+                                  <View style={styles.itemsoneAlert}>
+                                    <Text style={styles.flatitem}>
+                                      {!item[Object.keys(item)[5]]
+                                        ? item[Object.keys(item)[5]]
+                                        : String.prototype.trim.call(
+                                            item[Object.keys(item)[5]],
+                                          )}
+                                    </Text>
+                                  </View>
+                                </View>
+                              )}
+                            </View>
+                          </View>
+                        );
+                      }}
+                    />
+                  )}
+                  <View style={styles.closbuttonview}>
+                    <TouchableOpacity
+                      style={styles.closebutton}
+                      onPress={_hideModal}>
+                      <Text style={styles.bttxtViewRslt}>CLOSE</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </SafeAreaView>
+          ) : (
+            <SafeAreaView style={{flex: 1}}>
+              <View style={styles.container}>
+                <View style={styles.topcontaineralert}>
+                  <View style={styles.textcontaineonealertoneSubject}>
+                    <Text style={styles.textalert}>SUBJECT</Text>
+                  </View>
+                  <View style={styles.textcontaineonealertone}>
+                    <Text style={styles.textalert}>MARK</Text>
+                  </View>
+                  <View style={styles.textcontaineonealertone}>
+                    <Text style={styles.textalert}>MAX MARK</Text>
+                  </View>
+                  <View style={styles.textcontaineonealertlast}>
+                    <Text style={styles.textalert}>GRADE</Text>
+                  </View>
+                </View>
+                <View style={styles.welcomeAlert}>
                   <FlatList
                     data={dataSourceAlert}
-                    renderItem={({item}) => {
-                      return (
-                        <View style={styles.modalViewStyle}>
-                          {avkHeader(
-                            item[Object.keys(item)[0]],
-                            item[Object.keys(item)[1]],
-                            item,
-                          )}
-                          <View style={styles.flatlistMarkTable}>
-                            {item[Object.keys(item)[0]] > 4 ? (
-                              <View style={styles.itemStylealert}>
-                                <View style={styles.itemsoneAlertSubject}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[2]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[6]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[7]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[8]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[9]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[10]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[11]]}
-                                  </Text>
-                                </View>
-                              </View>
-                            ) : (
-                              <View style={styles.itemStylealert}>
-                                <View style={styles.itemsoneAlertSubject}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[2]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[3]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {item[Object.keys(item)[4]]}
-                                  </Text>
-                                </View>
-                                <View style={styles.itemsoneAlert}>
-                                  <Text style={styles.flatitem}>
-                                    {!item[Object.keys(item)[5]]
-                                      ? item[Object.keys(item)[5]]
-                                      : String.prototype.trim.call(
-                                          item[Object.keys(item)[5]],
-                                        )}
-                                  </Text>
-                                </View>
-                              </View>
-                            )}
+                    renderItem={({item}) => (
+                      <View style={styles.flatlistMarkTable}>
+                        <View style={styles.itemStylealert}>
+                          <View style={styles.itemsoneAlertSubject}>
+                            <Text style={styles.flatitem}>{item.SubName}</Text>
+                          </View>
+                          <View style={styles.itemsoneAlert}>
+                            <Text style={styles.flatitem}>
+                              {item.StudentMark}
+                            </Text>
+                          </View>
+                          <View style={styles.itemsoneAlert}>
+                            <Text style={styles.flatitem}>{item.MaxMark}</Text>
+                          </View>
+                          <View style={styles.itemsoneAlert}>
+                            <Text style={styles.flatitem}>
+                              {!item.GradeName
+                                ? item.GradeName
+                                : String.prototype.trim.call(item.GradeName)}
+                            </Text>
                           </View>
                         </View>
-                      );
-                    }}
-                  />
-                )}
-                <View style={styles.closbuttonview}>
-                  <TouchableOpacity
-                    style={styles.closebutton}
-                    onPress={_hideModal}>
-                    <Text style={styles.bttxtViewRslt}>CLOSE</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.container}>
-              <View style={styles.topcontaineralert}>
-                <View style={styles.textcontaineonealertoneSubject}>
-                  <Text style={styles.textalert}>SUBJECT</Text>
-                </View>
-                <View style={styles.textcontaineonealertone}>
-                  <Text style={styles.textalert}>MARK</Text>
-                </View>
-                <View style={styles.textcontaineonealertone}>
-                  <Text style={styles.textalert}>MAX MARK</Text>
-                </View>
-                <View style={styles.textcontaineonealertlast}>
-                  <Text style={styles.textalert}>GRADE</Text>
-                </View>
-              </View>
-              <View style={styles.welcomeAlert}>
-                <FlatList
-                  data={dataSourceAlert}
-                  renderItem={({item}) => (
-                    <View style={styles.flatlistMarkTable}>
-                      <View style={styles.itemStylealert}>
-                        <View style={styles.itemsoneAlertSubject}>
-                          <Text style={styles.flatitem}>{item.SubName}</Text>
-                        </View>
-                        <View style={styles.itemsoneAlert}>
-                          <Text style={styles.flatitem}>
-                            {item.StudentMark}
-                          </Text>
-                        </View>
-                        <View style={styles.itemsoneAlert}>
-                          <Text style={styles.flatitem}>{item.MaxMark}</Text>
-                        </View>
-                        <View style={styles.itemsoneAlert}>
-                          <Text style={styles.flatitem}>
-                            {!item.GradeName
-                              ? item.GradeName
-                              : String.prototype.trim.call(item.GradeName)}
-                          </Text>
-                        </View>
                       </View>
-                    </View>
-                  )}
-                />
+                    )}
+                  />
 
-                <View style={styles.seconditem}>
-                  <Text style={styles.secondtext}>
-                    Total marks: {totalmarks}
-                  </Text>
-                  <Text style={styles.secondtext}>
-                    Percentage: {percentages}
-                  </Text>
-                </View>
-                <View style={styles.closbuttonview}>
-                  <TouchableOpacity
-                    style={styles.closebutton}
-                    onPress={_hideModal}>
-                    <Text style={styles.bttxtViewRslt}>CLOSE</Text>
-                  </TouchableOpacity>
+                  <View style={styles.seconditem}>
+                    <Text style={styles.secondtext}>
+                      Total marks: {totalmarks}
+                    </Text>
+                    <Text style={styles.secondtext}>
+                      Percentage: {percentages}
+                    </Text>
+                  </View>
+                  <View style={styles.closbuttonview}>
+                    <TouchableOpacity
+                      style={styles.closebutton}
+                      onPress={_hideModal}>
+                      <Text style={styles.bttxtViewRslt}>CLOSE</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
-            </View>
+            </SafeAreaView>
           )}
         </Modal>
       </View>
@@ -789,6 +859,19 @@ const styles = StyleSheet.create({
     borderRadius: wp('0.3%'),
     borderWidth: wp('0.3%'),
     height: wp('12.6%'),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   item: {
     height: wp('7%'),

@@ -9,7 +9,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
@@ -28,12 +29,12 @@ const StudentDetails = ({navigation}) => {
   }, []);
 
   const classDropdownFill = () => {
-    AsyncStorage.getItem('acess_token').then (keyValue => {
-    AsyncStorage.getItem('BranchID')
-      .then(keyValue1 => {
-        fetch(`${GLOBALS.TEACHER_SERVICE}AttClassListForTeacher`, {
-          method: 'POST',
-          body: `<?xml version="1.0" encoding="utf-8"?>
+    AsyncStorage.getItem('acess_token')
+      .then(keyValue => {
+        AsyncStorage.getItem('BranchID').then(keyValue1 => {
+          fetch(`${GLOBALS.TEACHER_SERVICE}AttClassListForTeacher`, {
+            method: 'POST',
+            body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
           <soap12:Body>
           <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
@@ -43,41 +44,41 @@ const StudentDetails = ({navigation}) => {
           </soap12:Body>
           </soap12:Envelope>
           `,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/soap+xml; charset=utf-8',
-          },
-        })
-          .then(response => response.text())
-          .then(response => {
-            const xmlDoc = parser.parseFromString(response);
-            const result = xmlDoc.getElementsByTagName(
-              'AttClassListForTeacherResult',
-            )[0].childNodes[0].nodeValue;
-            if (result === 'failure') {
-              console.log('failure');
-            } else {
-              const output = JSON.parse(result);
-              const dropData = output.map(element => ({
-                value: element.BranchClassId,
-                label: element.Class,
-              }));
-              setdropdowndata(dropData);
-              setdropdownValue(output[0].BranchClassId);
-              getStudentList(output[0].BranchClassId);
-            }
-          });
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/soap+xml; charset=utf-8',
+            },
           })
-        })
+            .then(response => response.text())
+            .then(response => {
+              const xmlDoc = parser.parseFromString(response);
+              const result = xmlDoc.getElementsByTagName(
+                'AttClassListForTeacherResult',
+              )[0].childNodes[0].nodeValue;
+              if (result === 'failure') {
+                console.log('failure');
+              } else {
+                const output = JSON.parse(result);
+                const dropData = output.map(element => ({
+                  value: element.BranchClassId,
+                  label: element.Class,
+                }));
+                setdropdowndata(dropData);
+                setdropdownValue(output[0].BranchClassId);
+                getStudentList(output[0].BranchClassId);
+              }
+            });
+        });
+      })
       .catch(error => {
         console.log(error);
-  });
+      });
   };
 
   const getStudentList = classValue => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        fetch(`http://10.25.25.124:85//EschoolTeacherWebService.asmx?op=StudentListForClassTeacher`, {
+        fetch(`${GLOBALS.TEACHER_SERVICE}StudentListForClassTeacher`, {
           method: 'POST',
           body: `<?xml version="1.0" encoding="utf-8"?>
                   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -135,18 +136,34 @@ const StudentDetails = ({navigation}) => {
       />
       <View style={styles.pickerview}>
         <View style={styles.container}>
-          <Dropdown
-            data={dropdowndata}
-            textColor="#121214"
-            icon="chevron-down"
-            value={dropdownValue}
-            baseColor="transparent"
-            selectedItemColor="#7A7A7A"
-            underlineColor="transparent"
-            onChangeText={setdropdownValue}
-            containerStyle={styles.pickerStyle}
-            inputContainerStyle={styles.inputContainer}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              data={dropdowndata}
+              textColor="#000"
+              value={dropdownValue}
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              onChange={item => {
+                setdropdownValue(item.value);
+              }}
+              inputContainerStyle={styles.inputContainer}
+              style={styles.dropdownStyle}
+              selectedTextStyle={styles.selectedTextStyle1}
+            />
+          ) : (
+            <Dropdown1
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              data={dropdowndata}
+              value={dropdownValue}
+              onChangeText={value => {
+                setdropdownValue(value);
+              }}
+            />
+          )}
         </View>
         <View style={styles.buttonView}>
           <Pressable onPress={() => getStudentList(dropdownValue)}>
@@ -240,7 +257,7 @@ const styles = StyleSheet.create({
     marginVertical: wp('4%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: wp('0.7%')
+    marginLeft: wp('0.7%'),
   },
   inputContainer: {borderBottomColor: 'transparent'},
   headingTableView: {
@@ -299,6 +316,19 @@ const styles = StyleSheet.create({
         height: wp('8.75%'),
       },
     }),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   textc: {
     fontSize: wp('3.8%'),

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {DOMParser} from 'xmldom';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Alert, Platform, Pressable, Text, View} from 'react-native';
 import GLOBALS from '../../../config/Globals';
@@ -19,12 +20,12 @@ const Attendance = ({navigation}) => {
   }, []);
 
   const onPressButtonPOST = () => {
-    AsyncStorage.getItem('BranchID').then (branch => {
-    AsyncStorage.getItem('acess_token')
-      .then(keyValue => {
-        fetch(`${GLOBALS.TEACHER_SERVICE}AttClassListForTeacher`, {
-          method: 'POST',
-          body: `<?xml version="1.0" encoding="utf-8"?>
+    AsyncStorage.getItem('BranchID')
+      .then(branch => {
+        AsyncStorage.getItem('acess_token').then(keyValue => {
+          fetch(`${GLOBALS.TEACHER_SERVICE}AttClassListForTeacher`, {
+            method: 'POST',
+            body: `<?xml version="1.0" encoding="utf-8"?>
           <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
           <soap12:Body>
           <AttClassListForTeacher xmlns="http://www.m2hinfotech.com//">
@@ -34,31 +35,31 @@ const Attendance = ({navigation}) => {
           </soap12:Body>
           </soap12:Envelope>
           `,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/soap+xml; charset=utf-8',
-          },
-        })
-          .then(response => response.text())
-          .then(response => {
-            window.DOMParser = require('xmldom').DOMParser;
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(response);
-            const result = xmlDoc.getElementsByTagName(
-              'AttClassListForTeacherResult',
-            )[0].childNodes[0].nodeValue;
-            if (result !== 'failure') {
-              const output = JSON.parse(result);
-              const dropData = output.map(element => ({
-                value: element.BranchClassId,
-                label: element.Class,
-              }));
-              setdata(dropData);
-              setdropdownValue(output[0].BranchClassId);
-            }
-          });
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/soap+xml; charset=utf-8',
+            },
+          })
+            .then(response => response.text())
+            .then(response => {
+              window.DOMParser = require('xmldom').DOMParser;
+              const parser = new DOMParser();
+              const xmlDoc = parser.parseFromString(response);
+              const result = xmlDoc.getElementsByTagName(
+                'AttClassListForTeacherResult',
+              )[0].childNodes[0].nodeValue;
+              if (result !== 'failure') {
+                const output = JSON.parse(result);
+                const dropData = output.map(element => ({
+                  value: element.BranchClassId,
+                  label: element.Class,
+                }));
+                setdata(dropData);
+                setdropdownValue(output[0].BranchClassId);
+              }
+            });
+        });
       })
-    })
       .catch(error => {
         console.log(error);
       });
@@ -82,20 +83,34 @@ const Attendance = ({navigation}) => {
       />
       <View style={styles.pickerview}>
         <View style={styles.container}>
-          <Dropdown
-            inputContainerStyle={{borderBottomColor: 'transparent'}}
-            data={data}
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle}
-            textColor="#121214"
-            selectedItemColor="#7A7A7A"
-            value={dropdownValue}
-            onChangeText={value => {
-              setdropdownValue(value);
-            }}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              data={data}
+              style={styles.dropdownStyle}
+              textColor="#121214"
+              selectedTextStyle={styles.selectedTextStyle1}
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              value={dropdownValue}
+              onChange={item => {
+                setdropdownValue(item.value);
+              }}
+            />
+          ) : (
+            <Dropdown1
+              data={data}
+              value={dropdownValue}
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              selectedItemColor="#7A7A7A"
+              onChangeText={value => {
+                setdropdownValue(value);
+              }}
+            />
+          )}
         </View>
         <View style={styles.buttonView}>
           <Pressable onPress={() => onPressClass()}>
@@ -155,6 +170,19 @@ const styles = StyleSheet.create({
         flex: 1,
       },
     }),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   buttonView: {
     height: wp('10.5%'),

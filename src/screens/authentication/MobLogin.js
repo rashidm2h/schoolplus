@@ -1,18 +1,26 @@
-import { View, StyleSheet, Image, Pressable, Text, Alert, Platform, Linking } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Pressable,
+  Text,
+  Alert,
+  Platform,
+  Linking,
+} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Logo from '../../images/logo.png';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
-import { DOMParser } from 'xmldom';
+import {DOMParser} from 'xmldom';
 import OneSignal from 'react-native-onesignal';
 import GLOBALS from '../../config/Globals';
 
-
-const MobLogin = ({ navigation }) => {
+const MobLogin = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -34,7 +42,7 @@ const MobLogin = ({ navigation }) => {
       </View>
     </View>
   );
-}
+};
 
 export default MobLogin;
 

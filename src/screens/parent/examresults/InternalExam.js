@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, FlatList, Platform, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
@@ -74,9 +75,9 @@ const InternalExam = () => {
 
   const getExamMarks = examId => {
     AsyncStorage.getItem('StdID').then(keyValue => {
-    fetch(`${GLOBALS.PARENT_SERVICE}GetStdExmMarks`, {
-      method: 'POST',
-      body: `<?xml version="1.0" encoding="utf-8"?>
+      fetch(`${GLOBALS.PARENT_SERVICE}GetStdExmMarks`, {
+        method: 'POST',
+        body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <GetStdExmMarks xmlns="http://www.m2hinfotech.com//">
@@ -86,29 +87,29 @@ const InternalExam = () => {
 </soap12:Body>
 </soap12:Envelope>
  `,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/soap+xml; charset=utf-8',
-      },
-    })
-      .then(response => response.text())
-      .then(response => {
-        setloading(false);
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(response);
-        const v = xmlDoc.getElementsByTagName('GetStdExmMarksResult')[0]
-          .childNodes[0].nodeValue;
-        if (v === 'failure') {
-        } else {
-          const rslt = JSON.parse(v);
-          setdata(rslt);
-        }
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/soap+xml; charset=utf-8',
+        },
       })
-      .catch(error => {
-        console.log(error);
-        setloading(false);
-      });
-    })
+        .then(response => response.text())
+        .then(response => {
+          setloading(false);
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(response);
+          const v = xmlDoc.getElementsByTagName('GetStdExmMarksResult')[0]
+            .childNodes[0].nodeValue;
+          if (v === 'failure') {
+          } else {
+            const rslt = JSON.parse(v);
+            setdata(rslt);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          setloading(false);
+        });
+    });
   };
 
   return (
@@ -118,18 +119,34 @@ const InternalExam = () => {
       ) : (
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Select Exam:</Text>
-          <Dropdown
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            data={dropdownData}
-            value={examId}
-            containerStyle={styles.pickerStyle}
-            onChangeText={value => {
-              setexamId(value);
-              getExamMarks(value);
-            }}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              selectedTextStyle={styles.selectedTextStyle1}
+              data={dropdownData}
+              value={examId}
+              style={styles.pickerStyle}
+              onChange={item => {
+                setexamId(item.value);
+                getExamMarks(item.value);
+              }}
+            />
+          ) : (
+            <Dropdown1
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              data={dropdownData}
+              value={examId}
+              onChangeText={value => {
+                setexamId(value);
+                getExamMarks(value);
+              }}
+            />
+          )}
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.tableRowItemHead}>
@@ -231,7 +248,7 @@ const styles = StyleSheet.create({
     // paddingBottom: 20,
     marginLeft: wp('3.5%'),
     marginRight: wp('3.5%'),
-    paddingTop: wp('3.5%'),
+    // paddingTop: wp('3.5%'),
     ...Platform.select({
       ios: {
         height: 40,
@@ -240,6 +257,19 @@ const styles = StyleSheet.create({
         height: wp('11%'),
       },
     }),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   pickerStyleout: {
     ...Platform.select({

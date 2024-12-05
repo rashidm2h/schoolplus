@@ -1,29 +1,39 @@
-import { StyleSheet, Text, View, TextInput, Pressable, Alert, Image, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { useState, useRef, useEffect, useContext } from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  Alert,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
+import React, {useState, useRef, useEffect, useContext} from 'react';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import GLOBALS from '../../config/Globals'
+import GLOBALS from '../../config/Globals';
 import PhoneInput from 'react-native-phone-number-input';
 import Logo from '../../images/logo.png';
-import { DOMParser } from 'xmldom';
+import {DOMParser} from 'xmldom';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CountryFlag from "react-native-country-flag";
-import { Platform } from 'react-native';
+import CountryFlag from 'react-native-country-flag';
+import {Platform} from 'react-native';
 import OneSignal from 'react-native-onesignal';
 import AuthContext from '../../config/Context';
 import Progress from '../../components/ProgressIndicator';
 
-const LoginPage = ({ navigation }) => {
-  const { signIn } = useContext(AuthContext);
-  const [pin, setPin] = useState('')
+const LoginPage = ({navigation}) => {
+  const {signIn} = useContext(AuthContext);
+  const [pin, setPin] = useState('');
   const [phoneNumber, setphoneNumber] = useState('');
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
   const phoneInput = useRef(null);
-  const [loading, setloading] = useState('')
+  const [loading, setloading] = useState('');
   const [spinnerValue, setspinnerValue] = useState(false);
-  AsyncStorage.setItem('acess_token', phoneNumber)
+  AsyncStorage.setItem('acess_token', phoneNumber);
 
   useEffect(() => {
     OneSignal.setAppId('e59855c0-e3c5-49cc-a270-89d13e896bee');
@@ -41,29 +51,26 @@ const LoginPage = ({ navigation }) => {
     }
   };
 
-
-
-  const validatePin = (inputPin) => {
+  const validatePin = inputPin => {
     const pinRegex = /^[0-9]{4}$/;
     return pinRegex.test(inputPin);
-  }
+  };
   const buttonPress = async () => {
     if (!pin || !validatePin(pin)) {
-      setError('Please Enter Correct pin')
-      Alert.alert("Please Enter the Correct Pin")
+      setError('Please Enter Correct pin');
+      Alert.alert('Please Enter the Correct Pin');
     }
     try {
       await AsyncStorage.setItem('access_token', phoneNumber);
       loginService(phoneNumber);
-    }
-    catch (error) {
-      console.error("Error storing phone number: ", error);
+    } catch (error) {
+      console.error('Error storing phone number: ', error);
     }
     // setphoneNumber('')
     // setPin('')
-  }
+  };
 
-  const loginService = async (phoneNumber) => {
+  const loginService = async phoneNumber => {
     const fcmToken = token;
     setloading(true);
 
@@ -90,12 +97,13 @@ const LoginPage = ({ navigation }) => {
       const textResponse = await response.text();
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(textResponse, 'text/xml');
-      const parserError = xmlDoc.getElementsByTagName("parsererror");
+      const parserError = xmlDoc.getElementsByTagName('parsererror');
       if (parserError.length > 0) {
-        throw new Error("XML Parsing Error");
+        throw new Error('XML Parsing Error');
       }
 
-      const loginResult = xmlDoc.getElementsByTagName('LoginResult')[0].childNodes[0].nodeValue;
+      const loginResult =
+        xmlDoc.getElementsByTagName('LoginResult')[0].childNodes[0].nodeValue;
       setloading(false);
       if (loginResult === "Pin Number doesn't Match") {
         setspinnerValue(false);
@@ -107,47 +115,48 @@ const LoginPage = ({ navigation }) => {
               text: 'OK',
               onPress: () => {
                 navigation.navigate('LoginPage');
-                setphoneNumber('')
-                setPin('')
+                setphoneNumber('');
+                setPin('');
               },
             },
           ],
-          { cancelable: false },
+          {cancelable: false},
         );
-      }
-      else if (loginResult === 'Failure') {
-        setspinnerValue(false)
-        Alert.alert('Login Failed', 'Please Enter Registered Phone Number',
+      } else if (loginResult === 'Failure') {
+        setspinnerValue(false);
+        Alert.alert(
+          'Login Failed',
+          'Please Enter Registered Phone Number',
           [
             {
               text: 'OK',
               onPress: () => {
-                navigation.navigate('LoginPage')
-                setPin('')
-                setphoneNumber('')
-              }
+                navigation.navigate('LoginPage');
+                setPin('');
+                setphoneNumber('');
+              },
             },
             {
               text: 'Login with another number',
               onPress: () => {
                 navigation.navigate('LoginPage');
-                setphoneNumber('')
-                setPin('')
+                setphoneNumber('');
+                setPin('');
               },
             },
           ],
-          { cancelable: false },
-        )
-      }
-      else if (loginResult === "Didn't Set the Pin Number")
-      {
-        Alert.alert('Login Failed', 'Please Set your Pin',
+          {cancelable: false},
+        );
+      } else if (loginResult === "Didn't Set the Pin Number") {
+        Alert.alert(
+          'Login Failed',
+          'Please Set your Pin',
           [
             {
               text: 'OK',
               onPress: () => {
-                navigation.navigate('SignIn')
-              }
+                navigation.navigate('SignIn');
+              },
             },
             {
               text: 'Sign Up',
@@ -156,21 +165,20 @@ const LoginPage = ({ navigation }) => {
               },
             },
           ],
-          { cancelable: false },
-        )
-      }
-      else {
+          {cancelable: false},
+        );
+      } else {
         signIn(phoneNumber);
         const parsedResult = JSON.parse(loginResult);
         const userDetails = parsedResult[0];
         const userRole = userDetails.UserRole;
-        const branch = userDetails.BranchId
-        const branchname = userDetails.BranchName
-        const domain = userDetails.Domain
-        AsyncStorage.setItem('BranchID', branch)
-        AsyncStorage.setItem('pin', pin)
-        AsyncStorage.setItem('schoolBranchName', branchname)
-        AsyncStorage.setItem('domain', domain)
+        const branch = userDetails.BranchId;
+        const branchname = userDetails.BranchName;
+        const domain = userDetails.Domain;
+        AsyncStorage.setItem('BranchID', branch);
+        AsyncStorage.setItem('pin', pin);
+        AsyncStorage.setItem('schoolBranchName', branchname);
+        AsyncStorage.setItem('domain', domain);
         setspinnerValue(false);
         try {
           AsyncStorage.setItem('role', userRole);
@@ -238,7 +246,7 @@ const LoginPage = ({ navigation }) => {
                   },
                 },
               ],
-              { cancelable: false },
+              {cancelable: false},
             );
             break;
           case 'NC':
@@ -251,7 +259,7 @@ const LoginPage = ({ navigation }) => {
                   onPress: () => navigation.navigate('LoginPage'),
                 },
               ],
-              { cancelable: false },
+              {cancelable: false},
             );
             break;
           default:
@@ -290,10 +298,10 @@ const LoginPage = ({ navigation }) => {
               backgroundColor="#F4FDFF"
               value={phoneNumber.slice(2)}
               onChangeText={value => {
-                if (value === "") {
-                  setphoneNumber("91");
+                if (value === '') {
+                  setphoneNumber('91');
                 } else {
-                  setphoneNumber("91" + value);
+                  setphoneNumber('91' + value);
                 }
               }}
             />
@@ -324,9 +332,9 @@ const LoginPage = ({ navigation }) => {
         {loading ? <Progress /> : null}
       </View>
     </TouchableWithoutFeedback>
-  )
-}
-export default LoginPage
+  );
+};
+export default LoginPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -335,7 +343,7 @@ const styles = StyleSheet.create({
   },
   logocontainer: {
     marginTop: wp('24%'),
-    marginLeft: wp('10%')
+    marginLeft: wp('10%'),
   },
   logo: {
     width: wp('25%'),
@@ -343,12 +351,12 @@ const styles = StyleSheet.create({
   },
   welcomepara: {
     fontSize: 24,
-    color: 'white'
+    color: 'white',
   },
   logincontainer: {
     justifyContent: 'center',
     alignSelf: 'center',
-    marginTop: hp('8%')
+    marginTop: hp('8%'),
   },
   phoneContainer: {
     flexDirection: 'row',
@@ -364,12 +372,12 @@ const styles = StyleSheet.create({
     marginRight: wp('6%'),
     color: '#000',
     marginLeft: wp('3%'),
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   textInputph: {
     fontSize: 16,
     color: '#B4B2B2',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   textInput: {
     textAlign: 'center',
@@ -408,7 +416,7 @@ const styles = StyleSheet.create({
       android: {
         marginTop: hp('23%'),
       },
-    })
+    }),
   },
   signintext: {
     fontSize: 16,
@@ -416,6 +424,6 @@ const styles = StyleSheet.create({
   },
   signintextlink: {
     fontSize: 16,
-    color: '#0630EA'
+    color: '#0630EA',
   },
-})
+});

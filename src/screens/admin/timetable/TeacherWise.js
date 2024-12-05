@@ -12,7 +12,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
@@ -144,18 +145,34 @@ const TeacherWise = ({navigation}) => {
         <Loader />
       ) : (
         <>
-          <Dropdown
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle}
-            data={dropdownSource}
-            value={dropdownValue}
-            onChangeText={value => {
-              setdropdownValue(value);
-              TimeTableData(value);
-            }}
-          />
+          {Platform.OS === 'ios' ? (
+            <Dropdown
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              selectedTextStyle={styles.selectedTextStyle1}
+              style={styles.pickerStyle}
+              data={dropdownSource}
+              value={dropdownValue}
+              onChange={item => {
+                setdropdownValue(item.value);
+                TimeTableData(item.value);
+              }}
+            />
+          ) : (
+            <Dropdown1
+              icon="chevron-down"
+              baseColor="transparent"
+              underlineColor="transparent"
+              containerStyle={styles.pickerStyle}
+              data={dropdownSource}
+              value={dropdownValue}
+              onChangeText={value => {
+                setdropdownValue(value);
+                TimeTableData(value);
+              }}
+            />
+          )}
           <View style={styles.containerTableTop}>
             <View style={styles.textWhiteBox}>
               <Text style={styles.textwhite}>Days</Text>
@@ -325,7 +342,7 @@ const styles = StyleSheet.create({
     margin: wp('3.5%'),
     paddingLeft: wp('1.5%'),
     paddingRight: wp('1.5%'),
-    paddingTop: wp('3.5%'),
+    // paddingTop: wp('3.5%'),
     width: wp('90%'),
     justifyContent: 'center',
     alignSelf: 'center',
@@ -358,6 +375,19 @@ const styles = StyleSheet.create({
         marginBottom: 5,
       },
     }),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   horizontalView: {
     flexDirection: 'row',

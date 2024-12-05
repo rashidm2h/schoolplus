@@ -1,10 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, Pressable, FlatList, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Pressable,
+  FlatList,
+  View,
+  Platform,
+} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+// import IOSPicker from '@react-native-ios-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import DropDownPicker from 'react-native-element-dropdown';
 const myIcon = <Icon name="download" size={25} color="white" />;
 
 import {

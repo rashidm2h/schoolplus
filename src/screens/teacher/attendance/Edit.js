@@ -15,7 +15,8 @@ import {
 import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import {CheckBox} from 'react-native-elements';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GLOBALS from '../../../config/Globals';
@@ -91,12 +92,12 @@ const Edit = () => {
   };
 
   const classListCreateExam = () => {
-    AsyncStorage.getItem('BranchID').then (branch => {
-    AsyncStorage.getItem('acess_token').then(
-      keyValue => {
-        fetch(`${GLOBALS.TEACHER_SERVICE}TeacherClasses`, {
-          method: 'POST',
-          body: `<?xml version="1.0" encoding="utf-8"?>
+    AsyncStorage.getItem('BranchID').then(branch => {
+      AsyncStorage.getItem('acess_token').then(
+        keyValue => {
+          fetch(`${GLOBALS.TEACHER_SERVICE}TeacherClasses`, {
+            method: 'POST',
+            body: `<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <TeacherClasses xmlns="http://www.m2hinfotech.com//">
@@ -105,41 +106,41 @@ const Edit = () => {
 </soap12:Body>
 </soap12:Envelope>
 `,
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/soap+xml; charset=utf-8',
-          },
-        })
-          .then(response => response.text())
-          .then(response => {
-            const result = parser
-              .parseFromString(response)
-              .getElementsByTagName('TeacherClassesResult')[0]
-              .childNodes[0].nodeValue;
-            if (result === 'failure') {
-              setisVisbledata(false);
-            } else {
-              const clsattpick = JSON.parse(result);
-              let attnsclsdefault = clsattpick[0].BranchClassId;
-              let dropdownData = clsattpick;
-              const dropData = dropdownData.map(element => ({
-                value: element.BranchClassId,
-                label: element.Class,
-              }));
-              setdropdownSource(dropData);
-              setdropdownValue(dropdownData[0].BranchClassId);
-              setisVisbledata(true);
-              setclsisLoading(false);
-              setclassselected(attnsclsdefault);
-              setDateText(' ');
-            }
-          });
-      },
-      error => {
-        console.log(error);
-      },
-    );
-  });
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/soap+xml; charset=utf-8',
+            },
+          })
+            .then(response => response.text())
+            .then(response => {
+              const result = parser
+                .parseFromString(response)
+                .getElementsByTagName('TeacherClassesResult')[0]
+                .childNodes[0].nodeValue;
+              if (result === 'failure') {
+                setisVisbledata(false);
+              } else {
+                const clsattpick = JSON.parse(result);
+                let attnsclsdefault = clsattpick[0].BranchClassId;
+                let dropdownData = clsattpick;
+                const dropData = dropdownData.map(element => ({
+                  value: element.BranchClassId,
+                  label: element.Class,
+                }));
+                setdropdownSource(dropData);
+                setdropdownValue(dropdownData[0].BranchClassId);
+                setisVisbledata(true);
+                setclsisLoading(false);
+                setclassselected(attnsclsdefault);
+                setDateText(' ');
+              }
+            });
+        },
+        error => {
+          console.log(error);
+        },
+      );
+    });
   };
 
   const onCheckboxData = () => {
@@ -309,20 +310,36 @@ const Edit = () => {
           <View style={styles.horizontalView}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose class:</Text>
-              <Dropdown
-                inputContainerStyle={styles.inputContainer}
-                containerStyle={styles.pickerStyle}
-                marginTop={wp('4%')}
-                data={dropdownSource}
-                value={dropdownValue}
-                baseColor="transparent"
-                underlineColor="transparent"
-                dropdownOffset={{top: 15}}
-                onChangeText={value => {
-                  setdropdownValue(value);
-                  onValueattClass(value);
-                }}
-              />
+              {Platform.OS === 'ios' ? (
+                <Dropdown
+                  style={styles.pickerStyle}
+                  selectedItemColor="#000"
+                  labelField="label"
+                  valueField="value"
+                  selectedTextStyle={styles.selectedTextStyle1}
+                  marginTop={wp('4%')}
+                  data={dropdownSource}
+                  value={dropdownValue}
+                  onChange={item => {
+                    setdropdownValue(item.value);
+                    onValueattClass(item.value);
+                  }}
+                />
+              ) : (
+                <Dropdown1
+                  data={dropdownSource}
+                  value={dropdownValue}
+                  icon="chevron-down"
+                  baseColor="transparent"
+                  underlineColor="transparent"
+                  containerStyle={styles.pickerStyle}
+                  selectedItemColor="#7A7A7A"
+                  onChangeText={value => {
+                    setdropdownValue(value);
+                    onValueattClass(value);
+                  }}
+                />
+              )}
             </View>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose date:</Text>
@@ -348,20 +365,36 @@ const Edit = () => {
           <View style={[styles.horizontalView, {}]}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose type:</Text>
-              <Dropdown
-                inputContainerStyle={styles.inputContainer}
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource1[0]}
-                value={dropdownValue1}
-                marginTop={wp('4%')}
-                baseColor="transparent"
-                underlineColor="transparent"
-                dropdownOffset={{top: 15}}
-                onChangeText={value => {
-                  setdropdownValue1(value);
-                  onValuepickertime(value);
-                }}
-              />
+              {Platform.OS === 'ios' ? (
+                <Dropdown
+                  style={styles.pickerStyle}
+                  selectedItemColor="#000"
+                  labelField="label"
+                  valueField="value"
+                  selectedTextStyle={styles.selectedTextStyle1}
+                  data={dropdownSource1[0]}
+                  value={dropdownValue1}
+                  marginTop={wp('4%')}
+                  onChange={item => {
+                    setdropdownValue1(item.value);
+                    onValuepickertime(item.value);
+                  }}
+                />
+              ) : (
+                <Dropdown1
+                  data={dropdownSource1[0]}
+                  value={dropdownValue1}
+                  icon="chevron-down"
+                  baseColor="transparent"
+                  underlineColor="transparent"
+                  containerStyle={styles.pickerStyle}
+                  selectedItemColor="#7A7A7A"
+                  onChangeText={value => {
+                    setdropdownValue1(value);
+                    onValuepickertime(value);
+                  }}
+                />
+              )}
             </View>
             <View style={styles.verticalView}>
               <Text style={styles.hideText}>Submit</Text>
@@ -546,7 +579,20 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     borderWidth: wp('0.2%'),
     justifyContent: 'center',
-    height: Platform.OS === 'ios' ? wp('8.5%') : wp('10%'),
+    height: Platform.OS === 'ios' ? wp('9.5%') : wp('10%'),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   textStyle1: {
     marginLeft: wp('2%'),

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, FlatList, Platform, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
@@ -53,11 +53,12 @@ const CommonExam = () => {
             </GetStudentExamListNew>
           </soap12:Body>
         </soap12:Envelope>`,
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/soap+xml; charset=utf-8',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/soap+xml; charset=utf-8',
+              },
             },
-          })
+          )
             .then(response => response.text())
             .then(response => {
               const parser = new DOMParser();
@@ -121,11 +122,12 @@ const CommonExam = () => {
               </RetrieveAllMarksheet>
             </soap12:Body>
           </soap12:Envelope>`,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/soap+xml; charset=utf-8',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/soap+xml; charset=utf-8',
+          },
         },
-      })
+      )
         .then(response => response.text())
         .then(response => {
           const parser = new DOMParser();
@@ -384,18 +386,19 @@ const CommonExam = () => {
 
             <Dropdown
               data={dropdownSource}
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              style={styles.pickerStyle}
+              selectedTextStyle={styles.selectedTextStyle1}
               value={dropdownValue}
-              onChangeText={value => {
-                setdropdownValue(value);
+              onChange={item => {
+                setdropdownValue(item.value);
                 if (domain === 'avk.schoolplusapp.com') {
-                  getMarkSheet(value);
+                  getMarkSheet(item.value);
                 } else {
-                  setSelectedExam(value);
-                  getExamMarks(value);
+                  setSelectedExam(item.value);
+                  getExamMarks(item.value);
                 }
               }}
             />
@@ -476,7 +479,7 @@ const styles = StyleSheet.create({
   pickerStyle: {
     borderWidth: wp('0.4%'),
     borderColor: 'grey',
-    paddingTop: wp('2.9%'),
+    // paddingTop: wp('2.9%'),
     justifyContent: 'center',
     borderRadius: 3,
     marginLeft: wp('3.5%'),
@@ -494,6 +497,19 @@ const styles = StyleSheet.create({
     marginTop: wp('3%'),
     flexDirection: 'column',
     // flex: 1,
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   tableRow: {
     flexDirection: 'row',

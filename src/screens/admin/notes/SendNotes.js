@@ -31,7 +31,8 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import GLOBALS from '../../../config/Globals';
 import Spinner from '../../../components/Spinner';
 import Loader from '../../../components/ProgressIndicator';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const allwise = <Icon name="send" size={25} color="white" />;
@@ -944,23 +945,43 @@ const WebNotes = ({navigation}) => {
                       </View>
                       <View>
                         <Text style={styles.Modaltext}>Template</Text>
-                        <Dropdown
-                          icon="chevron-down"
-                          baseColor="transparent"
-                          underlineColor="transparent"
-                          containerStyle={[styles.dropdownpickerStyle, {}]}
-                          data={templateData}
-                          searchInputPlaceholderText="ddd"
-                          value={templatevalue}
-                          onChangeText={(value, index) => {
-                            settemplatevalue(value);
-                            setsendNoteDescription(
-                              templateData[index].Template,
-                            );
-                            settemplateId(value);
-                            setsendNoteTitle('');
-                          }}
-                        />
+                        {Platform.OS === 'ios' ? (
+                          <Dropdown
+                            selectedItemColor="#000"
+                            labelField="label"
+                            valueField="value"
+                            selectedTextStyle={styles.selectedTextStyle1}
+                            style={[styles.dropdownpickerStyle, {}]}
+                            data={templateData}
+                            searchPlaceholder="ddd"
+                            value={templatevalue}
+                            onChange={(item, index) => {
+                              settemplatevalue(item.value);
+                              setsendNoteDescription(
+                                templateData[index].Template,
+                              );
+                              settemplateId(item.value);
+                              setsendNoteTitle('');
+                            }}
+                          />
+                        ) : (
+                          <Dropdown1
+                            icon="chevron-down"
+                            baseColor="transparent"
+                            underlineColor="transparent"
+                            containerStyle={styles.pickerStyle}
+                            data={templateData}
+                            value={templatevalue}
+                            onChangeText={(value, index) => {
+                              settemplatevalue(value);
+                              setsendNoteDescription(
+                                templateData[index].Template,
+                              );
+                              settemplateId(value);
+                              setsendNoteTitle('');
+                            }}
+                          />
+                        )}
                       </View>
                       <View style={{flexDirection: 'row', flex: 1}}>
                         <Text
@@ -1127,22 +1148,42 @@ const WebNotes = ({navigation}) => {
                       </View>
                       <View>
                         <Text style={styles.Modaltext}>Template</Text>
-                        <Dropdown
-                          icon="chevron-down"
-                          baseColor="transparent"
-                          underlineColor="transparent"
-                          containerStyle={[styles.dropdownpickerStyle, {}]}
-                          data={templateData}
-                          value={templatevalue}
-                          onChangeText={(value, index) => {
-                            settemplatevalue(value);
-                            setsendNoteDescription(
-                              templateData[index].Template,
-                            );
-                            settemplateId(value);
-                            setsendNoteTitle('');
-                          }}
-                        />
+                        {Platform.OS === 'ios' ? (
+                          <Dropdown
+                            selectedItemColor="#000"
+                            labelField="label"
+                            valueField="value"
+                            selectedTextStyle={styles.selectedTextStyle1}
+                            style={[styles.dropdownpickerStyle, {}]}
+                            data={templateData}
+                            value={templatevalue}
+                            onChange={(item, index) => {
+                              settemplatevalue(item.value);
+                              setsendNoteDescription(
+                                templateData[index].Template,
+                              );
+                              settemplateId(item.value);
+                              setsendNoteTitle('');
+                            }}
+                          />
+                        ) : (
+                          <Dropdown1
+                            icon="chevron-down"
+                            baseColor="transparent"
+                            underlineColor="transparent"
+                            containerStyle={styles.pickerStyle}
+                            data={templateData}
+                            value={templatevalue}
+                            onChangeText={(value, index) => {
+                              settemplatevalue(value);
+                              setsendNoteDescription(
+                                templateData[index].Template,
+                              );
+                              settemplateId(value);
+                              setsendNoteTitle('');
+                            }}
+                          />
+                        )}
                       </View>
                       <View style={{flexDirection: 'row', flex: 1}}>
                         <Text
@@ -1498,6 +1539,19 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     alignItems: 'stretch',
     marginBottom: 10,
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   carddate: {
     fontSize: wp('5%'),

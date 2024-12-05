@@ -24,17 +24,16 @@ const Header = props => {
     AsyncStorage.getItem('role').then(rol => {
       setrole(rol);
     });
-    Notification()
+    Notification();
   }, [props.homePress, isFocused]);
-useEffect(() => {
-  accessNotification()
-  accessNotificationteach()
-})
+  useEffect(() => {
+    accessNotification();
+    accessNotificationteach();
+  }, []);
 
-
-    const Notification = () => {
+  const Notification = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
-        setactiveDashboard(active);
+      setactiveDashboard(active);
       let noticount;
       let rslt;
       AsyncStorage.getItem('acess_token').then(
@@ -74,8 +73,13 @@ useEffect(() => {
                       rslt = JSON.parse(v);
                       noticount = rslt.length;
                       try {
-                        const notificationIds = rslt.map(notification => notification.NotificationId);
-                        AsyncStorage.setItem('notificationIdsadmin', JSON.stringify(notificationIds))
+                        const notificationIds = rslt.map(
+                          notification => notification.NotificationId,
+                        );
+                        AsyncStorage.setItem(
+                          'notificationIdsadmin',
+                          JSON.stringify(notificationIds),
+                        );
                       } catch (error) {
                         console.log('somthing went');
                       }
@@ -119,7 +123,7 @@ useEffect(() => {
                       rslt = JSON.parse(v);
                       noticount = rslt.length;
                       rslt = JSON.parse(v);
-                      setcount(rslt.length)
+                      setcount(rslt.length);
                     }
                   });
               },
@@ -167,7 +171,7 @@ useEffect(() => {
                   } else {
                     rslt = JSON.parse(v);
                     noticount = rslt[1].count;
-                    setcount(rslt[1].count)
+                    setcount(rslt[1].count);
                   }
                 })
                 .catch(error => {
@@ -182,34 +186,33 @@ useEffect(() => {
       );
     });
     // NTS SSP TH PH AS ASH AH EH
-  }
+  };
 
   const bellPress = () => {
     AsyncStorage.getItem('Dashboard').then(active => {
-    removeNotification()
-    if (active === 'TH'){
-    navigation.navigate('TeacherNotifications')
-    }
-    else if (active === 'PH'){
-      navigation.navigate('ParentNotifications')
-    }
-    // else if (active === 'AH'){
-    //   navigation.navigate('Notifications')
-    // }
-    else{
-         navigation.navigate('Notifications');
-    }
-  })
-  }
+      removeNotification();
+      if (active === 'TH') {
+        navigation.navigate('TeacherNotifications');
+      } else if (active === 'PH') {
+        navigation.navigate('ParentNotifications');
+      }
+      // else if (active === 'AH'){
+      //   navigation.navigate('Notifications')
+      // }
+      else {
+        navigation.navigate('Notifications');
+      }
+    });
+  };
   const accessNotification = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
         const phno = keyValue;
         AsyncStorage.getItem('StdID').then(value => {
-          studentID = value;
+          const studentID = value;
           fetch(`${GLOBALS.PARENT_SERVICE}RetrieveAllParentNotifications`, {
-        method: 'POST',
-        body: `
+            method: 'POST',
+            body: `
         <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
           <soap12:Body>
             <RetrieveAllParentNotifications xmlns="http://www.m2hinfotech.com//">
@@ -219,31 +222,36 @@ useEffect(() => {
           </soap12:Body>
         </soap12:Envelope>
         `,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'text/xml; charset=utf-8',
-        },
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'text/xml; charset=utf-8',
+            },
           })
             .then(response => response.text())
             .then(response => {
               setloading(false);
-      const parser = new DOMParser();
+              const parser = new DOMParser();
               const xmlDoc = parser.parseFromString(response);
               const v = xmlDoc.getElementsByTagName(
                 'RetrieveAllParentNotificationsResult',
               )[0].childNodes[0].nodeValue;
               if (v === 'failure') {
-        setdataerror(true);
-      } else {
+                setdataerror(true);
+              } else {
                 const rslt = JSON.parse(v);
                 try {
-        const notificationIds = rslt.map(notification => notification.NotificationId);
-                  AsyncStorage.setItem('notificationIdsparent1', JSON.stringify(notificationIds))
+                  const notificationIds = rslt.map(
+                    notification => notification.NotificationId,
+                  );
+                  AsyncStorage.setItem(
+                    'notificationIdsparent1',
+                    JSON.stringify(notificationIds),
+                  );
                 } catch (error) {
                   console.log('somthing went');
                 }
-        setdata(rslt);
-      }
+                setdata(rslt);
+              }
             })
             .catch(error => {});
         });
@@ -284,8 +292,13 @@ useEffect(() => {
               setdataerror(true);
             } else {
               const rslt = JSON.parse(result);
-              const notificationIds = rslt.map(notification => notification.NotificationId);
-              AsyncStorage.setItem('notificationIds', JSON.stringify(notificationIds))
+              const notificationIds = rslt.map(
+                notification => notification.NotificationId,
+              );
+              AsyncStorage.setItem(
+                'notificationIds',
+                JSON.stringify(notificationIds),
+              );
               setdata(rslt);
             }
           })
@@ -304,7 +317,7 @@ useEffect(() => {
       const active = await AsyncStorage.getItem('Dashboard');
       const keyValue = await AsyncStorage.getItem('acess_token');
       let notificationIdKey = '';
-  
+
       if (active === 'TH') {
         notificationIdKey = 'notificationIds';
       } else if (active === 'PH') {
@@ -312,11 +325,9 @@ useEffect(() => {
       } else {
         notificationIdKey = 'notificationIdsadmin';
       }
-  
+
       const notificationId = await AsyncStorage.getItem(notificationIdKey);
 
-      
-  
       if (notificationId) {
         const response = await fetch(
           `${GLOBALS.PARENT_SERVICE}UpdateNoticount`,
@@ -336,21 +347,18 @@ useEffect(() => {
               Accept: 'application/json',
               'Content-Type': 'text/xml; charset=utf-8',
             },
-          }
+          },
         );
-  
+
         const result = await response.text();
         if (response.ok) {
-          await Notification(); 
-        } 
+          await Notification();
+        }
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
-
-
 
   const swapPress = () => {
     if (role === 'PT' || role === 'PPT') {
@@ -362,9 +370,8 @@ useEffect(() => {
           'You have been switched to parent account!',
           [{text: 'OK', onPress: () => console.log('OK Pressed')}],
           {cancelable: false},
-          
         );
-      } else if (activeDashboard === 'PH'){
+      } else if (activeDashboard === 'PH') {
         props.swapPress('TeacherHome');
         AsyncStorage.setItem('Dashboard', 'TH');
         Alert.alert(
@@ -433,13 +440,13 @@ useEffect(() => {
             <Icon name="source-branch" size={30} color="white" />
           </Pressable>
         )}
-        <Pressable onPressIn= {bellPress} style={styles.bell}>
+        <Pressable onPressIn={bellPress} style={styles.bell}>
           <Icon name="bell" size={30} color="white" />
 
           {count !== '' &&
             count !== undefined &&
             count !== 0 &&
-            count !== '0' &&  (
+            count !== '0' && (
               <View style={styles.container}>
                 <View style={styles.IconBadgeStyle}>
                   <IconBadge

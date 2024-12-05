@@ -10,10 +10,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import {DOMParser} from 'xmldom';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -99,7 +100,7 @@ const PublishResult = props => {
     AsyncStorage.setItem('bclsad', drop1);
     AsyncStorage.setItem('subject', drop2);
     AsyncStorage.setItem('examtypes', drop3);
- 
+
     fetch(`${GLOBALS.TEACHER_SERVICE}GetClassExamNames`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -332,17 +333,12 @@ const PublishResult = props => {
                           );
                         } else if (output === 'Exam Not Finished') {
                           setisVisbledata(false);
-                          Alert.alert(
-                            'Exam Publishing',
-                            'Exam is Ongoing..!',
-                            [
-                              {
-                                text: 'OK',
-                                onPress: () =>
-                                  navigate('TeacherExamResultView'),
-                              },
-                            ],
-                          );
+                          Alert.alert('Exam Publishing', 'Exam is Ongoing..!', [
+                            {
+                              text: 'OK',
+                              onPress: () => navigate('TeacherExamResultView'),
+                            },
+                          ]);
                         } else {
                           Alert.alert(
                             'Error',
@@ -388,7 +384,6 @@ const PublishResult = props => {
     );
   };
   const classListpublishResult = token => {
-    
     fetch(`${GLOBALS.TEACHER_SERVICE}ExmClassListForTeacher`, {
       method: 'POST',
       body: `<?xml version="1.0" encoding="utf-8"?>
@@ -510,296 +505,432 @@ const PublishResult = props => {
     </View>
   ) : (
     <View style={styles.mainContainer}>
-       <KeyboardAvoidingView
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    style={{ flex: 1 }}
-    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}  
-  >
-      <View style={styles.mainContainerTop}>
-        {Platform.OS === 'ios' ? (
-          <KeyboardAwareScrollView
-            keyboardDismissMode="interactive"
-            contentContainerStyle={styles.container}
-            extraScrollHeight={extraScrollHeight}
-            useNativeDriver={false}>
-            <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
-              {isVisibleclass && (
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+        <View style={styles.mainContainerTop}>
+          {Platform.OS === 'ios' ? (
+            <KeyboardAwareScrollView
+              keyboardDismissMode="interactive"
+              contentContainerStyle={styles.container}
+              extraScrollHeight={extraScrollHeight}
+              useNativeDriver={false}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  margin: wp('1%'),
+                  paddingHorizontal: wp('1%'),
+                }}>
+                {isVisibleclass && (
+                  <View style={{flex: 1}}>
+                    <Text>Select Class :</Text>
+                    {Platform.OS === 'ios' ? (
+                      <Dropdown
+                        data={dropdownSource}
+                        style={[styles.pickerStyle, {marginRight: wp('1%')}]}
+                        textColor="#121214"
+                        selectedItemColor="#000"
+                        labelField="label"
+                        valueField="value"
+                        selectedTextStyle={styles.selectedTextStyle1}
+                        value={dropdownValue}
+                        onChange={item => {
+                          setdropdownValue(item.value);
+                          onValuePublishExamClass(item.value);
+                        }}
+                      />
+                    ) : (
+                      <Dropdown1
+                        icon="chevron-down"
+                        baseColor="transparent"
+                        underlineColor="transparent"
+                        containerStyle={styles.pickerStyle}
+                        data={dropdownSource}
+                        value={dropdownValue}
+                        onChangeText={value => {
+                          setdropdownValue(value);
+                          onValuePublishExamClass(value);
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
+                {isVisibleSubject && (
+                  <View style={{flex: 1}}>
+                    <Text>Select Subject :</Text>
+                    {Platform.OS === 'ios' ? (
+                      <Dropdown
+                        data={dropdownSource1}
+                        style={styles.pickerStyle}
+                        textColor="#121214"
+                        selectedItemColor="#000"
+                        labelField="label"
+                        valueField="value"
+                        selectedTextStyle={styles.selectedTextStyle1}
+                        value={dropdownValue1}
+                        onChange={item => {
+                          setdropdownValue1(item.value);
+                          onValuePublishExamsubject(item.value);
+                        }}
+                      />
+                    ) : (
+                      <Dropdown1
+                        icon="chevron-down"
+                        baseColor="transparent"
+                        underlineColor="transparent"
+                        containerStyle={styles.pickerStyle}
+                        data={dropdownSource1}
+                        value={dropdownValue1}
+                        onChangeText={value => {
+                          setdropdownValue1(value);
+                          onValuePublishExamsubject(value);
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  margin: wp('1%'),
+                  paddingHorizontal: wp('1%'),
+                }}>
                 <View style={{flex: 1}}>
-                  <Text>Select Class :</Text>
+                  <Text>Select exam type :</Text>
                   <Dropdown
-                    data={dropdownSource}
-                    baseColor="transparent"
+                    data={dropdownSource2}
                     style={[styles.pickerStyle, {marginRight: wp('1%')}]}
                     textColor="#121214"
-                    selectedItemColor="#7A7A7A"
-                    value={dropdownValue}
-                    onChangeText={value => {
-                      setdropdownValue(value);
-                      onValuePublishExamClass(value);
+                    selectedItemColor="#000"
+                    labelField="label"
+                    valueField="value"
+                    selectedTextStyle={styles.selectedTextStyle1}
+                    value={dropdownValue2}
+                    onChange={item => {
+                      setdropdownValue2(item.value);
+                      onValuepublishresultexamtype(item.value);
                     }}
                   />
                 </View>
-              )}
-              {isVisibleSubject && (
-                <View style={{flex: 1}}>
-                  <Text>Select Subject :</Text>
-                  <Dropdown
-                    data={dropdownSource1}
-                    baseColor="transparent"
-                    style={styles.pickerStyle}
-                    textColor="#121214"
-                    selectedItemColor="#7A7A7A"
-                    value={dropdownValue1}
-                    onChangeText={value => {
-                      setdropdownValue1(value);
-                      onValuePublishExamsubject(value);
-                    }}
-                  />
-                </View>
-              )}
-            </View>
-            <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
-              <View style={{flex: 1}}>
-                <Text>Select exam type :</Text>
-                <Dropdown
-                  data={dropdownSource2}
-                  baseColor="transparent"
-                  style={[styles.pickerStyle, {marginRight: wp('1%')}]}
-                  textColor="#121214"
-                  selectedItemColor="#7A7A7A"
-                  value={dropdownValue2}
-                  onChangeText={value => {
-                    setdropdownValue2(value);
-                    onValuepublishresultexamtype(value);
-                  }}
-                />
-              </View>
-              {isVisble && (
-                <View style={{flex: 1}}>
-                  <Text>Select Exam :</Text>
-                  <Dropdown
-                    data={dropdownSource3}
-                    baseColor="transparent"
-                    style={styles.pickerStyle}
-                    textColor="#121214"
-                    selectedItemColor="#7A7A7A"
-                    value={dropdownValue3}
-                    onChangeText={value => {
-                      setdropdownValue3(value);
-                      onV(value);
-                    }}
-                  />
-                </View>
-              )}
-            </View>
-            <View style={styles.containerTable}>
-              {flatlistLoading && (
-                <ActivityIndicator
-                  style={styles.progressBar}
-                  color="#C00"
-                  size="large"
-                />
-              )}
-              {isVisbledata && (
-                <ActivityIndicator
-                  style={styles.progressBar}
-                  color="#C00"
-                  size="large"
-                />
-              )}
-              <View style={styles.headingTableView}>
-                <View style={styles.textheadBoxRoll}>
-                  <Text style={styles.textc}>RL NO</Text>
-                </View>
-                <View style={styles.textheadboxSname}>
-                  <Text style={styles.texthead}>STUDENT NAME</Text>
-                </View>
-                <View style={styles.textheadboxMark}>
-                  <Text style={styles.textc}>MARK</Text>
-                </View>
-              </View>
-              <View style={styles.flatlistView}>
-                {isVisble2 && (
-                  <FlatList
-                    data={publishresultexamstdclaswiselistdatasource}
-                    renderItem={({item, index}) => (
-                      <View style={styles.itemStyle}>
-                        <View style={styles.itemone}>
-                          <Text style={styles.flatitem}>{item.RollNo}</Text>
-                        </View>
-                        <View style={styles.itemtwo}>
-                          <Text style={styles.flatitemName}>{item.Name}</Text>
-                        </View>
-                        <View style={styles.itemthree}>
-                          <TextInput
-                            style={styles.flatListiteminput}
-                            returnKeyType={
-                              Platform.OS === 'ios' ? 'done' : 'next'
-                            }
-                            keyboardType="numeric"
-                            underlineColorAndroid="transparent"
-                            autoCorrect={false}
-                            onChangeText={inputValue =>
-                              onclickthat(inputValue, index)
-                            }>
-                            {item.Marks}
-                          </TextInput>
-                        </View>
-                      </View>
-                    
+                {isVisble && (
+                  <View style={{flex: 1}}>
+                    <Text>Select Exam :</Text>
+                    {Platform.OS === 'ios' ? (
+                      <Dropdown
+                        data={dropdownSource3}
+                        style={styles.pickerStyle}
+                        textColor="#121214"
+                        selectedItemColor="#000"
+                        labelField="label"
+                        valueField="value"
+                        selectedTextStyle={styles.selectedTextStyle1}
+                        value={dropdownValue3}
+                        onChange={item => {
+                          setdropdownValue3(item.value);
+                        }}
+                      />
+                    ) : (
+                      <Dropdown1
+                        icon="chevron-down"
+                        baseColor="transparent"
+                        underlineColor="transparent"
+                        containerStyle={styles.pickerStyle}
+                        data={dropdownSource3}
+                        value={dropdownValue3}
+                        onChangeText={value => {
+                          setdropdownValue3(value);
+                        }}
+                      />
                     )}
-                  />
+                  </View>
                 )}
               </View>
-            </View>
-          </KeyboardAwareScrollView>
-        ) : (
-          <ScrollView useNativeDriver={false}>
-            <View style={{flexDirection: 'row', margin: wp('1%'),paddingHorizontal: wp('1%')}}>
-              {isVisibleclass && (
-                <View style={{flex: 1}}>
-                  <Text>Select Class :</Text>
-                  <Dropdown
-                    data={dropdownSource}
-                    baseColor="transparent"
-                    style={[styles.pickerStyle, {marginRight: wp('1%'),paddingHorizontal: wp('1%')}]}
-                    textColor="#121214"
-                    selectedItemColor="#7A7A7A"
-                    value={dropdownValue}
-                    onChangeText={value => {
-                      setdropdownValue(value);
-                      onValuePublishExamClass(value);
-                    }}
-                  />
-                </View>
-              )}
-              {isVisibleSubject && (
-                <View style={{flex: 1}}>
-                  <Text>Select Subject :</Text>
-                  <Dropdown
-                    data={dropdownSource1}
-                    baseColor="transparent"
-                    style={styles.pickerStyle}
-                    textColor="#121214"
-                    selectedItemColor="#7A7A7A"
-                    value={dropdownValue1}
-                    onChangeText={value => {
-                      setdropdownValue1(value);
-                      onValuePublishExamsubject(value);
-                    }}
-                  />
-                </View>
-              )}
-            </View>
-            <View style={{flexDirection: 'row', margin: wp('1%')}}>
-              <View style={{flex: 1}}>
-                <Text>Select exam type :</Text>
-                <Dropdown
-                  data={dropdownSource2}
-                  baseColor="transparent"
-                  style={[styles.pickerStyle, {marginRight: wp('1%')}]}
-                  textColor="#121214"
-                  selectedItemColor="#7A7A7A"
-                  value={dropdownValue2}
-                  onChangeText={value => {
-                    setdropdownValue2(value);
-                    onValuepublishresultexamtype(value);
-                  }}
-                />
-              </View>
-              {isVisble && (
-                <View style={{flex: 1}}>
-                  <Text>Select Exam :</Text>
-                  <Dropdown
-                    data={dropdownSource3}
-                    baseColor="transparent"
-                    style={styles.pickerStyle}
-                    textColor="#121214"
-                    selectedItemColor="#7A7A7A"
-                    value={dropdownValue3}
-                    onChangeText={value => {
-                      setdropdownValue3(value);
-                      onV(value);
-                    }}
-                  />
-                </View>
-              )}
-            </View>
-            <View style={styles.containerTable}>
-              {flatlistLoading && (
-                <ActivityIndicator
-                  style={styles.progressBar}
-                  color="#C00"
-                  size="large"
-                />
-              )}
-              {isVisbledata && (
-                <ActivityIndicator
-                  style={styles.progressBar}
-                  color="#C00"
-                  size="large"
-                />
-              )}
-              <View style={styles.headingTableView}>
-                <View style={styles.textheadBoxRoll}>
-                  <Text style={styles.textc}>RL NO</Text>
-                </View>
-                <View style={styles.textheadboxSname}>
-                  <Text style={styles.texthead}>STUDENT NAME</Text>
-                </View>
-                <View style={styles.textheadboxMark}>
-                  <Text style={styles.textc}>MARK</Text>
-                </View>
-              </View>
-              <View style={styles.flatlistView}>
-                {isVisble2 && (
-                  <FlatList
-                    data={publishresultexamstdclaswiselistdatasource}
-                    renderItem={({item, index}) => (
-                      <View style={styles.itemStyle}>
-                        <View style={styles.itemone}>
-                          <Text style={styles.flatitem}>{item.RollNo}</Text>
-                        </View>
-                        <View style={styles.itemtwo}>
-                          <Text style={styles.flatitemName}>{item.Name}</Text>
-                        </View>
-                        <View style={styles.itemthree}>
-                          <TextInput
-                            style={styles.flatListiteminput}
-                            returnKeyType="next"
-                            keyboardType={
-                              Platform.OS === 'ios'
-                                ? 'numbers-and-punctuation'
-                                : 'numeric'
-                            }
-                            underlineColorAndroid="transparent"
-                            onChangeText={inputValue =>
-                              onclickthat(inputValue, index)
-                            }>
-                            {item.Marks}
-                          </TextInput>
-                        </View>
-                      </View>
-                    )}
+              <View style={styles.containerTable}>
+                {flatlistLoading && (
+                  <ActivityIndicator
+                    style={styles.progressBar}
+                    color="#C00"
+                    size="large"
                   />
                 )}
+                {isVisbledata && (
+                  <ActivityIndicator
+                    style={styles.progressBar}
+                    color="#C00"
+                    size="large"
+                  />
+                )}
+                <View style={styles.headingTableView}>
+                  <View style={styles.textheadBoxRoll}>
+                    <Text style={styles.textc}>RL NO</Text>
+                  </View>
+                  <View style={styles.textheadboxSname}>
+                    <Text style={styles.texthead}>STUDENT NAME</Text>
+                  </View>
+                  <View style={styles.textheadboxMark}>
+                    <Text style={styles.textc}>MARK</Text>
+                  </View>
+                </View>
+                <View style={styles.flatlistView}>
+                  {isVisble2 && (
+                    <FlatList
+                      data={publishresultexamstdclaswiselistdatasource}
+                      renderItem={({item, index}) => (
+                        <View style={styles.itemStyle}>
+                          <View style={styles.itemone}>
+                            <Text style={styles.flatitem}>{item.RollNo}</Text>
+                          </View>
+                          <View style={styles.itemtwo}>
+                            <Text style={styles.flatitemName}>{item.Name}</Text>
+                          </View>
+                          <View style={styles.itemthree}>
+                            <TextInput
+                              style={styles.flatListiteminput}
+                              returnKeyType={
+                                Platform.OS === 'ios' ? 'done' : 'next'
+                              }
+                              keyboardType="numeric"
+                              underlineColorAndroid="transparent"
+                              autoCorrect={false}
+                              onChangeText={inputValue =>
+                                onclickthat(inputValue, index)
+                              }>
+                              {item.Marks}
+                            </TextInput>
+                          </View>
+                        </View>
+                      )}
+                    />
+                  )}
+                </View>
               </View>
-            </View>
-          </ScrollView>
-        )}
-      </View>
+            </KeyboardAwareScrollView>
+          ) : (
+            <ScrollView useNativeDriver={false}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  margin: wp('1%'),
+                  paddingHorizontal: wp('1%'),
+                }}>
+                {isVisibleclass && (
+                  <View style={{flex: 1}}>
+                    <Text>Select Class :</Text>
+                    {Platform.OS === 'ios' ? (
+                      <Dropdown
+                        data={dropdownSource}
+                        style={[
+                          styles.pickerStyle,
+                          {marginRight: wp('1%'), paddingHorizontal: wp('1%')},
+                        ]}
+                        textColor="#121214"
+                        selectedItemColor="#000"
+                        labelField="label"
+                        valueField="value"
+                        selectedTextStyle={styles.selectedTextStyle1}
+                        value={dropdownValue}
+                        onChange={item => {
+                          setdropdownValue(item.value);
+                          onValuePublishExamClass(item.value);
+                        }}
+                      />
+                    ) : (
+                      <Dropdown1
+                        icon="chevron-down"
+                        baseColor="transparent"
+                        underlineColor="transparent"
+                        containerStyle={styles.pickerStyle}
+                        data={dropdownSource}
+                        value={dropdownValue}
+                        onChangeText={value => {
+                          setdropdownValue(value);
+                          onValuePublishExamClass(value);
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
+                {isVisibleSubject && (
+                  <View style={{flex: 1}}>
+                    <Text>Select Subject :</Text>
+                    {Platform.OS === 'ios' ? (
+                      <Dropdown
+                        data={dropdownSource1}
+                        baseColor="transparent"
+                        style={styles.pickerStyle}
+                        textColor="#121214"
+                        selectedItemColor="#000"
+                        labelField="label"
+                        valueField="value"
+                        selectedTextStyle={styles.selectedTextStyle1}
+                        value={dropdownValue1}
+                        onChange={item => {
+                          setdropdownValue1(item.value);
+                          onValuePublishExamsubject(item.value);
+                        }}
+                      />
+                    ) : (
+                      <Dropdown1
+                        icon="chevron-down"
+                        baseColor="transparent"
+                        underlineColor="transparent"
+                        containerStyle={styles.pickerStyle}
+                        data={dropdownSource1}
+                        value={dropdownValue1}
+                        onChangeText={value => {
+                          setdropdownValue1(value);
+                          onValuePublishExamsubject(value);
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
+              </View>
+              <View style={{flexDirection: 'row', margin: wp('1%')}}>
+                <View style={{flex: 1}}>
+                  <Text>Select exam type :</Text>
+                  {Platform.OS === 'ios' ? (
+                    <Dropdown
+                      data={dropdownSource2}
+                      baseColor="transparent"
+                      style={[styles.pickerStyle, {marginRight: wp('1%')}]}
+                      textColor="#121214"
+                      selectedItemColor="#000"
+                      labelField="label"
+                      valueField="value"
+                      selectedTextStyle={styles.selectedTextStyle1}
+                      value={dropdownValue2}
+                      onChange={item => {
+                        setdropdownValue2(item.value);
+                        onValuepublishresultexamtype(item.value);
+                      }}
+                    />
+                  ) : (
+                    <Dropdown1
+                      icon="chevron-down"
+                      baseColor="transparent"
+                      underlineColor="transparent"
+                      containerStyle={styles.pickerStyle}
+                      data={dropdownSource2}
+                      value={dropdownValue2}
+                      onChangeText={value => {
+                        setdropdownValue2(value);
+                        onValuepublishresultexamtype(value);
+                      }}
+                    />
+                  )}
+                </View>
+                {isVisble && (
+                  <View style={{flex: 1}}>
+                    <Text>Select Exam :</Text>
+                    {Platform.OS === 'ios' ? (
+                      <Dropdown
+                        data={dropdownSource3}
+                        baseColor="transparent"
+                        style={styles.pickerStyle}
+                        textColor="#121214"
+                        selectedItemColor="#000"
+                        labelField="label"
+                        valueField="value"
+                        selectedTextStyle={styles.selectedTextStyle1}
+                        value={dropdownValue3}
+                        onChange={item => {
+                          setdropdownValue3(item.value);
+                        }}
+                      />
+                    ) : (
+                      <Dropdown1
+                        icon="chevron-down"
+                        baseColor="transparent"
+                        underlineColor="transparent"
+                        containerStyle={styles.pickerStyle}
+                        data={dropdownSource3}
+                        value={dropdownValue3}
+                        onChangeText={value => {
+                          setdropdownValue3(value);
+                        }}
+                      />
+                    )}
+                  </View>
+                )}
+              </View>
+              <View style={styles.containerTable}>
+                {flatlistLoading && (
+                  <ActivityIndicator
+                    style={styles.progressBar}
+                    color="#C00"
+                    size="large"
+                  />
+                )}
+                {isVisbledata && (
+                  <ActivityIndicator
+                    style={styles.progressBar}
+                    color="#C00"
+                    size="large"
+                  />
+                )}
+                <View style={styles.headingTableView}>
+                  <View style={styles.textheadBoxRoll}>
+                    <Text style={styles.textc}>RL NO</Text>
+                  </View>
+                  <View style={styles.textheadboxSname}>
+                    <Text style={styles.texthead}>STUDENT NAME</Text>
+                  </View>
+                  <View style={styles.textheadboxMark}>
+                    <Text style={styles.textc}>MARK</Text>
+                  </View>
+                </View>
+                <View style={styles.flatlistView}>
+                  {isVisble2 && (
+                    <FlatList
+                      data={publishresultexamstdclaswiselistdatasource}
+                      renderItem={({item, index}) => (
+                        <View style={styles.itemStyle}>
+                          <View style={styles.itemone}>
+                            <Text style={styles.flatitem}>{item.RollNo}</Text>
+                          </View>
+                          <View style={styles.itemtwo}>
+                            <Text style={styles.flatitemName}>{item.Name}</Text>
+                          </View>
+                          <View style={styles.itemthree}>
+                            <TextInput
+                              style={styles.flatListiteminput}
+                              returnKeyType="next"
+                              keyboardType={
+                                Platform.OS === 'ios'
+                                  ? 'numbers-and-punctuation'
+                                  : 'numeric'
+                              }
+                              underlineColorAndroid="transparent"
+                              onChangeText={inputValue =>
+                                onclickthat(inputValue, index)
+                              }>
+                              {item.Marks}
+                            </TextInput>
+                          </View>
+                        </View>
+                      )}
+                    />
+                  )}
+                </View>
+              </View>
+            </ScrollView>
+          )}
+        </View>
 
-      <TouchableOpacity
-        activeOpacity={0.5}
-        style={styles.buttonstyle}
-        onPress={btFabClick}>
-        <Icon
-          name="check"
-          size={27}
-          style={styles.topcontentimagelogo}
-          color="#FFF"
-        />
-      </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonstyle}
+          onPress={btFabClick}>
+          <Icon
+            name="check"
+            size={27}
+            style={styles.topcontentimagelogo}
+            color="#FFF"
+          />
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
   );
@@ -839,6 +970,19 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     borderWidth: wp('0.3%'),
     height: wp('11.3%'),
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
   containerTable: {
     marginTop: wp('1.3%'),
@@ -887,7 +1031,7 @@ const styles = StyleSheet.create({
   },
   flatlistView: {
     flex: 6,
-    flexDirection: 'column', 
+    flexDirection: 'column',
     backgroundColor: '#FFFFFF',
   },
   itemone: {

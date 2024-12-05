@@ -1,11 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Pressable, FlatList, Text, View} from 'react-native';
-import {Dropdown} from 'react-native-material-dropdown-v2-fixed';
+import {
+  StyleSheet,
+  Pressable,
+  FlatList,
+  Text,
+  View,
+  Platform,
+} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
 import Header from '../../components/Header';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Studentdetails = ({navigation}) => {
   const [data, setdata] = useState('');
@@ -189,31 +200,62 @@ const Studentdetails = ({navigation}) => {
         }}
       />
       <View style={styles.classSelection}>
-        <Dropdown
-          icon="chevron-down"
-          baseColor="transparent"
-          underlineColor="transparent"
-          inputContainerStyle={{borderBottomColor: 'transparent'}}
-          containerStyle={styles.pickerStyle}
-          data={dropdownSource}
-          value={dropdownValue}
-          onChangeText={value => {
-            setdropdownValue(value);
-          }}
-        />
-        <Dropdown
-          icon="chevron-down"
-          baseColor="transparent"
-          underlineColor="transparent"
-          inputContainerStyle={{borderBottomColor: 'transparent'}}
-          containerStyle={styles.pickerStyle}
-          data={dropdownSource1}
-          value={dropdownValue1}
-          onChangeText={value => {
-            setdropdownValue1(value);
-            getList(value);
-          }}
-        />
+        {Platform.OS === 'ios' ? (
+          <Dropdown
+            inputContainerStyle={{borderBottomColor: 'transparent'}}
+            selectedItemColor="#000"
+            labelField="label"
+            valueField="value"
+            selectedTextStyle={styles.selectedTextStyle1}
+            style={styles.pickerStyle}
+            data={dropdownSource}
+            value={dropdownValue}
+            onChange={item => {
+              setdropdownValue(item.value);
+            }}
+          />
+        ) : (
+          <Dropdown1
+            icon="chevron-down"
+            baseColor="transparent"
+            underlineColor="transparent"
+            containerStyle={styles.pickerStyle}
+            data={dropdownSource}
+            value={dropdownValue}
+            onChangeText={value => {
+              setdropdownValue(value);
+            }}
+          />
+        )}
+        {Platform.OS === 'ios' ? (
+          <Dropdown
+            inputContainerStyle={{borderBottomColor: 'transparent'}}
+            style={styles.pickerStyle}
+            selectedItemColor="#000"
+            labelField="label"
+            valueField="value"
+            selectedTextStyle={styles.selectedTextStyle1}
+            data={dropdownSource1}
+            value={dropdownValue1}
+            onChange={item => {
+              setdropdownValue1(item.value);
+              getList(item.value);
+            }}
+          />
+        ) : (
+          <Dropdown1
+            icon="chevron-down"
+            baseColor="transparent"
+            underlineColor="transparent"
+            containerStyle={styles.pickerStyle}
+            data={dropdownSource1}
+            value={dropdownValue1}
+            onChangeText={value => {
+              setdropdownValue1(value);
+              getList(value);
+            }}
+          />
+        )}
       </View>
       <View style={{flex: 1}}>
         {dataerror ? (
@@ -346,12 +388,12 @@ const styles = StyleSheet.create({
     //  height: 75,
     flex: 0.1,
     width: wp('100%'),
-    paddingHorizontal:wp('1%')
+    paddingHorizontal: wp('1%'),
   },
   pickerStyle: {
     height: 35,
     flex: 0.5,
-    paddingTop: 10,
+    // paddingTop: 10,
     paddingLeft: 5,
     width: '100%',
     justifyContent: 'center',
@@ -360,5 +402,18 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'black',
     borderRadius: 3,
+  },
+  dropdownStyle: {
+    borderColor: '#CFCFCF',
+    backgroundColor: '#fff',
+    borderRadius: 1,
+    marginRight: wp('3.5%'),
+    borderWidth: wp('0.5%'),
+    height: wp('11.5%'),
+  },
+  selectedTextStyle1: {
+    fontSize: 16,
+    color: '#121214',
+    paddingLeft: wp('2%'),
   },
 });

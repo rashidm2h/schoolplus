@@ -20,13 +20,12 @@ const TeacherDashboard = ({navigation}) => {
   const parser = new DOMParser();
   useEffect(() => {
     const backAction = () => {
-      if (navigation.canGoBack() && isFocused) {  
+      if (navigation.canGoBack() && isFocused) {
         BackHandler.exitApp();
-        return true; 
+        return true;
       } else {
-        
         navigation.goBack();
-        return true; 
+        return true;
       }
     };
 
@@ -52,8 +51,8 @@ const TeacherDashboard = ({navigation}) => {
   }, [isFocused]);
 
   const buttonpress = () => {
-     removeNotification();
-      navigation.navigate('TeacherNotes');
+    removeNotification();
+    navigation.navigate('TeacherNotes');
   };
 
   const getEventNotificationCount = () => {
@@ -142,19 +141,23 @@ const TeacherDashboard = ({navigation}) => {
             )[0].childNodes[0].nodeValue;
             if (result === 'failure') {
               setdataerror(true);
-            }
-            else{
+            } else {
               const rslt = JSON.parse(result);
               setCountTNoteTotal(rslt.Table[0].count);
-           
-            try {
-              const notificationIds = rslt.Table.map(notification => notification.NotificationId);
-              AsyncStorage.setItem('notificationIdsteach', JSON.stringify(notificationIds))
-              // AsyncStorage.setItem('NoteCount', JSON.stringify(notecount));
-            } catch (error) {
-              console.log('somthing went wrong');
+
+              try {
+                const notificationIds = rslt.Table.map(
+                  notification => notification.NotificationId,
+                );
+                AsyncStorage.setItem(
+                  'notificationIdsteach',
+                  JSON.stringify(notificationIds),
+                );
+                // AsyncStorage.setItem('NoteCount', JSON.stringify(notecount));
+              } catch (error) {
+                console.log('somthing went wrong');
+              }
             }
-          }
           })
           .catch(error => {
             console.log(error);
@@ -168,8 +171,7 @@ const TeacherDashboard = ({navigation}) => {
   const removeNotification = () => {
     AsyncStorage.getItem('acess_token').then(
       keyValue => {
-        AsyncStorage.getItem('notificationIdsteach')
-        .then(
+        AsyncStorage.getItem('notificationIdsteach').then(
           keyValue2 => {
             fetch(`${GLOBALS.PARENT_SERVICE}UpdateNotescount`, {
               method: 'POST',
@@ -190,7 +192,7 @@ const TeacherDashboard = ({navigation}) => {
             })
               .then(response => response.text())
               .then(() => {
-                getNoteCount(); 
+                getNoteCount();
               })
               .catch(error => {
                 console.log(error);
@@ -200,13 +202,12 @@ const TeacherDashboard = ({navigation}) => {
             console.log(error);
           },
         );
-    },
-    error => {
-      console.log(error);
-    },
-  );
-};
-
+      },
+      error => {
+        console.log(error);
+      },
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -267,39 +268,35 @@ const TeacherDashboard = ({navigation}) => {
       ) : null} */}
 
       {/* <View style={styles.lastBox}> */}
-        <Pressable
-          onPress={() => {
-            navigation.navigate('TeacherEvents');
-          }}
-          style={[styles.box, {backgroundColor: '#8CC447'}]}>
-                <Icon name="calendar" size={34} color="white" />
-                <Text style={styles.title}>EVENTS</Text>
+      <Pressable
+        onPress={() => {
+          navigation.navigate('TeacherEvents');
+        }}
+        style={[styles.box, {backgroundColor: '#8CC447'}]}>
+        <Icon name="calendar" size={34} color="white" />
+        <Text style={styles.title}>EVENTS</Text>
 
-          <IconBadge
-            BadgeElement={
-              <Text style={styles.iconbadgetext}>{CountTEventTotal}</Text>
-            }
-            IconBadgeStyle={styles.iconBadge}
-            Hidden={CountTEventTotal === 0 || CountTEventTotal < 0}
-          />
-        </Pressable>
-        <Pressable
-          onPress={buttonpress}
-          style={[styles.box, {backgroundColor: '#607D8B'}]}>
-                <Icon
-                  name="message-processing-outline"
-                  size={34}
-                  color="white"
-                />
-                <Text style={styles.title}>NOTES</Text>
-          <IconBadge
-            BadgeElement={
-              <Text style={styles.iconbadgetext}>{CountTNoteTotal}</Text>
-            }
-            IconBadgeStyle={styles.iconBadge}
-            Hidden={CountTNoteTotal === 0 || CountTNoteTotal < 0}
-          />
-        </Pressable>
+        <IconBadge
+          BadgeElement={
+            <Text style={styles.iconbadgetext}>{CountTEventTotal}</Text>
+          }
+          IconBadgeStyle={styles.iconBadge}
+          Hidden={CountTEventTotal === 0 || CountTEventTotal < 0}
+        />
+      </Pressable>
+      <Pressable
+        onPress={buttonpress}
+        style={[styles.box, {backgroundColor: '#607D8B'}]}>
+        <Icon name="message-processing-outline" size={34} color="white" />
+        <Text style={styles.title}>NOTES</Text>
+        <IconBadge
+          BadgeElement={
+            <Text style={styles.iconbadgetext}>{CountTNoteTotal}</Text>
+          }
+          IconBadgeStyle={styles.iconBadge}
+          Hidden={CountTNoteTotal === 0 || CountTNoteTotal < 0}
+        />
+      </Pressable>
       {/* </View> */}
     </View>
   );
@@ -342,8 +339,8 @@ const styles = StyleSheet.create({
     height: wp('9%'),
     borderRadius: 50,
     backgroundColor: '#EA1E63',
-    top:-wp('8%'),
-    left:wp('1%')
+    top: -wp('8%'),
+    left: wp('1%'),
   },
   imagetextcenter: {
     margin: hp('2.7%'),
