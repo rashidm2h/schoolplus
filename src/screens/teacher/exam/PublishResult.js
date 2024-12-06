@@ -14,7 +14,6 @@ import {
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -525,7 +524,7 @@ const PublishResult = props => {
                 {isVisibleclass && (
                   <View style={{flex: 1}}>
                     <Text>Select Class :</Text>
-                    {Platform.OS === 'ios' ? (
+               
                       <Dropdown
                         data={dropdownSource}
                         style={[styles.pickerStyle, {marginRight: wp('1%')}]}
@@ -540,26 +539,13 @@ const PublishResult = props => {
                           onValuePublishExamClass(item.value);
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={dropdownSource}
-                        value={dropdownValue}
-                        onChangeText={value => {
-                          setdropdownValue(value);
-                          onValuePublishExamClass(value);
-                        }}
-                      />
-                    )}
+                   
                   </View>
                 )}
                 {isVisibleSubject && (
                   <View style={{flex: 1}}>
                     <Text>Select Subject :</Text>
-                    {Platform.OS === 'ios' ? (
+                    
                       <Dropdown
                         data={dropdownSource1}
                         style={styles.pickerStyle}
@@ -574,20 +560,7 @@ const PublishResult = props => {
                           onValuePublishExamsubject(item.value);
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={dropdownSource1}
-                        value={dropdownValue1}
-                        onChangeText={value => {
-                          setdropdownValue1(value);
-                          onValuePublishExamsubject(value);
-                        }}
-                      />
-                    )}
+                   
                   </View>
                 )}
               </View>
@@ -617,7 +590,7 @@ const PublishResult = props => {
                 {isVisble && (
                   <View style={{flex: 1}}>
                     <Text>Select Exam :</Text>
-                    {Platform.OS === 'ios' ? (
+                   
                       <Dropdown
                         data={dropdownSource3}
                         style={styles.pickerStyle}
@@ -631,19 +604,6 @@ const PublishResult = props => {
                           setdropdownValue3(item.value);
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={dropdownSource3}
-                        value={dropdownValue3}
-                        onChangeText={value => {
-                          setdropdownValue3(value);
-                        }}
-                      />
-                    )}
                   </View>
                 )}
               </View>
@@ -718,7 +678,6 @@ const PublishResult = props => {
                 {isVisibleclass && (
                   <View style={{flex: 1}}>
                     <Text>Select Class :</Text>
-                    {Platform.OS === 'ios' ? (
                       <Dropdown
                         data={dropdownSource}
                         style={[
@@ -736,26 +695,11 @@ const PublishResult = props => {
                           onValuePublishExamClass(item.value);
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={dropdownSource}
-                        value={dropdownValue}
-                        onChangeText={value => {
-                          setdropdownValue(value);
-                          onValuePublishExamClass(value);
-                        }}
-                      />
-                    )}
                   </View>
                 )}
                 {isVisibleSubject && (
                   <View style={{flex: 1}}>
                     <Text>Select Subject :</Text>
-                    {Platform.OS === 'ios' ? (
                       <Dropdown
                         data={dropdownSource1}
                         baseColor="transparent"
@@ -771,27 +715,14 @@ const PublishResult = props => {
                           onValuePublishExamsubject(item.value);
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={dropdownSource1}
-                        value={dropdownValue1}
-                        onChangeText={value => {
-                          setdropdownValue1(value);
-                          onValuePublishExamsubject(value);
-                        }}
-                      />
-                    )}
+                  
                   </View>
                 )}
               </View>
               <View style={{flexDirection: 'row', margin: wp('1%')}}>
                 <View style={{flex: 1}}>
                   <Text>Select exam type :</Text>
-                  {Platform.OS === 'ios' ? (
+                
                     <Dropdown
                       data={dropdownSource2}
                       baseColor="transparent"
@@ -807,25 +738,11 @@ const PublishResult = props => {
                         onValuepublishresultexamtype(item.value);
                       }}
                     />
-                  ) : (
-                    <Dropdown1
-                      icon="chevron-down"
-                      baseColor="transparent"
-                      underlineColor="transparent"
-                      containerStyle={styles.pickerStyle}
-                      data={dropdownSource2}
-                      value={dropdownValue2}
-                      onChangeText={value => {
-                        setdropdownValue2(value);
-                        onValuepublishresultexamtype(value);
-                      }}
-                    />
-                  )}
                 </View>
                 {isVisble && (
                   <View style={{flex: 1}}>
                     <Text>Select Exam :</Text>
-                    {Platform.OS === 'ios' ? (
+                    
                       <Dropdown
                         data={dropdownSource3}
                         baseColor="transparent"
@@ -840,19 +757,7 @@ const PublishResult = props => {
                           setdropdownValue3(item.value);
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={dropdownSource3}
-                        value={dropdownValue3}
-                        onChangeText={value => {
-                          setdropdownValue3(value);
-                        }}
-                      />
-                    )}
+
                   </View>
                 )}
               </View>

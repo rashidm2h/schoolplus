@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {DOMParser} from 'xmldom';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
 import Header from '../../../components/Header';
@@ -136,7 +135,7 @@ const StudentDetails = ({navigation}) => {
       />
       <View style={styles.pickerview}>
         <View style={styles.container}>
-          {Platform.OS === 'ios' ? (
+          
             <Dropdown
               data={dropdowndata}
               textColor="#000"
@@ -151,19 +150,7 @@ const StudentDetails = ({navigation}) => {
               style={styles.dropdownStyle}
               selectedTextStyle={styles.selectedTextStyle1}
             />
-          ) : (
-            <Dropdown1
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
-              data={dropdowndata}
-              value={dropdownValue}
-              onChangeText={value => {
-                setdropdownValue(value);
-              }}
-            />
-          )}
+          
         </View>
         <View style={styles.buttonView}>
           <Pressable onPress={() => getStudentList(dropdownValue)}>

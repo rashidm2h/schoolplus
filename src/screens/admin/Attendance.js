@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   FlatList,
@@ -12,19 +12,18 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {CheckBox} from 'react-native-elements';
-import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
+import { CheckBox } from 'react-native-elements';
+import { Dropdown } from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Hyperlink from 'react-native-hyperlink';
-import {DOMParser} from 'xmldom';
+import { DOMParser } from 'xmldom';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GLOBALS from '../../config/Globals';
 import Loader from '../../components/ProgressIndicator';
 import Header from '../../components/Header';
 import moment from 'moment';
 
-const Attendance = ({navigation}) => {
+const Attendance = ({ navigation }) => {
   const [loading, setloading] = useState(true);
   const [dataerror, setdataerror] = useState(false);
   const [data, setdata] = useState('');
@@ -35,7 +34,7 @@ const Attendance = ({navigation}) => {
       label: 'FN',
       value: 'FN',
     },
-    {label: 'AN', value: 'AN'},
+    { label: 'AN', value: 'AN' },
   ]);
   const [dropdownValue1, setdropdownValue1] = useState('FN');
   const [dropdownSource2, setdropdownSource2] = useState([]);
@@ -160,8 +159,8 @@ const Attendance = ({navigation}) => {
       Alert.alert(
         'Alert! ',
         'Pick the required Date',
-        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-        {cancelable: false},
+        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        { cancelable: false },
       );
     } else {
       let timestatus = dropdownValue1;
@@ -228,69 +227,44 @@ const Attendance = ({navigation}) => {
         homePress={() => navigation.navigate('AdminDashboard')}
         bellPress={() => navigation.navigate('Notifications')}
       />
-      <View style={{flex: 7}}>
+      <View style={{ flex: 7 }}>
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Choose class:</Text>
-            {Platform.OS === 'ios' ? (
-              <Dropdown
-                selectedItemColor="#000"
-                labelField="label"
-                valueField="value"
-                selectedTextStyle={styles.selectedTextStyle1}
-                style={styles.pickerStyle}
-                data={dropdownSource}
-                value={dropdownValue}
-                onChange={item => {
-                  setdropdownValue(item.value);
-                  getDivisions(item.value);
-                }}
-              />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource}
-                value={dropdownValue}
-                onChangeText={value => {
-                  setdropdownValue(value);
-                  getDivisions(value);
-                }}
-              />
-            )}
+
+            <Dropdown
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              selectedTextStyle={styles.selectedTextStyle1}
+              style={styles.pickerStyle}
+              data={dropdownSource}
+              value={dropdownValue}
+              onChange={item => {
+                setdropdownValue(item.value);
+                getDivisions(item.value);
+              }}
+            />
+
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Choose Division:</Text>
 
             {/* <View style={styles.pickerView}> */}
-            {Platform.OS === 'ios' ? (
-              <Dropdown
-                selectedItemColor="#000"
-                labelField="label"
-                valueField="value"
-                style={styles.pickerStyle}
-                selectedTextStyle={styles.selectedTextStyle1}
-                data={dropdownSource2}
-                value={dropdownValue2}
-                onChange={item => {
-                  setdropdownValue2(item.value);
-                }}
-              />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource2}
-                value={dropdownValue2}
-                onChangeText={value => {
-                  setdropdownValue2(value);
-                }}
-              />
-            )}
+
+            <Dropdown
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              style={styles.pickerStyle}
+              selectedTextStyle={styles.selectedTextStyle1}
+              data={dropdownSource2}
+              value={dropdownValue2}
+              onChange={item => {
+                setdropdownValue2(item.value);
+              }}
+            />
+
           </View>
         </View>
         <View style={styles.horizontalView}>
@@ -312,32 +286,20 @@ const Attendance = ({navigation}) => {
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Choose type:</Text>
-            {Platform.OS === 'ios' ? (
-              <Dropdown
-                selectedTextStyle={styles.selectedTextStyle1}
-                selectedItemColor="#000"
-                labelField="label"
-                valueField="value"
-                style={styles.pickerStyle}
-                data={dropdownSource1}
-                value={dropdownValue1}
-                onChange={item => {
-                  setdropdownValue1(item.value);
-                }}
-              />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource1}
-                value={dropdownValue1}
-                onChangeText={value => {
-                  setdropdownValue1(value);
-                }}
-              />
-            )}
+
+            <Dropdown
+              selectedTextStyle={styles.selectedTextStyle1}
+              selectedItemColor="#000"
+              labelField="label"
+              valueField="value"
+              style={styles.pickerStyle}
+              data={dropdownSource1}
+              value={dropdownValue1}
+              onChange={item => {
+                setdropdownValue1(item.value);
+              }}
+            />
+
           </View>
         </View>
         <View style={styles.horizontalView}>
@@ -370,7 +332,7 @@ const Attendance = ({navigation}) => {
           <View style={styles.flatlistStyle}>
             <FlatList
               data={dataSourceEditcheck}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <View style={styles.itemStyle}>
                   <View style={styles.textcontentone}>
                     <CheckBox
@@ -379,7 +341,7 @@ const Attendance = ({navigation}) => {
                         backgroundColor: '#FFFFFF',
                         borderColor: '#FFFFFF',
                       }}
-                      // onPress={() => this.checkboxtest(item)}
+                    // onPress={() => this.checkboxtest(item)}
                     />
                   </View>
                   <View style={styles.textcontenttwo}>
@@ -540,7 +502,7 @@ const styles = StyleSheet.create({
   pickerStyle: {
     ...Platform.select({
       android: {
-        paddingTop: wp('3.5%'),
+        // paddingTop: wp('3.5%'),
         borderWidth: wp('0.3%'),
         borderColor: 'grey',
         height: wp('10%'),
@@ -627,7 +589,7 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 50,
     shadowColor: '#000000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     borderColor: '#4CB050',
     backgroundColor: '#4CB050',

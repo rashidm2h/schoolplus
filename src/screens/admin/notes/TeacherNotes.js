@@ -13,7 +13,6 @@ import RNFetchBlob from 'rn-fetch-blob';
 import Hyperlink from 'react-native-hyperlink';
 import FileViewer from 'react-native-file-viewer';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -351,7 +350,7 @@ const TeacherNotes = () => {
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Class:</Text>
-            {Platform.OS === 'ios' ? (
+           
               <Dropdown
                 style={styles.pickerStyle}
                 data={dropdownSource}
@@ -366,24 +365,11 @@ const TeacherNotes = () => {
                   getDivisions(item.value);
                 }}
               />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource}
-                value={dropdownValue}
-                onChangeText={value => {
-                  setdropdownValue(value);
-                  getDivisions(value);
-                }}
-              />
-            )}
+            
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Division:</Text>
-            {Platform.OS === 'ios' ? (
+          
               <Dropdown
                 style={styles.pickerStyle}
                 data={dropdownSource1}
@@ -397,25 +383,13 @@ const TeacherNotes = () => {
                   setdropdownValue1(item.value);
                 }}
               />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource1}
-                value={dropdownValue1}
-                onChangeText={value => {
-                  setdropdownValue1(value);
-                }}
-              />
-            )}
+            
           </View>
         </View>
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Month:</Text>
-            {Platform.OS === 'ios' ? (
+           
               <Dropdown
                 style={styles.pickerStyle}
                 data={dropdownSource2}
@@ -429,19 +403,7 @@ const TeacherNotes = () => {
                   setdropdownValue2(item.value);
                 }}
               />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource2}
-                value={dropdownValue2}
-                onChangeText={value => {
-                  setdropdownValue2(value);
-                }}
-              />
-            )}
+           
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1} />
@@ -578,7 +540,7 @@ const styles = StyleSheet.create({
       android: {
         borderWidth: wp('0.3%'),
         paddingLeft: wp('0.3%'),
-        paddingTop: wp('4%'),
+        // paddingTop: wp('4%'),
         borderColor: 'grey',
         height: wp('11%'),
         justifyContent: 'center',

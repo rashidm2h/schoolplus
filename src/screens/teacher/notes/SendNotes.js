@@ -21,7 +21,6 @@ import {useIsFocused} from '@react-navigation/core';
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -429,7 +428,6 @@ const SendNotes = () => {
         <Text style={styles.text}>Choose Class: </Text>
         <View style={styles.containerTopPIckerButton}>
           <View style={{flex: 2}}>
-            {Platform.OS === 'ios' ? (
               <Dropdown
                 selectedItemColor="#000"
                 labelField="label"
@@ -444,21 +442,6 @@ const SendNotes = () => {
                   setdropdownValue(item.value);
                 }}
               />
-            ) : (
-              <Dropdown1
-                data={dropdownSource}
-                value={dropdownValue}
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                selectedItemColor="#7A7A7A"
-                onChangeText={value => {
-                  ClassStudentsAccess(value);
-                  setdropdownValue(value);
-                }}
-              />
-            )}
           </View>
           <Pressable
             onPress={() => {
@@ -685,7 +668,7 @@ const styles = StyleSheet.create({
       },
       android: {
         justifyContent: 'center',
-        paddingTop: wp('3.5%'),
+        // paddingTop: wp('3.5%'),
         marginLeft: wp('3.5%'),
         borderWidth: wp('0.3%'),
         borderRadius: 3,

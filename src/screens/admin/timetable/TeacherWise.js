@@ -13,7 +13,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
@@ -145,7 +144,7 @@ const TeacherWise = ({navigation}) => {
         <Loader />
       ) : (
         <>
-          {Platform.OS === 'ios' ? (
+        
             <Dropdown
               selectedItemColor="#000"
               labelField="label"
@@ -159,20 +158,6 @@ const TeacherWise = ({navigation}) => {
                 TimeTableData(item.value);
               }}
             />
-          ) : (
-            <Dropdown1
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
-              data={dropdownSource}
-              value={dropdownValue}
-              onChangeText={value => {
-                setdropdownValue(value);
-                TimeTableData(value);
-              }}
-            />
-          )}
           <View style={styles.containerTableTop}>
             <View style={styles.textWhiteBox}>
               <Text style={styles.textwhite}>Days</Text>

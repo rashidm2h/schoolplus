@@ -11,7 +11,6 @@ import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import Hyperlink from 'react-native-hyperlink';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
@@ -116,7 +115,8 @@ const SmsReports = () => {
         <View style={styles.horizontalView}>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Type:</Text>
-            {Platform.OS === 'ios' ? (
+           
+           
               <Dropdown
                 selectedItemColor="#000"
                 labelField="label"
@@ -129,23 +129,11 @@ const SmsReports = () => {
                   setdropdownValue(item.value);
                 }}
               />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource}
-                value={dropdownValue}
-                onChangeText={value => {
-                  setdropdownValue(value);
-                }}
-              />
-            )}
+           
           </View>
           <View style={styles.verticalView}>
             <Text style={styles.textStyle1}>Receiver:</Text>
-            {Platform.OS === 'ios' ? (
+           
               <Dropdown
                 selectedItemColor="#000"
                 labelField="label"
@@ -158,19 +146,6 @@ const SmsReports = () => {
                   setdropdownValue1(item.value);
                 }}
               />
-            ) : (
-              <Dropdown1
-                icon="chevron-down"
-                baseColor="transparent"
-                underlineColor="transparent"
-                containerStyle={styles.pickerStyle}
-                data={dropdownSource1}
-                value={dropdownValue1}
-                onChangeText={value => {
-                  setdropdownValue1(value);
-                }}
-              />
-            )}
           </View>
         </View>
         <View style={styles.horizontalView}>
@@ -386,7 +361,7 @@ const styles = StyleSheet.create({
   pickerStyle: {
     ...Platform.select({
       android: {
-        paddingTop: wp('4%'),
+        // paddingTop: wp('4%'),
         borderWidth: wp('0.3%'),
         borderColor: 'grey',
         height: wp('10.3%'),

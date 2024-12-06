@@ -16,7 +16,6 @@ import moment from 'moment';
 import {DOMParser} from 'xmldom';
 import {CheckBox} from 'react-native-elements';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import GLOBALS from '../../../config/Globals';
@@ -310,7 +309,7 @@ const Edit = () => {
           <View style={styles.horizontalView}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose class:</Text>
-              {Platform.OS === 'ios' ? (
+            
                 <Dropdown
                   style={styles.pickerStyle}
                   selectedItemColor="#000"
@@ -325,21 +324,6 @@ const Edit = () => {
                     onValueattClass(item.value);
                   }}
                 />
-              ) : (
-                <Dropdown1
-                  data={dropdownSource}
-                  value={dropdownValue}
-                  icon="chevron-down"
-                  baseColor="transparent"
-                  underlineColor="transparent"
-                  containerStyle={styles.pickerStyle}
-                  selectedItemColor="#7A7A7A"
-                  onChangeText={value => {
-                    setdropdownValue(value);
-                    onValueattClass(value);
-                  }}
-                />
-              )}
             </View>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose date:</Text>
@@ -365,7 +349,7 @@ const Edit = () => {
           <View style={[styles.horizontalView, {}]}>
             <View style={styles.verticalView}>
               <Text style={styles.textStyle1}>Choose type:</Text>
-              {Platform.OS === 'ios' ? (
+             
                 <Dropdown
                   style={styles.pickerStyle}
                   selectedItemColor="#000"
@@ -380,21 +364,7 @@ const Edit = () => {
                     onValuepickertime(item.value);
                   }}
                 />
-              ) : (
-                <Dropdown1
-                  data={dropdownSource1[0]}
-                  value={dropdownValue1}
-                  icon="chevron-down"
-                  baseColor="transparent"
-                  underlineColor="transparent"
-                  containerStyle={styles.pickerStyle}
-                  selectedItemColor="#7A7A7A"
-                  onChangeText={value => {
-                    setdropdownValue1(value);
-                    onValuepickertime(value);
-                  }}
-                />
-              )}
+             
             </View>
             <View style={styles.verticalView}>
               <Text style={styles.hideText}>Submit</Text>

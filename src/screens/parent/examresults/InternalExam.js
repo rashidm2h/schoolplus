@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, FlatList, Platform, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
 import Loader from '../../../components/ProgressIndicator';
@@ -119,7 +118,6 @@ const InternalExam = () => {
       ) : (
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Select Exam:</Text>
-          {Platform.OS === 'ios' ? (
             <Dropdown
               selectedItemColor="#000"
               labelField="label"
@@ -133,20 +131,6 @@ const InternalExam = () => {
                 getExamMarks(item.value);
               }}
             />
-          ) : (
-            <Dropdown1
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
-              data={dropdownData}
-              value={examId}
-              onChangeText={value => {
-                setexamId(value);
-                getExamMarks(value);
-              }}
-            />
-          )}
           <View style={styles.table}>
             <View style={styles.tableRow}>
               <View style={styles.tableRowItemHead}>

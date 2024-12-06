@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {DOMParser} from 'xmldom';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StyleSheet, Alert, Platform, Pressable, Text, View} from 'react-native';
 import GLOBALS from '../../../config/Globals';
@@ -83,10 +82,9 @@ const Attendance = ({navigation}) => {
       />
       <View style={styles.pickerview}>
         <View style={styles.container}>
-          {Platform.OS === 'ios' ? (
             <Dropdown
               data={data}
-              style={styles.dropdownStyle}
+              style={styles.pickerStyle}
               textColor="#121214"
               selectedTextStyle={styles.selectedTextStyle1}
               selectedItemColor="#000"
@@ -97,20 +95,6 @@ const Attendance = ({navigation}) => {
                 setdropdownValue(item.value);
               }}
             />
-          ) : (
-            <Dropdown1
-              data={data}
-              value={dropdownValue}
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
-              selectedItemColor="#7A7A7A"
-              onChangeText={value => {
-                setdropdownValue(value);
-              }}
-            />
-          )}
         </View>
         <View style={styles.buttonView}>
           <Pressable onPress={() => onPressClass()}>
@@ -151,7 +135,7 @@ const styles = StyleSheet.create({
     }),
   },
   pickerStyle: {
-    paddingTop: wp('3%'),
+    // paddingTop: wp('3%'),
     marginLeft: wp('2.5%'),
     paddingLeft: wp('0.5%'),
     borderWidth: wp('0.7%'),

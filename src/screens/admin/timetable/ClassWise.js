@@ -13,7 +13,6 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../../config/Globals';
@@ -198,7 +197,7 @@ const ClassWise = () => {
       <View style={styles.horizontalView}>
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Class:</Text>
-          {Platform.OS === 'ios' ? (
+         
             <Dropdown
               selectedItemColor="#000"
               labelField="label"
@@ -212,24 +211,11 @@ const ClassWise = () => {
                 getDivisions();
               }}
             />
-          ) : (
-            <Dropdown1
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
-              data={dropdownSource}
-              value={dropdownValue}
-              onChangeText={value => {
-                setdropdownValue(value);
-                getDivisions(value);
-              }}
-            />
-          )}
+         
         </View>
         <View style={styles.verticalView}>
           <Text style={styles.textStyle1}>Division:</Text>
-          {Platform.OS === 'ios' ? (
+       
             <Dropdown
               selectedItemColor="#000"
               labelField="label"
@@ -243,20 +229,7 @@ const ClassWise = () => {
                 TimeTableData(item.value);
               }}
             />
-          ) : (
-            <Dropdown1
-              icon="chevron-down"
-              baseColor="transparent"
-              underlineColor="transparent"
-              containerStyle={styles.pickerStyle}
-              data={dropdownSource1}
-              value={dropdownValue1}
-              onChangeText={value => {
-                setdropdownValue1(value);
-                TimeTableData(value);
-              }}
-            />
-          )}
+    
         </View>
       </View>
       {/* </View> */}
@@ -460,7 +433,7 @@ const styles = StyleSheet.create({
         paddingLeft: wp('0.5%'),
         marginLeft: wp('0.5%'),
         marginRight: wp('0.5%'),
-        paddingTop: wp('3.5%'),
+        // paddingTop: wp('3.5%'),
         marginBottom: wp('1.5%'),
       },
       ios: {

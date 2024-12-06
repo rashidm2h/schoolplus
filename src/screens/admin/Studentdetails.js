@@ -8,7 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {DOMParser} from 'xmldom';
 import GLOBALS from '../../config/Globals';
@@ -200,7 +200,7 @@ const Studentdetails = ({navigation}) => {
         }}
       />
       <View style={styles.classSelection}>
-        {Platform.OS === 'ios' ? (
+       
           <Dropdown
             inputContainerStyle={{borderBottomColor: 'transparent'}}
             selectedItemColor="#000"
@@ -214,20 +214,8 @@ const Studentdetails = ({navigation}) => {
               setdropdownValue(item.value);
             }}
           />
-        ) : (
-          <Dropdown1
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle}
-            data={dropdownSource}
-            value={dropdownValue}
-            onChangeText={value => {
-              setdropdownValue(value);
-            }}
-          />
-        )}
-        {Platform.OS === 'ios' ? (
+
+ 
           <Dropdown
             inputContainerStyle={{borderBottomColor: 'transparent'}}
             style={styles.pickerStyle}
@@ -242,20 +230,7 @@ const Studentdetails = ({navigation}) => {
               getList(item.value);
             }}
           />
-        ) : (
-          <Dropdown1
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle}
-            data={dropdownSource1}
-            value={dropdownValue1}
-            onChangeText={value => {
-              setdropdownValue1(value);
-              getList(value);
-            }}
-          />
-        )}
+      
       </View>
       <View style={{flex: 1}}>
         {dataerror ? (

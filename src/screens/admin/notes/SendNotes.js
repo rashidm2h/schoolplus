@@ -32,7 +32,7 @@ import GLOBALS from '../../../config/Globals';
 import Spinner from '../../../components/Spinner';
 import Loader from '../../../components/ProgressIndicator';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
+
 
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 const allwise = <Icon name="send" size={25} color="white" />;
@@ -945,7 +945,7 @@ const WebNotes = ({navigation}) => {
                       </View>
                       <View>
                         <Text style={styles.Modaltext}>Template</Text>
-                        {Platform.OS === 'ios' ? (
+                       
                           <Dropdown
                             selectedItemColor="#000"
                             labelField="label"
@@ -964,24 +964,7 @@ const WebNotes = ({navigation}) => {
                               setsendNoteTitle('');
                             }}
                           />
-                        ) : (
-                          <Dropdown1
-                            icon="chevron-down"
-                            baseColor="transparent"
-                            underlineColor="transparent"
-                            containerStyle={styles.pickerStyle}
-                            data={templateData}
-                            value={templatevalue}
-                            onChangeText={(value, index) => {
-                              settemplatevalue(value);
-                              setsendNoteDescription(
-                                templateData[index].Template,
-                              );
-                              settemplateId(value);
-                              setsendNoteTitle('');
-                            }}
-                          />
-                        )}
+                      
                       </View>
                       <View style={{flexDirection: 'row', flex: 1}}>
                         <Text
@@ -1148,7 +1131,7 @@ const WebNotes = ({navigation}) => {
                       </View>
                       <View>
                         <Text style={styles.Modaltext}>Template</Text>
-                        {Platform.OS === 'ios' ? (
+                        
                           <Dropdown
                             selectedItemColor="#000"
                             labelField="label"
@@ -1166,24 +1149,7 @@ const WebNotes = ({navigation}) => {
                               setsendNoteTitle('');
                             }}
                           />
-                        ) : (
-                          <Dropdown1
-                            icon="chevron-down"
-                            baseColor="transparent"
-                            underlineColor="transparent"
-                            containerStyle={styles.pickerStyle}
-                            data={templateData}
-                            value={templatevalue}
-                            onChangeText={(value, index) => {
-                              settemplatevalue(value);
-                              setsendNoteDescription(
-                                templateData[index].Template,
-                              );
-                              settemplateId(value);
-                              setsendNoteTitle('');
-                            }}
-                          />
-                        )}
+                      
                       </View>
                       <View style={{flexDirection: 'row', flex: 1}}>
                         <Text
@@ -1419,7 +1385,7 @@ const styles = StyleSheet.create({
   dropdownpickerStyle: {
     height: wp('11%'),
     flex: 0.5,
-    paddingTop: wp('3.5%'),
+    // paddingTop: wp('3.5%'),
     paddingLeft: wp('0%'),
     justifyContent: 'center',
     alignItems: 'stretch',

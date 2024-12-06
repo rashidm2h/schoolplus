@@ -21,7 +21,6 @@ import {CheckBox} from 'react-native-elements';
 import ImagePicker from 'react-native-image-crop-picker';
 import DocumentPicker from 'react-native-document-picker';
 import {Dropdown} from 'react-native-element-dropdown';
-import {Dropdown1} from 'react-native-material-dropdown-v2-fixed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import GLOBALS from '../../../config/Globals';
@@ -622,7 +621,7 @@ const SendIndividualNotes = ({navigation}) => {
         bellPress={() => navigation.navigate('Notifications')}
       />
       <View style={styles.classSelection}>
-        {Platform.OS === 'ios' ? (
+      
           <Dropdown
             selectedItemColor="#000"
             labelField="label"
@@ -636,21 +635,8 @@ const SendIndividualNotes = ({navigation}) => {
               getDivisions(item.value);
             }}
           />
-        ) : (
-          <Dropdown1
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle}
-            data={dropdownSource}
-            value={dropdownValue}
-            onChangeText={value => {
-              setdropdownValue(value);
-              getDivisions(value);
-            }}
-          />
-        )}
-        {Platform.OS === 'ios' ? (
+      
+        
           <Dropdown
             selectedItemColor="#000"
             labelField="label"
@@ -663,19 +649,7 @@ const SendIndividualNotes = ({navigation}) => {
               setdropdownValue1(item.value);
             }}
           />
-        ) : (
-          <Dropdown1
-            icon="chevron-down"
-            baseColor="transparent"
-            underlineColor="transparent"
-            containerStyle={styles.pickerStyle}
-            data={dropdownSource1}
-            value={dropdownValue1}
-            onChangeText={value => {
-              setdropdownValue1(value);
-            }}
-          />
-        )}
+        
         <Pressable
           style={styles.sendButton}
           onPress={() => {
@@ -758,7 +732,7 @@ const SendIndividualNotes = ({navigation}) => {
                 <View style={styles.containerColoum}>
                   <View>
                     <Text style={styles.Modaltext}>Template</Text>
-                    {Platform.OS === 'ios' ? (
+                   
                       <Dropdown
                         selectedItemColor="#000"
                         labelField="label"
@@ -778,22 +752,7 @@ const SendIndividualNotes = ({navigation}) => {
                           setsendNoteTitle('');
                         }}
                       />
-                    ) : (
-                      <Dropdown1
-                        icon="chevron-down"
-                        baseColor="transparent"
-                        underlineColor="transparent"
-                        containerStyle={styles.pickerStyle}
-                        data={templateData}
-                        value={templatevalue}
-                        onChangeText={(value, index) => {
-                          settemplatevalue(value);
-                          setsendNoteDescription(templateData[index].Template);
-                          settemplateId(value);
-                          setsendNoteTitle('');
-                        }}
-                      />
-                    )}
+              
                   </View>
                   <View style={{flexDirection: 'row', flex: 1}}>
                     <Text
@@ -1027,7 +986,7 @@ const styles = StyleSheet.create({
   pickerStyle: {
     height: wp('11%'),
     flex: 0.5,
-    paddingTop: wp('3.5%'),
+    // paddingTop: wp('3.5%'),
     paddingLeft: 0,
     width: '100%',
     justifyContent: 'center',
